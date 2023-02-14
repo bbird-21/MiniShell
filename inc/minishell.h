@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 09:53:47 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/14 16:01:33 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/14 18:37:13 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 #include<unistd.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-#include "get_next_line.h"
 
 typedef enum e_type
 {
@@ -42,10 +41,11 @@ typedef struct s_token
 
 //		UTILS
 void	ft_putstr_fd(char *s, int fd);
+int		ft_strlen(char *str);
 t_token	*ft_lstadd_back(t_token **lst, t_token *new);
 t_token	*ft_lstnew(char *str);
 t_token	*ft_lstlast(t_token *lst);
-char	*ft_strnstr(char *big, char *little, size_t len);
+char	*ft_strnstr(char *big, char *little, int len);
 
 //		INUTILS
 void	print_lst(t_token *lst);

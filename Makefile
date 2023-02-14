@@ -1,9 +1,7 @@
 
 NAME	= minishell
 
-SRC		=	srcs/get_next_line.c \
-			srcs/get_next_line_utils.c \
-			srcs/split.c \
+SRC		=	srcs/split.c \
 			srcs/split_utils.c \
 			srcs/tokenisation.c \
 			srcs/utils.c \
@@ -22,10 +20,10 @@ CFLAGS	= -Wall -Wextra -Werror
 
 
 .c.o:
-			${CC} -lreadline -c ${CFLAGS} ${OPTION} $< -o ${<:.c=.o}
+			${CC} -c ${CFLAGS} ${OPTION} $< -o ${<:.c=.o}
 
 ${NAME}:	${OBJS}
-			${CC} -o ${NAME} ${OBJS}
+			${CC} -o ${NAME} ${OBJS} -L/usr/local/lib -I/usr/local/include -lreadline
 
 all:		${NAME}
 

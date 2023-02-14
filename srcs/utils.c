@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:29:15 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/14 15:23:29 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/14 18:37:28 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ t_token	*ft_lstlast(t_token *lst)
 	return (lst);
 }
 
-char	*ft_strnstr(char *big, char *little, size_t len)
+char	*ft_strnstr(char *big, char *little, int len)
 {
-	size_t	i;
-	size_t	j;
+	int	i;
+	int	j;
 
 	j = 0;
 	i = 0;
@@ -86,4 +86,16 @@ char	*ft_strnstr(char *big, char *little, size_t len)
 		i++;
 	}
 	return (0);
+}
+
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!str)
+		return (0);
+	while (str[i])
+		i++;
+	return (i);
 }
