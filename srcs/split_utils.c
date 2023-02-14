@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 11:31:58 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/11 18:47:58 by alvina           ###   ########.fr       */
+/*   Updated: 2023/02/14 14:48:22 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 int is_space(char *str)
 {

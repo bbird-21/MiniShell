@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:29:15 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/13 20:28:54 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/14 15:23:29 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ t_token	*ft_lstnew(char *str)
 	if (!lst)
 		return (NULL);
 	lst->value = str;
+	lst->type = 0;
 	lst->next = NULL;
 	return (lst);
 }

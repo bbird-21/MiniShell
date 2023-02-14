@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 18:45:58 by ale-sain          #+#    #+#             */
-/*   Updated: 2022/12/19 19:44:59 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/14 15:40:12 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,11 @@ char	*get_next_line(int fd, int flag)
 	if (loopin(fd, &keep))
 	{
 		line = ft_line(keep);
+		if (!line)
+		{
+			free(keep);
+			return (NULL);
+		}
 		keep = ft_keep_memory(keep);
 		return (line);
 	}
