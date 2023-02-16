@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:42:29 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/14 18:37:48 by alvina           ###   ########.fr       */
+/*   Updated: 2023/02/15 17:55:13 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,9 @@ void	minishell(char *str)
 	}
 	lst = generator(tab);
 	head = lst;
-	tokenisation(&lst);
+	first_tokenisation(&lst);
+	parse_error(&lst);
+	last_tokenisation(&lst);
 	print_lst(head);
 	free_tab(tab, -1);
     free(str);
