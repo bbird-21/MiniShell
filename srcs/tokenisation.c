@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 18:33:36 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/15 17:53:37 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/16 10:03:48 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,30 +24,32 @@ int	what_red(char *str)
 		return (ROUT);
 }
 
-void	last_tokenisation(t_token **lst)
+void	tokenisation(t_token **lst)
 {
 	t_token *previous;
+	t_token	*bl;
 
 	previous = NULL;
-	while (*lst)
+	bl = *lst;
+	while (bl)
 	{
-		if (is_pipe((*lst)->value))
-			(*lst)->type = PIPE;
-		else if (is_red((*lst)->value))
-			(*lst)->type = what_red((*lst)->value);
+		if (is_pipe(bl->value))
+			bl->type = PIPE;
+		else if (is_red(bl->value))
+			bl->type = what_red(bl->value);
 		else if (previous)
 		{
-			if (is_red(previous->value))
+			if (is_red(previous->value) && !is_separator((bl->value)))
 			{
 				if (previous->type == 5)
-					(*lst)->type = LIM;
+					bl->type = LIM;
 				else
-					(*lst)->type = FD;
+					bl->type = FD;
 			}
 		}
 		else
-			(*lst)->type = WORD;
-		previous = *lst;
-		(*lst) = (*lst)->next;
+			bl->type = WORD;
+		previous = bl;
+		bl = bl->next;
 	}
 }

@@ -6,25 +6,90 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:44:41 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/15 17:53:40 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/16 11:39:54 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	first_tokenisation(t_token **lst)
+int	error_msg(char *value)
+{
+	ft_putstr_fd("nanoshell: syntax error near unexpected token :", 2);
+	ft_putendl_fd(value, 2);
+	return (0);
+}
+
+// si rien aprs pipe : error parse? ou ouverture entree standard? + +eurs pipes
+int	parse_pipe(t_token *previous, t_token *curr, t_token *next)
+{
+	if (!previous || !next)
+		return (error_msg(curr->value));
+	return (1);
+}
+
+// parsing si apres !fd / lim / rien, si + de 2 carac etc
+int	parse_red(t_token *curr, t_token *next)
+{
+	if (!next)
+		return (error_msg("newline"));
+	if (ft_strlen(curr->value) >= 2)
+	{
+		if (curr->value[0] != curr->value[1])
+			return (error_msg(&curr->value[1]));
+		else
+			return (error_msg(&curr->value[2]));
+	}
+	if (next->type != FD && next->type != LIM)
+		return (error_msg(next->value));
+	return (1);
+}
+
+int	parse_quote(char *str)
+{
+	int	i;
+	int state;
+
+	i = 0;
+	state = 0;
+	while (str[i])
+	{
+		state = changing_state(str[i], state);
+		i++;
+	}
+	if (state != 0)
+	{
+		ft_putendl_fd("nanoshell: syntax error : quote unclosed", 2);
+		return (0);
+	}
+	return (1);
+}
+
+int	parse_error(t_token *lst)
 {
 	t_token *previous;
 
 	previous = NULL;
-	while (*lst)
+	if (!lst)
+		return ;
+	while (lst)
 	{
-		if (is_pipe((*lst)->value))
-			(*lst)->type = PIPE;
-		else if (is_red((*lst)->value))
-			(*lst)->type = what_red((*lst)->value);
-		else
-			(*lst)->type = WORD;
-		(*lst) = (*lst)->next;
+		if (lst->type == PIPE)
+		{
+			if (!parse_pipe(previous, lst, lst->next))
+				return (0);
+		}
+		else if (lst->type == RED)
+		{
+			if (!parse_red(lst, lst->next))
+				return (0);
+		}
+		else if (lst->type == WORD || lst->type == FD || lst->type == LIM)
+		{
+			if (!parse_quote(lst->value))
+				return (0);
+		}
+		previous = lst;
+		lst = lst->next;
 	}
+	return (1);
 }

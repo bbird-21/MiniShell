@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 09:55:05 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/14 15:06:09 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/16 11:38:35 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ char	**splitting(char **tab, char *str, int state)
 	j = 0;
 	while (str[i])
 	{
-
         state = changing_state(str[i], state);
         if (state == 0 && is_separator(&str[i]))
         {

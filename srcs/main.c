@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:42:29 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/15 17:55:13 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/16 10:44:02 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	minishell(char *str)
 {
 	char **tab;
 	t_token *lst;
-	t_token *head;
 
 	tab = first_split(str);
 	if (!tab)
@@ -59,14 +58,12 @@ void	minishell(char *str)
 		exit(0);
 	}
 	lst = generator(tab);
-	head = lst;
-	first_tokenisation(&lst);
-	parse_error(&lst);
-	last_tokenisation(&lst);
-	print_lst(head);
+	tokenisation(&lst);
+	// if (parse_error(lst))
+	print_lst(lst);
 	free_tab(tab, -1);
     free(str);
-    ft_lstclear(&head);
+    ft_lstclear(&lst);
 }
 
 int main()
