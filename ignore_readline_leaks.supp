@@ -3,5 +3,4 @@ ignore_readline_leaks
 Memcheck:Leak 
 ...
 fun:readline
-}                       # sert a ignorer les leaks de readline
-                        # compiler valgrind avec --suppressions=ignore_readline_leaks.supp
+}

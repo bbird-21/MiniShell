@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 09:53:47 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/16 10:01:23 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/16 19:41:40 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ typedef enum e_type
 	PIPE
 } t_type;
 
-
 typedef struct s_token
 {
 	char            *value;
@@ -39,21 +38,34 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+typedef struct s_cmd
+{
+	t_token 		*arg;
+	t_token 		*red;
+	int				infile;
+	int				outfile;
+	struct s_cmd	*next;
+} t_cmd;
+
 //		UTILS
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 int		ft_strlen(char *str);
-t_token	*ft_lstadd_back(t_token **lst, t_token *new);
-t_token	*ft_lstnew(char *str);
-t_token	*ft_lstlast(t_token *lst);
+t_token	*token_add_back(t_token **lst, t_token *new);
+t_cmd	*cmd_add_back(t_cmd **lst, t_cmd *new);
+t_token	*token_last(t_token *lst);
+t_cmd	*cmd_last(t_cmd *cmd);
 char	*ft_strnstr(char *big, char *little, int len);
+char	*ft_strdup(char *s);
 
 //		INUTILS
+void	print_cmd(t_cmd *cmd);;
 void	print_lst(t_token *lst);
 
 //		TRASHING
 void	ft_lstclear(t_token **list);
 char	**free_tab(char **tab, int j);
+void	ft_cmdclear(t_cmd **lst);
 
 //		MAIN
 void	minishell(char *str);
@@ -72,13 +84,29 @@ int		wording_other(char *str, char ***tab, int j, int *state);
 int    	wording_sep(char *str, char ***tab, int j, int (*f)(char *));
 int		length(char *str, int *state);
 //			token_generator
-void	*generator_token(t_token **lst, char *str);
-t_token	*generator(char **tab);
+void	*new_token(t_token **lst, char *str);
+t_token	*create_token(char *str);
+t_token	*token_generator(char **tab);
+
 
 //----------TOKENISATION------------
 int		what_red(char *str);
 void	tokenisation(t_token **lst);
 
+//-----------PARSE ERROR-----------
+int		parse_quote(char *str);
+int		error_msg(char *value);
+int		parse_pipe(t_token *previous, t_token *curr, t_token *next);
+int		parse_red(t_token *curr, t_token *next);
+int		parse_error(t_token *lst);
+
+
 //-----------EXPANSION-----------
+
+//------------CMD_CREATION-------------
+void	cmd_arg(t_token **arg, char *str);
+void    cmd_red(t_token **red, int type, char *file);
+t_cmd   *new_cmd(t_cmd **cmd, t_token **list);
+void    cmd_generator(t_token **lst);
 
 #endif

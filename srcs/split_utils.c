@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 11:31:58 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/16 11:35:33 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/16 14:35:36 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,6 @@ int	changing_state(char c, int state)
 	}
 	if (c == '"')
 	{
-		if (state == 1)
-			
 		if (state == 2)
 			return (0);
 		if (state == 0)

@@ -6,23 +6,36 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:42:29 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/16 10:44:02 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/16 19:59:24 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	*generator_token(t_token **lst, char *str)
+t_token	*create_token(char *str)
+{
+	t_token	*lst;
+
+	lst = malloc(sizeof(t_token));
+	if (!lst)
+		return (NULL);
+	lst->value = ft_strdup(str);
+	lst->type = 0;
+	lst->next = NULL;
+	return (lst);
+}
+
+void	*new_token(t_token **lst, char *str)
 {
 	t_token		*new;
 
-	new = ft_lstnew(str);
+	new = create_token(str);
 	if (!new)
 		return (NULL);
-	return (ft_lstadd_back(lst, new));
+	return (token_add_back(lst, new));
 }
 
-t_token	*generator(char **tab)
+t_token	*token_generator(char **tab)
 {
 	int	i;
 	t_token *lst;
@@ -32,10 +45,8 @@ t_token	*generator(char **tab)
 	lst = NULL;
 	while (tab[i])
 	{
-		if (!generator_token(&lst, tab[i]))
+		if (!new_token(&lst, tab[i]))
 		{
-			if (!lst)
-				return (0);
 			ft_lstclear(&head);
 			return (0);
 		}
@@ -57,24 +68,27 @@ void	minishell(char *str)
 		free(str);
 		exit(0);
 	}
-	lst = generator(tab);
+	lst = token_generator(tab);
 	tokenisation(&lst);
-	// if (parse_error(lst))
-	print_lst(lst);
 	free_tab(tab, -1);
-    free(str);
-    ft_lstclear(&lst);
+	free(str);
+	if (!parse_error(lst))
+		return ;
+    cmd_generator(&lst);
 }
 
 int main()
 {
 	char	*str;
 
-	while (1)
+	while (21)
 	{
         str = readline("nanoshell > ");
 		if (!str)
+		{
+			free(str);
 			break;
+		}
 		minishell(str);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:43:34 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/14 15:34:34 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/16 18:06:51 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,24 @@ void	ft_lstclear(t_token **list)
 	while (head)
 	{
 		body = head->next;
+		free(head);
+		head = body;
+	}
+}
+
+void	ft_cmdclear(t_cmd **lst)
+{
+	t_cmd	*head;
+	t_cmd	*body;
+
+	if (!lst || !(*lst))
+		return ;
+	head = *lst;
+	while (head)
+	{
+		body = head->next;
+		ft_lstclear(&(head->arg));
+		ft_lstclear(&(head->red));
 		free(head);
 		head = body;
 	}

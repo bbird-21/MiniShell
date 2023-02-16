@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:29:15 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/16 11:09:10 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/16 20:20:59 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_putendl_fd(char *s, int fd)
 	write(fd, "\n", 1);
 }
 
-t_token	*ft_lstadd_back(t_token **lst, t_token *new)
+t_token	*token_add_back(t_token **lst, t_token *new)
 {
 	t_token	*last;
 
@@ -39,26 +39,28 @@ t_token	*ft_lstadd_back(t_token **lst, t_token *new)
 		*lst = new;
 	else
 	{
-		last = ft_lstlast(*lst);
+		last = token_last(*lst);
 		last->next = new;
 	}
 	return (*lst);
 }
 
-t_token	*ft_lstnew(char *str)
+t_cmd	*cmd_add_back(t_cmd **lst, t_cmd *new)
 {
-	t_token	*lst;
+	t_cmd	*last;
 
-	lst = malloc(sizeof(t_token));
-	if (!lst)
-		return (NULL);
-	lst->value = str;
-	lst->type = 0;
-	lst->next = NULL;
-	return (lst);
+	last = NULL;
+	if (*lst == NULL)
+		*lst = new;
+	else
+	{
+		last = cmd_last(*lst);
+		last->next = new;
+	}
+	return (*lst);
 }
 
-t_token	*ft_lstlast(t_token *lst)
+t_token	*token_last(t_token *lst)
 {
 	if (lst->next)
 	{
@@ -66,6 +68,16 @@ t_token	*ft_lstlast(t_token *lst)
 			lst = lst->next;
 	}
 	return (lst);
+}
+
+t_cmd	*cmd_last(t_cmd *cmd)
+{
+	if (cmd->next)
+	{
+		while (cmd && cmd->next)
+			cmd = cmd->next;
+	}
+	return (cmd);
 }
 
 char	*ft_strnstr(char *big, char *little, int len)
@@ -106,4 +118,27 @@ int	ft_strlen(char *str)
 	while (str[i])
 		i++;
 	return (i);
+}
+
+char	*ft_strdup(char *s)
+{
+	int		i;
+	char	*str;
+
+	i = 0;
+	if (!s)
+		return (NULL);
+	while (s[i])
+		i++;
+	str = malloc(sizeof(char) * i + 1);
+	if (!str)
+		return (0);
+	i = 0;
+	while (s[i])
+	{
+		str[i] = s[i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
 }

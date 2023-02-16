@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:44:41 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/16 11:39:54 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/16 14:34:04 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	error_msg(char *value)
 {
-	ft_putstr_fd("nanoshell: syntax error near unexpected token :", 2);
+	ft_putstr_fd("nanoshell: syntax error near unexpected token : ", 2);
 	ft_putendl_fd(value, 2);
 	return (0);
 }
@@ -24,6 +24,8 @@ int	parse_pipe(t_token *previous, t_token *curr, t_token *next)
 {
 	if (!previous || !next)
 		return (error_msg(curr->value));
+	if (ft_strlen(curr->value) > 2)
+		return (error_msg(&curr->value[2]));
 	return (1);
 }
 
@@ -32,11 +34,12 @@ int	parse_red(t_token *curr, t_token *next)
 {
 	if (!next)
 		return (error_msg("newline"));
+	
 	if (ft_strlen(curr->value) >= 2)
 	{
 		if (curr->value[0] != curr->value[1])
 			return (error_msg(&curr->value[1]));
-		else
+		else if (ft_strlen(curr->value) > 2)
 			return (error_msg(&curr->value[2]));
 	}
 	if (next->type != FD && next->type != LIM)
@@ -70,7 +73,7 @@ int	parse_error(t_token *lst)
 
 	previous = NULL;
 	if (!lst)
-		return ;
+		return (0);
 	while (lst)
 	{
 		if (lst->type == PIPE)
@@ -78,7 +81,8 @@ int	parse_error(t_token *lst)
 			if (!parse_pipe(previous, lst, lst->next))
 				return (0);
 		}
-		else if (lst->type == RED)
+		else if (lst->type == RIN || lst->type == DRIN
+			|| lst->type == ROUT || lst->type == DROUT)
 		{
 			if (!parse_red(lst, lst->next))
 				return (0);
