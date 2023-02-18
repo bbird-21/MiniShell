@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 09:53:47 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/18 14:59:17 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/18 21:10:52 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include<unistd.h>
+#include <unistd.h>
+#include <errno.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 
@@ -57,6 +58,8 @@ t_token	*token_last(t_token *lst);
 t_cmd	*cmd_last(t_cmd *cmd);
 char	*ft_strnstr(char *big, char *little, int len);
 char	*ft_strdup(char *s);
+char	*ft_strnstr(char *big, char *little, int len);
+char	*join(char *s1, char *s2);
 
 //		INUTILS
 void	print_cmd(t_cmd *cmd);;

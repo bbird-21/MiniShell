@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tokenisation.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 18:33:36 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/16 10:03:48 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/18 19:13:47 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../inc/minishell.h"
 
 int	what_red(char *str)
 {

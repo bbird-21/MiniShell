@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_creator.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:51:42 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/18 15:10:01 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/18 19:13:15 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../inc/minishell.h"
 
 void	cmd_arg(t_token **arg, char *str)
 {

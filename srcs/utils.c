@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:29:15 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/16 20:20:59 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/18 21:40:25 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../inc/minishell.h"
 
 void	ft_putstr_fd(char *s, int fd)
 {
@@ -87,7 +87,9 @@ char	*ft_strnstr(char *big, char *little, int len)
 
 	j = 0;
 	i = 0;
-	if (len < ft_strlen(big))
+	if (!big)
+		return (0);
+	if (len > ft_strlen(big))
 		return (0);
 	if (little[0] == '\0')
 		return ((char *)big);
@@ -139,6 +141,28 @@ char	*ft_strdup(char *s)
 		str[i] = s[i];
 		i++;
 	}
+	str[i] = '\0';
+	return (str);
+}
+
+char	*join(char *s1, char *s2)
+{
+	char	*str;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	str = (char *) malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2)) + 2);
+	if (!str)
+		return (NULL);
+	while (s1[j])
+		str[i++] = s1[j++];
+	j = 0;
+    if (s2[0] != '/')
+        str[i++] = '/';
+	while (s2[j])
+		str[i++] = s2[j++];
 	str[i] = '\0';
 	return (str);
 }
