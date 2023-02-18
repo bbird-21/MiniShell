@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 09:55:05 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/16 11:38:35 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/18 15:23:19 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ int    wording_sep(char *str, char ***tab, int j, int (*f)(char *))
     i = 0;
     (*tab)[j] = malloc(sizeof(char) * (f(str) + 1));
     if (!(*tab)[j])
-		return (free_tab(*tab, j), 0);
+	{
+		free_tab(*tab, j), 0;
+		exit(0);
+	}
 	while (f(&str[i]) && str[i])
 	{
 		(*tab)[j][i] = str[i];
@@ -55,7 +58,10 @@ int		wording_other(char *str, char ***tab, int j, int *state)
 	len = length(str, state);
 	(*tab)[j] = malloc(sizeof(char) * len + 1);
 	if (!(*tab)[j])
-		return (free_tab(*tab, j), 0);
+	{
+		free_tab(*tab, j), 0;
+		exit(0);
+	}
 	while (i < len)
 	{
 		(*tab)[j][i] = str[i];

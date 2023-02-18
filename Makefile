@@ -15,10 +15,10 @@ OBJS    = ${SRC:.c=.o}
 
 OPTION 	= -I ./inc/
 
-CC		= gcc -g3
+CC		= clang
 RM		= rm -f
 
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -g3
 
 
 .c.o:
@@ -36,5 +36,8 @@ fclean:		clean
 			${RM} ${NAME}
 
 re:			fclean all
+
+malloc_test: $(OBJS)
+	$(CC) $(CFLAGS) -fsanitize=undefined -rdynamic -o $@ ${OBJS} -L/usr/local/lib -I/usr/local/include -lreadline -L. -lmallocator
 
 .PHONY: all clean fclean re

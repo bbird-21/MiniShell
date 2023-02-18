@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 09:53:47 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/16 19:41:40 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/18 14:59:17 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	print_cmd(t_cmd *cmd);;
 void	print_lst(t_token *lst);
 
 //		TRASHING
+void	ft_lstdelone(t_token *lst);
 void	ft_lstclear(t_token **list);
 char	**free_tab(char **tab, int j);
 void	ft_cmdclear(t_cmd **lst);
@@ -106,7 +107,7 @@ int		parse_error(t_token *lst);
 //------------CMD_CREATION-------------
 void	cmd_arg(t_token **arg, char *str);
 void    cmd_red(t_token **red, int type, char *file);
-t_cmd   *new_cmd(t_cmd **cmd, t_token **list);
+int		new_cmd(t_cmd **cmd, t_token **list);
 void    cmd_generator(t_token **lst);
 
 #endif

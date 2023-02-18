@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:42:29 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/16 19:59:24 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/18 14:52:40 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ t_token	*create_token(char *str)
 	lst->value = ft_strdup(str);
 	lst->type = 0;
 	lst->next = NULL;
+	if (!lst->value)
+	{
+		free(lst);
+		return (NULL);
+	}
 	return (lst);
 }
 
@@ -37,12 +42,13 @@ void	*new_token(t_token **lst, char *str)
 
 t_token	*token_generator(char **tab)
 {
-	int	i;
+	int		i;
 	t_token *lst;
 	t_token *head;
 
 	i = 0;
 	lst = NULL;
+	head = NULL;
 	while (tab[i])
 	{
 		if (!new_token(&lst, tab[i]))
@@ -59,7 +65,7 @@ t_token	*token_generator(char **tab)
 
 void	minishell(char *str)
 {
-	char **tab;
+	char 	**tab;
 	t_token *lst;
 
 	tab = first_split(str);
@@ -69,11 +75,20 @@ void	minishell(char *str)
 		exit(0);
 	}
 	lst = token_generator(tab);
+	if (!lst)
+	{
+		free_tab(tab, -1);
+		free(str);
+		exit(0);
+	}
 	tokenisation(&lst);
 	free_tab(tab, -1);
 	free(str);
 	if (!parse_error(lst))
+	{
+		ft_lstclear(&lst);
 		return ;
+	}
     cmd_generator(&lst);
 }
 

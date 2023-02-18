@@ -6,11 +6,17 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:43:34 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/16 18:06:51 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/18 14:58:55 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_lstdelone(t_token *lst)
+{
+	free(lst->value);
+	free(lst);
+}
 
 void	ft_lstclear(t_token **list)
 {
@@ -23,7 +29,7 @@ void	ft_lstclear(t_token **list)
 	while (head)
 	{
 		body = head->next;
-		free(head);
+		ft_lstdelone(head);
 		head = body;
 	}
 }

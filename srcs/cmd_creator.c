@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:51:42 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/16 20:20:41 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/18 15:10:01 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ void	cmd_arg(t_token **arg, char *str)
     new->value = ft_strdup(str);
     new->type = 0;
     new->next = NULL;
+    if (!new->value)
+	{
+		free(new);
+		return ;
+	}
 	token_add_back(arg, new);
 }
     
@@ -35,20 +40,27 @@ void    cmd_red(t_token **red, int type, char *file)
     new->value = ft_strdup(file);
     new->type = type;
     new->next = NULL;
+    if (!new->value)
+	{
+		free(new);
+		return ;
+	}
 	token_add_back(red, new);
 }
 
-t_cmd   *new_cmd(t_cmd **cmd, t_token **list)
+int new_cmd(t_cmd **cmd, t_token **list)
 {
     t_cmd   *new;
     t_token *lst;
+    int     i;
 
+    i = 0;
     lst = *list;
     new = malloc(sizeof(t_cmd));
     new->arg = NULL;
     new->red = NULL;
 	if (!new)
-		return (NULL);
+		return (-1);
 	while (lst)
     {
         if (lst->type == PIPE)
@@ -59,30 +71,48 @@ t_cmd   *new_cmd(t_cmd **cmd, t_token **list)
         {
             cmd_red(&(new->red), lst->type, lst->next->value);
             lst = lst->next;
+            i++;
         }
         lst = lst->next;
+        i++;
     }
     new->infile = 0;
     new->outfile = 0;
 	new->next = NULL;
-    return (cmd_add_back(cmd, new));
+    cmd_add_back(cmd, new);
+    if (!lst)
+        return (0);
+    return (i + 1);
 }
 
 void    cmd_generator(t_token **lst)
 {
 	t_cmd   *cmd;
+    int     i;
+    int     flag;
+    t_token *head;
 
 	cmd = NULL;
-	while (*lst)
+    flag = 1;
+    i = 0;
+    head = *lst;
+	while (flag)
 	{
-        if (!new_cmd(&cmd, lst))
+        flag = new_cmd(&cmd, lst);
+        if (flag == -1)
 		{
-			ft_lstclear(lst);
+			ft_lstclear(&head);
 			ft_cmdclear(&cmd);
 			return ;
 		}
-        (*lst) = (*lst)->next;
+        while (i < flag && (*lst))
+        {
+            (*lst) = (*lst)->next;
+            i++;
+        }
+        i = 0;
 	}
-    ft_lstclear(lst);
-	return (print_cmd(cmd));
+    ft_lstclear(&head);
+	print_cmd(cmd);
+    ft_cmdclear(&cmd);
 }

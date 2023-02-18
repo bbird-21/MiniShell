@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:44:43 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/16 20:28:27 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/18 14:57:32 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,25 @@ void	print_lst(t_token *lst)
 	while (lst)
 	{
 		printf("%s ", lst->value);
-		printf("%d\n", lst->type);
+		if (lst->type != WORD)
+			printf("%d ", lst->type);
 		lst = lst->next;
 	}
 }
 
 void	print_cmd(t_cmd *cmd)
 {
-	t_cmd *head = cmd;
+	int	i = 0;
+
 	while (cmd)
 	{
-		while (cmd->arg)
-		{
-			printf("%s ", cmd->arg->value);
-			cmd->arg = cmd->arg->next;
-		}
-		printf("\n");
-		while (cmd->red)
-		{
-			printf("%d : %s / ", head->red->type, head->red->value);
-			cmd->red = cmd->red->next;
-		}
+		printf("\nCommande %d", i);
+		printf("\nARG : ");
+		print_lst(cmd->arg);
+		printf("\nRED : ");
+    	print_lst(cmd->red);
 		cmd = cmd->next;
+		i++;
 	}
-	ft_cmdclear(&cmd);
+	printf("\n");
 }
