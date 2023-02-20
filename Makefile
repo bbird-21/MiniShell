@@ -9,13 +9,14 @@ SRC		=	srcs/split.c \
 			srcs/trash.c \
 			srcs/main.c \
 			srcs/parse_error.c \
-			srcs/cmd_creator.c
+			srcs/cmd_creator.c \
+			srcs/env.c
 
 OBJS    = ${SRC:.c=.o}
 
 OPTION 	= -I ./inc/
 
-CC		= clang
+CC		= cc
 RM		= rm -f
 
 CFLAGS	= -Wall -Wextra -Werror -g3

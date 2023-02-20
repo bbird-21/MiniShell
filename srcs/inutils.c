@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inutils.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:44:43 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/18 19:13:24 by alvina           ###   ########.fr       */
+/*   Updated: 2023/02/20 18:56:06 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,16 @@ void	print_cmd(t_cmd *cmd)
 		i++;
 	}
 	printf("\n");
+}
+
+void	print_env(t_env *lst)
+{
+	if (!lst)
+		return ;
+	while (lst)
+	{
+		printf("%s = ", lst->key);
+		printf("%s\n", lst->value);
+		lst = lst->next;
+	}
 }

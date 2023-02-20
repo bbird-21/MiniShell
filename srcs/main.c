@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:42:29 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/18 19:13:28 by alvina           ###   ########.fr       */
+/*   Updated: 2023/02/20 22:44:28 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,18 +92,26 @@ void	minishell(char *str)
     cmd_generator(&lst);
 }
 
-int main()
+int main(int ac, char **av, char **env)
 {
-	char	*str;
-
-	while (21)
-	{
-        str = readline("nanoshell > ");
-		if (!str)
-		{
-			free(str);
-			break;
-		}
-		minishell(str);
-	}
+	// char	*str;
+	t_env	*envp;
+	
+	(void)ac;
+	(void)av;
+	
+	envp = handler(0, env, NULL);
+	envp = handler(2, env, av[1]);
+	print_env(handler(1, env, "SHELL"));
+	print_env(handler(3, env, "CLE=ahahah"));
+	// while (21)
+	// {
+    //     str = readline("nanoshell > ");
+	// 	if (!str)
+	// 	{
+	// 		free(str);
+	// 		break;
+	// 	}
+	// 	minishell(str);
+	// }
 }

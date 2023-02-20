@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:21:04 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/18 22:08:38 by alvina           ###   ########.fr       */
+/*   Updated: 2023/02/20 16:02:40 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static char    *back(char *pwd, char *arg)
     return (old);
 }
 
-int main(int ac, char **av)
+int cd(int ac, char **av)
 {
     (void)ac;
     char *str;
@@ -85,6 +85,7 @@ int main(int ac, char **av)
         ft_putendl_fd("usage : cd <absolute/relative path", 1);
         exit(2);
     }
+    getcwd(OLDPATH, ft_strlen(getenv("PWD"));
     if (ac == 1 || ft_strnstr(av[1], "~", 1))
     {
         chdir(getenv("HOME"));

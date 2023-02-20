@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 09:53:47 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/18 21:10:52 by alvina           ###   ########.fr       */
+/*   Updated: 2023/02/20 22:41:05 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,25 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 } t_cmd;
 
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}	t_env;
+
+typedef void (*pf)(t_env **, char **, char *);
+
 //		UTILS
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 int		ft_strlen(char *str);
 t_token	*token_add_back(t_token **lst, t_token *new);
 t_cmd	*cmd_add_back(t_cmd **lst, t_cmd *new);
+t_env	*env_add_back(t_env **lst, t_env *new);
 t_token	*token_last(t_token *lst);
 t_cmd	*cmd_last(t_cmd *cmd);
+t_env	*env_last(t_env *cmd);
 char	*ft_strnstr(char *big, char *little, int len);
 char	*ft_strdup(char *s);
 char	*ft_strnstr(char *big, char *little, int len);
@@ -64,6 +75,7 @@ char	*join(char *s1, char *s2);
 //		INUTILS
 void	print_cmd(t_cmd *cmd);;
 void	print_lst(t_token *lst);
+void	print_env(t_env *lst);
 
 //		TRASHING
 void	ft_lstdelone(t_token *lst);
@@ -105,7 +117,8 @@ int		parse_red(t_token *curr, t_token *next);
 int		parse_error(t_token *lst);
 
 
-//-----------EXPANSION-----------
+//-----------HANDLING_ENVIRONNEMENT-----------
+t_env	*handler(int swtch, char **env, char *arg);
 
 //------------CMD_CREATION-------------
 void	cmd_arg(t_token **arg, char *str);

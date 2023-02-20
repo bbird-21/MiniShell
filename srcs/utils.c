@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:29:15 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/18 21:40:25 by alvina           ###   ########.fr       */
+/*   Updated: 2023/02/20 22:39:51 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,21 @@ t_cmd	*cmd_add_back(t_cmd **lst, t_cmd *new)
 	return (*lst);
 }
 
+t_env	*env_add_back(t_env **lst, t_env *new)
+{
+	t_env	*last;
+
+	last = NULL;
+	if (*lst == NULL)
+		*lst = new;
+	else
+	{
+		last = env_last(*lst);
+		last->next = new;
+	}
+	return (*lst);
+}
+
 t_token	*token_last(t_token *lst)
 {
 	if (lst->next)
@@ -71,6 +86,16 @@ t_token	*token_last(t_token *lst)
 }
 
 t_cmd	*cmd_last(t_cmd *cmd)
+{
+	if (cmd->next)
+	{
+		while (cmd && cmd->next)
+			cmd = cmd->next;
+	}
+	return (cmd);
+}
+
+t_env	*env_last(t_env *cmd)
 {
 	if (cmd->next)
 	{
@@ -160,7 +185,7 @@ char	*join(char *s1, char *s2)
 		str[i++] = s1[j++];
 	j = 0;
     if (s2[0] != '/')
-        str[i++] = '/';
+        	str[i++] = '/';
 	while (s2[j])
 		str[i++] = s2[j++];
 	str[i] = '\0';
