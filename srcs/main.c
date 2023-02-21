@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:42:29 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/21 18:53:06 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/21 21:33:57 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,18 @@
 t_token	*create_token(char *str)
 {
 	t_token	*lst;
-	static int flag;
 
 	lst = malloc(sizeof(t_token));
-	if (flag)
+	if (!lst)
 		return (NULL);
-	flag++;
 	lst->value = ft_strdup(str);
-	lst->type = 0;
-	lst->next = NULL;
 	if (!lst->value)
 	{
 		free(lst);
 		return (NULL);
 	}
+	lst->type = 0;
+	lst->next = NULL;
 	return (lst);
 }
 
@@ -46,30 +44,25 @@ t_token	*token_generator(char **tab)
 {
 	int		i;
 	t_token *lst;
-	t_token *head;
 
 	i = 0;
 	lst = NULL;
-	head = NULL;
 	while (tab[i])
 	{
 		if (!new_token(&lst, tab[i]))
 		{
-			ft_lstclear(&head);
+			ft_lstclear(&lst);
 			return (0);
 		}
-		if (i == 0)
-			head = lst;
 		i++;
 	}
-	return (head);
+	return (lst);
 }
 
 void	minishell(char *str)
 {
 	char 	**tab;
 	t_token *lst;
-// static int flag;
 
 	tab = first_split(str);
 	if (!tab)
@@ -77,29 +70,18 @@ void	minishell(char *str)
 		free(str);
 		exit(0);
 	}
-	// int i = 0;
-	// while (tab[i])
-	// 	printf("%s \n", tab[i++]);
-// if (flag == 0)
-		lst = token_generator(tab);
-// else
-// 	lst = NULL;
-// flag++;
-	if (!lst)
-	{
-		free_tab(tab, -1);
-		free(str);
-		exit(0);
-	}
-	print_lst(lst);
-	// tokenisation(&lst);
+	lst = token_generator(tab);
 	free_tab(tab, -1);
 	free(str);
-	// if (!parse_error(lst))
-	// {
+	if (!lst)
+		exit(0);
+	tokenisation(&lst);
+	if (!parse_error(lst))
+	{
 		ft_lstclear(&lst);
-	// 	return ;
-	// }
+		return ;
+	}
+	print_lst(lst);
     // cmd_generator(&lst);
 }
 
