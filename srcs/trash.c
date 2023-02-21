@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trash.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:43:34 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/18 19:13:51 by alvina           ###   ########.fr       */
+/*   Updated: 2023/02/21 13:36:03 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,24 @@ void	ft_cmdclear(t_cmd **lst)
 		body = head->next;
 		ft_lstclear(&(head->arg));
 		ft_lstclear(&(head->red));
+		free(head);
+		head = body;
+	}
+}
+
+void	ft_envclear(t_env **list)
+{
+	t_env	*head;
+	t_env	*body;
+
+	if (!list || !(*list))
+		return ;
+	head = *list;
+	while (head)
+	{
+		body = head->next;
+		free(head->key);
+		free(head->value);
 		free(head);
 		head = body;
 	}

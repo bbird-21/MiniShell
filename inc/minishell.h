@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 09:53:47 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/20 22:41:05 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/21 13:36:28 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	ft_lstdelone(t_token *lst);
 void	ft_lstclear(t_token **list);
 char	**free_tab(char **tab, int j);
 void	ft_cmdclear(t_cmd **lst);
+void	ft_envclear(t_env **list);
 
 //		MAIN
 void	minishell(char *str);

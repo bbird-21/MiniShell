@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:44:43 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/20 18:56:06 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/21 16:57:49 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	print_lst(t_token *lst)
 		return ;
 	while (lst)
 	{
-		printf("%s ", lst->value);
+		printf("%s \n", lst->value);
 		if (lst->type != WORD)
 			printf("%d ", lst->type);
 		lst = lst->next;

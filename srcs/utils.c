@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:29:15 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/20 22:39:51 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/21 16:01:19 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,12 +112,12 @@ char	*ft_strnstr(char *big, char *little, int len)
 
 	j = 0;
 	i = 0;
-	if (!big)
+	if (!big | !little | !len)
 		return (0);
 	if (len > ft_strlen(big))
 		return (0);
 	if (little[0] == '\0')
-		return ((char *)big);
+		return (0);
 	while (big[i] && i < len)
 	{
 		j = 0;
@@ -181,13 +181,19 @@ char	*join(char *s1, char *s2)
 	str = (char *) malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2)) + 2);
 	if (!str)
 		return (NULL);
-	while (s1[j])
-		str[i++] = s1[j++];
-	j = 0;
-    if (s2[0] != '/')
+	if (s1)
+	{
+		while (s1[j])
+			str[i++] = s1[j++];
+		j = 0;
+	}
+    if (s2)
+	{
+		if (s2[0] != '/')
         	str[i++] = '/';
-	while (s2[j])
-		str[i++] = s2[j++];
+		while (s2[j])
+			str[i++] = s2[j++];
+	}
 	str[i] = '\0';
 	return (str);
 }

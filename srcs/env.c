@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:24:06 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/20 22:44:19 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/21 14:30:21 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ static char	*ft_key(char *str)
 	while (str[i] != '=' && str[i])
 		i++;
 	new = malloc(sizeof(char) * i + 1);
+	// new = NULL;
+	if (!new)
+		return (NULL);
 	i = 0;
 	while (str[i] != '=' && str[i])
 	{
@@ -49,6 +52,9 @@ static char	*ft_value(char *str)
 	if (!str[i])
 		return (NULL);
 	new = malloc(sizeof(char) * (ft_strlen(&str[i]) + 1));
+	// new = NULL;
+	if (!new)
+		return (NULL);
 	while (str[i])
 	{
 		new[j] = str[i];
@@ -65,17 +71,19 @@ static void	modifying(t_env **envp, char **env, char *arg)
 	char	*key;
 	(void)env;
 
-	if (!(*envp))
+	if (!(*envp) || !arg)
 		return ;
 	curr = *envp;
 	key = ft_key(arg);
+	if (!key)
+		return ;
 	while ((curr) && !ft_strnstr(curr->key, key, ft_strlen(key)))
 		curr = curr->next;
+	free(key);
 	if (!curr)
 		return ;
 	free(curr->value);
 	curr->value = ft_value(arg);
-	free(key);
 }
 
 static void	adding(t_env **envp, char **env, char *arg)
@@ -84,8 +92,30 @@ static void	adding(t_env **envp, char **env, char *arg)
 	(void)env;
 
 	new = malloc(sizeof(t_env));
+	// new = NULL;
+	if (!new)
+	{
+		if (envp)
+			ft_envclear(envp);
+		return ;
+	}
 	new->key = ft_key(arg);
+	if (!new->key)
+	{
+		if (envp)
+			ft_envclear(envp);
+		free(new);
+		return ;
+	}
 	new->value = ft_value(arg);
+	if (!new->value)
+	{
+		if (envp)
+			ft_envclear(envp);
+		free(new->key);
+		free(new);
+		return ;
+	}
 	new->next = NULL;
 	env_add_back(envp, new);
 }
@@ -151,6 +181,8 @@ t_env	*handler(int swtch, char **env, char *arg)
 	static t_env	*envp;
 	pf hand;
 
+	if (!env || !arg)
+		return (NULL);
 	hand = fct(swtch);
 	hand(&envp, env, arg);
 	return (envp);

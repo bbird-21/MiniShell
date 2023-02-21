@@ -16,7 +16,7 @@ OBJS    = ${SRC:.c=.o}
 
 OPTION 	= -I ./inc/
 
-CC		= cc
+CC		= clang
 RM		= rm -f
 
 CFLAGS	= -Wall -Wextra -Werror -g3

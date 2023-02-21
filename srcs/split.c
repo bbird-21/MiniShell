@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 09:55:05 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/18 19:13:43 by alvina           ###   ########.fr       */
+/*   Updated: 2023/02/21 16:03:02 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,12 @@ int    wording_sep(char *str, char ***tab, int j, int (*f)(char *))
     int i;
 
     i = 0;
-    (*tab)[j] = malloc(sizeof(char) * (f(str) + 1));
+
+	(*tab)[j] = malloc(sizeof(char) * (f(str) + 1));
     if (!(*tab)[j])
 	{
 		free_tab(*tab, j), 0;
-		exit(0);
+		return (0);
 	}
 	while (f(&str[i]) && str[i])
 	{
@@ -60,7 +61,7 @@ int		wording_other(char *str, char ***tab, int j, int *state)
 	if (!(*tab)[j])
 	{
 		free_tab(*tab, j), 0;
-		exit(0);
+		return (0);
 	}
 	while (i < len)
 	{
@@ -75,9 +76,11 @@ char	**splitting(char **tab, char *str, int state)
 {
 	int	j;
 	int	i;
+	int a;
 
 	i = 0;
 	j = 0;
+	a = 0;
 	while (str[i])
 	{
         state = changing_state(str[i], state);
@@ -86,9 +89,25 @@ char	**splitting(char **tab, char *str, int state)
             if (!is_space(&str[i]))
             {
                 if (is_pipe(&str[i]))
-                    i += wording_sep(&str[i], &tab, j, is_pipe);
+                {
+					a = wording_sep(&str[i], &tab, j, is_pipe);
+					if (!a)
+					{
+						free(str);
+						exit(0);
+					}
+					i += a;
+				}
 				else
-                    i += wording_sep(&str[i], &tab, j, is_red);
+                {
+					a = wording_sep(&str[i], &tab, j, is_red);
+					if (!a)
+					{
+						free(str);
+						exit(0);
+					}
+					i += a;
+				}
 			    j++;
             }
 			else
@@ -96,7 +115,13 @@ char	**splitting(char **tab, char *str, int state)
         }
 		else if (str[i] != ' ' || state != 0)
 		{
-			i += wording_other(&str[i], &tab, j, &state);
+			a = wording_other(&str[i], &tab, j, &state);
+			if (!a)
+			{
+				free(str);
+				exit(0);
+			}
+			i += a;
 			j++;
 		}
 		else
