@@ -6,46 +6,48 @@
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:51:42 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/18 19:13:15 by alvina           ###   ########.fr       */
+/*   Updated: 2023/02/22 22:25:04 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	cmd_arg(t_token **arg, char *str)
+int	cmd_arg(t_token **arg, char *str)
 {
 	t_token		*new;
 
-	new = malloc(sizeof(t_token));
+    new = malloc(sizeof(t_token));
 	if (!new)
-		return ;
+		return (0);
     new->value = ft_strdup(str);
     new->type = 0;
     new->next = NULL;
     if (!new->value)
 	{
 		free(new);
-		return ;
+		return (0);
 	}
 	token_add_back(arg, new);
+    return (1);
 }
     
-void    cmd_red(t_token **red, int type, char *file)
+int    cmd_red(t_token **red, int type, char *file)
 {
     t_token		*new;
 
-	new = malloc(sizeof(t_token));
+    new = malloc(sizeof(t_token));
 	if (!new)
-		return ;
+		return (0);
     new->value = ft_strdup(file);
     new->type = type;
     new->next = NULL;
     if (!new->value)
 	{
 		free(new);
-		return ;
+		return (0);
 	}
 	token_add_back(red, new);
+    return (1);
 }
 
 int new_cmd(t_cmd **cmd, t_token **list)
@@ -57,28 +59,32 @@ int new_cmd(t_cmd **cmd, t_token **list)
     i = 0;
     lst = *list;
     new = malloc(sizeof(t_cmd));
+    if (!new)
+		return (-1);
     new->arg = NULL;
     new->red = NULL;
-	if (!new)
-		return (-1);
+    new->infile = 0;
+    new->outfile = 0;
+	new->next = NULL;
 	while (lst)
     {
         if (lst->type == PIPE)
             break;
         if (lst->type == WORD)
-            cmd_arg(&(new->arg), lst->value);
+        {
+            if (!cmd_arg(&(new->arg), lst->value))
+                return (ft_cmdclear(&new), -1);
+        }
         else
         {
-            cmd_red(&(new->red), lst->type, lst->next->value);
+            if (!cmd_red(&(new->red), lst->type, lst->next->value))
+                return (ft_cmdclear(&new), -1);
             lst = lst->next;
             i++;
         }
         lst = lst->next;
         i++;
     }
-    new->infile = 0;
-    new->outfile = 0;
-	new->next = NULL;
     cmd_add_back(cmd, new);
     if (!lst)
         return (0);
@@ -103,7 +109,8 @@ void    cmd_generator(t_token **lst)
 		{
 			ft_lstclear(&head);
 			ft_cmdclear(&cmd);
-			return ;
+            handler(4, NULL, NULL);
+			exit(1);
 		}
         while (i < flag && (*lst))
         {
@@ -115,4 +122,5 @@ void    cmd_generator(t_token **lst)
     ft_lstclear(&head);
 	print_cmd(cmd);
     ft_cmdclear(&cmd);
+    handler(4, NULL, NULL);
 }

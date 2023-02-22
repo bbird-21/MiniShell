@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:42:29 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/21 21:33:57 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/22 21:30:00 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,26 +62,34 @@ t_token	*token_generator(char **tab)
 void	minishell(char *str)
 {
 	char 	**tab;
-	t_token *lst;
+	// t_token *lst;
 
 	tab = first_split(str);
 	if (!tab)
 	{
 		free(str);
+		handler(4, NULL, NULL);
 		exit(0);
 	}
-	lst = token_generator(tab);
+	int i = 0;
+	while(tab[i])
+		printf("%s \n", tab[i++]);
+	// lst = token_generator(tab);
 	free_tab(tab, -1);
 	free(str);
-	if (!lst)
-		exit(0);
-	tokenisation(&lst);
-	if (!parse_error(lst))
-	{
-		ft_lstclear(&lst);
-		return ;
-	}
-	print_lst(lst);
+	// if (!lst)
+	// {
+	// 	handler(4, NULL, NULL);
+	// 	exit(0);
+	// }
+	// tokenisation(&lst);
+	// if (!parse_error(lst))
+	// {
+	// 	ft_lstclear(&lst);
+	// handler(4, NULL, NULL);
+	// 	return ;
+	// }
+	// print_lst(lst);
     // cmd_generator(&lst);
 }
 
@@ -92,23 +100,23 @@ int main(int ac, char **av, char **env)
 	
 	(void)ac;
 	(void)av;
-	(void)env;
 
-	// handler(0, env, NULL);	
+	handler(0, env, NULL);	
 	// envp = handler(2, env, av[1]);
 	// envp = handler(1, env, "PATH");
 	// envp = handler(3, env, "PATH=dhdh");
-	// print_env(envp);
 	while (21)
 	{
         str = readline("nanoshell > ");
-		if (!str || str[0] == '\0' || (ft_strnstr(str, "exit", 4) && ft_strlen(str) == 4))
+		if (!str || (str[0] == '\0' && ft_strlen(str) == 1)
+			|| (ft_strnstr(str, "exit", 4) && ft_strlen(str) == 4))
 		{
 			if (ft_strnstr(str, "exit", 4))
 				free(str);
+			handler(4, NULL, NULL);
 			exit(0);
 		}
 		minishell(str);
 	}
-	// ft_envclear(&envp);
+	handler(4, NULL, NULL);
 }

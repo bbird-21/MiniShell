@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 09:53:47 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/21 13:36:28 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/22 22:12:47 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,10 @@ t_env	*env_add_back(t_env **lst, t_env *new);
 t_token	*token_last(t_token *lst);
 t_cmd	*cmd_last(t_cmd *cmd);
 t_env	*env_last(t_env *cmd);
-char	*ft_strnstr(char *big, char *little, int len);
 char	*ft_strdup(char *s);
-char	*ft_strnstr(char *big, char *little, int len);
+int		ft_strncmp(char *s1, char *s2, int n);
 char	*join(char *s1, char *s2);
+char	*ft_strnstr(char *big, char *little, int len);
 
 //		INUTILS
 void	print_cmd(t_cmd *cmd);;
@@ -93,13 +93,10 @@ int		is_space(char *str);
 int		is_red(char *str);
 int		is_pipe(char *str);
 int 	is_separator(char *str);
-int		changing_state(char c, int state);
+int		changing_state(char c);
 int		count_words(char *str);
 char	**first_split(char *str);
-char	**splitting(char **tab, char *str, int state);
-int		wording_other(char *str, char ***tab, int j, int *state);
-int    	wording_sep(char *str, char ***tab, int j, int (*f)(char *));
-int		length(char *str, int *state);
+
 //			token_generator
 void	*new_token(t_token **lst, char *str);
 t_token	*create_token(char *str);
@@ -120,10 +117,11 @@ int		parse_error(t_token *lst);
 
 //-----------HANDLING_ENVIRONNEMENT-----------
 t_env	*handler(int swtch, char **env, char *arg);
+char	*ft_getenv(char *name);
 
 //------------CMD_CREATION-------------
-void	cmd_arg(t_token **arg, char *str);
-void    cmd_red(t_token **red, int type, char *file);
+int		cmd_arg(t_token **arg, char *str);
+int	    cmd_red(t_token **red, int type, char *file);
 int		new_cmd(t_cmd **cmd, t_token **list);
 void    cmd_generator(t_token **lst);
 

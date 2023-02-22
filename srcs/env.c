@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:24:06 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/21 14:30:21 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/22 18:58:48 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+char	*ft_getenv(char *name)
+{
+	t_env	*envp;
+
+	envp = handler(5, NULL, NULL);
+	if (!name || !envp)
+		return (NULL);
+	while (envp && ft_strncmp(envp->key, name, ft_strlen(name)))
+		envp = envp->next;
+	if (!envp || ft_strlen(name) != ft_strlen(envp->key))
+		return (NULL);
+	return (envp->value);
+}
 
 static char	*ft_key(char *str)
 {
@@ -23,7 +37,6 @@ static char	*ft_key(char *str)
 	while (str[i] != '=' && str[i])
 		i++;
 	new = malloc(sizeof(char) * i + 1);
-	// new = NULL;
 	if (!new)
 		return (NULL);
 	i = 0;
@@ -52,7 +65,6 @@ static char	*ft_value(char *str)
 	if (!str[i])
 		return (NULL);
 	new = malloc(sizeof(char) * (ft_strlen(&str[i]) + 1));
-	// new = NULL;
 	if (!new)
 		return (NULL);
 	while (str[i])
@@ -77,10 +89,10 @@ static void	modifying(t_env **envp, char **env, char *arg)
 	key = ft_key(arg);
 	if (!key)
 		return ;
-	while ((curr) && !ft_strnstr(curr->key, key, ft_strlen(key)))
+	while ((curr) && ft_strncmp(curr->key, key, ft_strlen(key)))
 		curr = curr->next;
 	free(key);
-	if (!curr)
+	if (!curr || ft_strlen(curr->key) != ft_strlen(key))
 		return ;
 	free(curr->value);
 	curr->value = ft_value(arg);
@@ -92,7 +104,6 @@ static void	adding(t_env **envp, char **env, char *arg)
 	(void)env;
 
 	new = malloc(sizeof(t_env));
-	// new = NULL;
 	if (!new)
 	{
 		if (envp)
@@ -140,6 +151,7 @@ static void	del(t_env *lst)
 	free(lst);
 }
 
+//voir si fonction parse ou pas? la pas parser
 static void	deleting(t_env **envp, char **env, char *arg)
 {
 	t_env	*curr;
@@ -148,12 +160,12 @@ static void	deleting(t_env **envp, char **env, char *arg)
 
 	curr = (*envp);
 	prev = NULL;
-	while ((curr) && !ft_strnstr(curr->key, arg, ft_strlen(arg)))
+	while ((curr) && ft_strncmp(curr->key, arg, ft_strlen(arg)))
 	{
 		prev = curr;
 		curr = curr->next;
 	}
-	if (!curr)
+	if (!curr || ft_strlen(curr->key) != ft_strlen(arg))
 		return ;
 	if (!prev)
 	{
@@ -165,13 +177,30 @@ static void	deleting(t_env **envp, char **env, char *arg)
 	del(curr);
 }
 
+static void	cleaning(t_env **envp, char **env, char *arg)
+{
+	(void)env;
+	(void)arg;
+	ft_envclear(envp);
+	*envp = 0;
+}
+
+static void	getting(t_env **envp, char **env, char *arg)
+{
+	(void)env;
+	(void)arg;
+	(void)envp;
+}
+
 static pf	fct(int swtch)
 {
-	static pf	tableau[4] = {
+	static pf	tableau[6] = {
 		creating,
 		deleting,
 		adding,
-		modifying
+		modifying,
+		cleaning,
+		getting
 	};
 	return (tableau[swtch]);
 }
@@ -181,8 +210,6 @@ t_env	*handler(int swtch, char **env, char *arg)
 	static t_env	*envp;
 	pf hand;
 
-	if (!env || !arg)
-		return (NULL);
 	hand = fct(swtch);
 	hand(&envp, env, arg);
 	return (envp);

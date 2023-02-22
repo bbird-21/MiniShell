@@ -6,7 +6,7 @@
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:44:41 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/18 19:13:34 by alvina           ###   ########.fr       */
+/*   Updated: 2023/02/22 20:47:03 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ int	parse_quote(char *str)
 	int state;
 
 	i = 0;
-	state = 0;
+	state = changing_state((char)-1);
 	while (str[i])
 	{
-		state = changing_state(str[i], state);
+		state = changing_state(str[i]);
 		i++;
 	}
 	if (state != 0)

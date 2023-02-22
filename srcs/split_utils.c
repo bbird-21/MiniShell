@@ -6,7 +6,7 @@
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 11:31:58 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/18 19:13:38 by alvina           ###   ########.fr       */
+/*   Updated: 2023/02/22 20:44:46 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,21 +66,27 @@ int	is_pipe(char *str)
 	return (i);
 }
 
-int	changing_state(char c, int state)
+int	changing_state(char c)
 {
-	if (c == 39)
+	static int state;
+
+	if (c == (char)-1)
+		state = 0;
+	if (c == (char)-2)
+		return (state);
+	else if (c == 39)
 	{
 		if (state == 1)
-			return (0);
-		if (state == 0)
-			return (1);
+			state = 0;
+		else if (state == 0)
+			state = 1;
 	}
-	if (c == '"')
+	else if (c == '"')
 	{
 		if (state == 2)
-			return (0);
-		if (state == 0)
-			return (2);
+			state = 0;
+		else if (state == 0)
+			state = 2;
 	}
 	return (state);
 }
@@ -100,10 +106,9 @@ int	count_words(char *str)
 	i = 0;
 	trigger = 0;
 	nb = 0;
-	state = 0;
 	while (str[i])
 	{
-		state = changing_state(str[i], state);
+		state = changing_state(str[i]);
 		if (state == 0 && is_separator(&str[i]))
 		{
 			if (!is_space(&str[i]))
@@ -118,5 +123,6 @@ int	count_words(char *str)
 		}
 		i++;
 	}
+	state = changing_state((char)-1);
 	return (nb);
 }

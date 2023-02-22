@@ -1,7 +1,7 @@
 
 NAME	= minishell
 
-SRC		=	srcs/split.c \
+SRC		=	srcs/first_split.c \
 			srcs/split_utils.c \
 			srcs/tokenisation.c \
 			srcs/utils.c \
@@ -16,7 +16,7 @@ OBJS    = ${SRC:.c=.o}
 
 OPTION 	= -I ./inc/
 
-CC		= clang
+CC		= cc
 RM		= rm -f
 
 CFLAGS	= -Wall -Wextra -Werror -g3
