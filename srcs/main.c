@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:42:29 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/23 11:58:40 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:23:01 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,7 @@ void	minishell(char *str)
 		return ;
 	}
 	print_lst(token_lst, print_token);
-	ft_lstclear(&token_lst, token_cleaner);
-    // cmd_generator(&token_lst);
-	handler(4, NULL, NULL);
+    cmd_generator(&token_lst);
 }
 
 int main(int ac, char **av, char **env)
@@ -104,6 +102,7 @@ int main(int ac, char **av, char **env)
 	// envp = handler(3, env, "CLE=lol");
 	// print_lst(envp, print_env);
 	// printf("%s \n", ft_getenv("CLE="));
+	rl_outstream = stderr;
 	while (21)
 	{
         str = readline("nanoshell > ");

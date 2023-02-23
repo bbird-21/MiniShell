@@ -6,121 +6,124 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:51:42 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/23 11:59:14 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/23 15:31:18 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../inc/minishell.h"
+#include "../inc/minishell.h"
 
-// int	cmd_arg(t_token **arg, char *str)
-// {
-// 	t_token		*new;
+t_list	*arg_list(t_list **arg, char *str)
+{
+	t_token *data;
+    t_list  *new;
 
-//     new = malloc(sizeof(t_token));
-// 	if (!new)
-// 		return (0);
-//     new->value = ft_strdup(str);
-//     new->type = 0;
-//     new->next = NULL;
-//     if (!new->value)
-// 	{
-// 		free(new);
-// 		return (0);
-// 	}
-// 	token_add_back(arg, new);
-//     return (1);
-// }
+    data = create_token(str);
+	if (!data)
+        return (NULL);
+    new = ft_lstnew(data);
+    if (!new)
+	{
+		ft_lstclear(arg, token_cleaner);
+		return (NULL);
+	}
+    return (ft_lstadd_back(arg, new));
+}
+ 
+t_list   *red_list(t_list **red, int type, char *file)
+{
+    t_token *data;
+    t_list  *new;
+
+    data = create_token(file);
+	if (!data)
+		return (0);
+    data->type = type;
+    new = ft_lstnew(data);
+    if (!new)
+	{
+		ft_lstclear(red, token_cleaner);
+		return (0);
+	}
+	return (ft_lstadd_back(red, new));
+}
+
+t_cmd   *initializing_data(void)
+{
+    t_cmd   *data;
     
-// int    cmd_red(t_token **red, int type, char *file)
-// {
-//     t_token		*new;
+    data = malloc(sizeof(t_cmd));
+    if (!data)
+        return (NULL);
+    data->arg = NULL;
+    data->red = NULL;
+    data->infile = 0;
+    data->outfile = 0;
+    return (data);
+}
 
-//     new = malloc(sizeof(t_token));
-// 	if (!new)
-// 		return (0);
-//     new->value = ft_strdup(file);
-//     new->type = type;
-//     new->next = NULL;
-//     if (!new->value)
-// 	{
-// 		free(new);
-// 		return (0);
-// 	}
-// 	token_add_back(red, new);
-//     return (1);
-// }
+t_cmd   *data_cmd(t_list *token, int *flag)
+{
+    t_cmd   *data;
+    t_token *content;
 
-// int new_cmd(t_cmd **cmd, t_token **list)
-// {
-//     t_cmd   *new;
-//     t_token *lst;
-//     int     i;
+    *flag = 1;
+    data = initializing_data();
+    if (!data)
+        return (NULL);
+	while (token)
+    {
+        content = (t_token *)token->content;
+        if (content->type == PIPE)
+            break;
+        if (content->type == WORD)
+            data->arg = arg_list(&data->arg, content->value);
+        else
+        {
+            data->red = red_list(&data->red, content->type, ((t_token*)(token->next->content))->value);
+            token = token->next;
+            (*flag)++;
+        }
+        if (!data->arg || !data->red)
+            return (cmd_cleaner(data), NULL);
+        token = token->next;
+        (*flag)++;
+    }
+    if (!token)
+        *flag = 0;
+    return (data);
+}
 
-//     i = 0;
-//     lst = *list;
-//     new = malloc(sizeof(t_cmd));
-//     if (!new)
-// 		return (-1);
-//     new->arg = NULL;
-//     new->red = NULL;
-//     new->infile = 0;
-//     new->outfile = 0;
-// 	new->next = NULL;
-// 	while (lst)
-//     {
-//         if (lst->type == PIPE)
-//             break;
-//         if (lst->type == WORD)
-//         {
-//             if (!cmd_arg(&(new->arg), lst->value))
-//                 return (ft_cmdclear(&new), -1);
-//         }
-//         else
-//         {
-//             if (!cmd_red(&(new->red), lst->type, lst->next->value))
-//                 return (ft_cmdclear(&new), -1);
-//             lst = lst->next;
-//             i++;
-//         }
-//         lst = lst->next;
-//         i++;
-//     }
-//     cmd_add_back(cmd, new);
-//     if (!lst)
-//         return (0);
-//     return (i + 1);
-// }
+void    cmd_generator(t_list **token)
+{
+	t_list  *list_cmd;
+    t_list  *new_cmd;
+    t_cmd   *data;
+    int     i;
+    int     flag;
+    t_list *head;
 
-// void    cmd_generator(t_token **lst)
-// {
-// 	t_cmd   *cmd;
-//     int     i;
-//     int     flag;
-//     t_token *head;
-
-// 	cmd = NULL;
-//     flag = 1;
-//     i = 0;
-//     head = *lst;
-// 	while (flag)
-// 	{
-//         flag = new_cmd(&cmd, lst);
-//         if (flag == -1)
-// 		{
-// 			ft_lstclear(&head);
-// 			ft_cmdclear(&cmd);
-//             handler(4, NULL, NULL);
-// 			exit(1);
-// 		}
-//         while (i < flag && (*lst))
-//         {
-//             (*lst) = (*lst)->next;
-//             i++;
-//         }
-//         i = 0;
-// 	}
-//     ft_lstclear(&head);
-// 	print_cmd(cmd);
-//     ft_cmdclear(&cmd);
-//     handler(4, NULL, NULL);
-// }
+	list_cmd = NULL;
+    flag = 1;
+    i = -1;
+    head = *token;
+	while (flag)
+	{
+        data = data_cmd(*token, &flag);
+        if (!data)
+		{
+			ft_lstclear(&head, token_cleaner);
+			ft_lstclear(&list_cmd, cmd_cleaner);
+            handler(4, NULL, NULL);
+			exit(1);
+		}
+        new_cmd = ft_lstnew(data);
+        list_cmd = ft_lstadd_back(&list_cmd, new_cmd);
+        while ((++i < flag) && (*token))
+            (*token) = (*token)->next;
+        i = -1;
+	}
+    print_lst(list_cmd, print_cmd);
+    ft_lstclear(&head, token_cleaner);
+    ft_lstclear(&list_cmd, cmd_cleaner);
+    handler(4, NULL, NULL);
+}

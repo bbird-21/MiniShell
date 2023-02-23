@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:44:43 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/23 10:34:24 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/23 14:36:32 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,18 @@ void	print_env(void *content)
 	printf("%s \n", data->value);
 }
 
+void	print_cmd(void *content)
+{
+	t_cmd *data;
+	
+	data = (t_cmd *)content;
+	printf("\n---COMMANDE---\n");
+	printf("\nARG : ");
+	print_lst(data->arg, print_token);
+	printf("\nRED : ");
+	print_lst(data->red, print_token);
+}
+
 void	print_lst(t_list *lst, void (*print)(void *))
 {
 	if (!lst)
@@ -39,21 +51,5 @@ void	print_lst(t_list *lst, void (*print)(void *))
 		print(lst->content);
 		lst = lst->next;
 	}
+	printf("\n");
 }
-
-// void	print_cmd(t_cmd *cmd)
-// {
-// 	int	i = 0;
-
-// 	while (cmd)
-// 	{
-// 		printf("\nCommande %d", i);
-// 		printf("\nARG : ");
-// 		print_lst(cmd->arg);
-// 		printf("\nRED : ");
-//     	print_lst(cmd->red);
-// 		cmd = cmd->next;
-// 		i++;
-// 	}
-// 	printf("\n");
-// }

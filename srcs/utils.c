@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:29:15 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/23 11:43:28 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/23 16:23:39 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,31 +28,6 @@ void	ft_putendl_fd(char *s, int fd)
 {
 	ft_putstr_fd(s, fd);
 	write(fd, "\n", 1);
-}
-
-t_cmd	*cmd_add_back(t_cmd **lst, t_cmd *new)
-{
-	t_cmd	*last;
-
-	last = NULL;
-	if (*lst == NULL)
-		*lst = new;
-	else
-	{
-		last = cmd_last(*lst);
-		last->next = new;
-	}
-	return (*lst);
-}
-
-t_cmd	*cmd_last(t_cmd *cmd)
-{
-	if (cmd->next)
-	{
-		while (cmd && cmd->next)
-			cmd = cmd->next;
-	}
-	return (cmd);
 }
 
 char	*ft_strnstr(char *big, char *little, int len)

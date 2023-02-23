@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   mdr.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:21:04 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/20 16:02:40 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/23 16:11:49 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int cd(int ac, char **av)
         ft_putendl_fd("usage : cd <absolute/relative path", 1);
         exit(2);
     }
-    getcwd(OLDPATH, ft_strlen(getenv("PWD"));
+    getcwd(OLDPATH, ft_strlen(getenv("PWD")));
     if (ac == 1 || ft_strnstr(av[1], "~", 1))
     {
         chdir(getenv("HOME"));

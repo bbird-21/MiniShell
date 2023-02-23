@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:24:06 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/23 11:44:00 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/23 16:11:12 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,6 @@ static void	modifying(t_list **envp, char **env, char *arg)
 	(void)env;
 
 	if (!(*envp) || !arg)
-		return ;
-	if (!ft_strchr(arg, '='))
 		return ;
 	curr = *envp;
 	data = (t_env *)(curr->content);

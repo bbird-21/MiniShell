@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:43:34 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/23 10:25:21 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/23 14:21:02 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,16 @@ void	env_cleaner(void *content)
 	free(data);
 }
 
+void	cmd_cleaner(void *content)
+{
+	t_cmd *data;
+
+	data = (t_cmd*)content;
+	ft_lstclear(&data->arg, token_cleaner);
+	ft_lstclear(&data->red, token_cleaner);
+	free(data);
+}
+
 void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
 	t_list	*head;
@@ -45,24 +55,6 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 	}
 	(*lst) = NULL;
 }
-
-// void	ft_cmdclear(t_cmd **lst)
-// {
-// 	t_cmd	*head;
-// 	t_cmd	*body;
-
-// 	if (!lst || !(*lst))
-// 		return ;
-// 	head = *lst;
-// 	while (head)
-// 	{
-// 		body = head->next;
-// 		ft_lstclear(&(head->arg));
-// 		ft_lstclear(&(head->red));
-// 		free(head);
-// 		head = body;
-// 	}
-// }
 
 char	**free_tab(char **tab, int j)
 {

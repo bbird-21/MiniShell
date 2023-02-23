@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 09:53:47 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/23 11:43:43 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/23 14:46:09 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,10 @@ typedef struct s_token
 
 typedef struct s_cmd
 {
-	t_token 		*arg;
-	t_token 		*red;
+	t_list 		*arg;
+	t_list 		*red;
 	int				infile;
 	int				outfile;
-	struct s_cmd	*next;
 } t_cmd;
 
 typedef struct s_env
@@ -65,8 +64,6 @@ typedef void (*pf)(t_list **, char **, char *);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 int		ft_strlen(char *str);
-t_cmd	*cmd_add_back(t_cmd **lst, t_cmd *new);
-t_cmd	*cmd_last(t_cmd *cmd);
 char	*ft_strdup(char *s);
 int		ft_strncmp(char *s1, char *s2, int n);
 char	*join(char *s1, char *s2);
@@ -82,14 +79,15 @@ t_list	*ft_lstnew(void *content);
 //		INUTILS
 void	print_env(void *content);
 void	print_token(void *content);
+void	print_cmd(void *content);
 void	print_lst(t_list *lst, void (*print)(void *));
 
 //		TRASHING
 void	token_cleaner(void *content);
 void	env_cleaner(void *content);
+void	cmd_cleaner(void *content);
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 char	**free_tab(char **tab, int j);
-void	ft_cmdclear(t_cmd **lst);
 
 //		MAIN
 void	minishell(char *str);
@@ -125,9 +123,9 @@ t_list	*handler(int swtch, char **env, char *arg);
 char	*ft_getenv(char *name);
 
 //------------CMD_CREATION-------------
-int		cmd_arg(t_token **arg, char *str);
-int	    cmd_red(t_token **red, int type, char *file);
-int		new_cmd(t_cmd **cmd, t_token **list);
-void    cmd_generator(t_token **lst);
+t_list	*arg_list(t_list **arg, char *str);
+t_list	*red_list(t_list **red, int type, char *file);
+t_cmd	*data_cmd(t_list *token, int *flag);
+void	cmd_generator(t_list **token);
 
 #endif
