@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:24:06 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/22 18:58:48 by alvina           ###   ########.fr       */
+/*   Updated: 2023/02/23 11:44:00 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,22 @@
 
 char	*ft_getenv(char *name)
 {
-	t_env	*envp;
+	t_list	*envp;
+	t_env	*data;
 
 	envp = handler(5, NULL, NULL);
+	data = (t_env *)envp->content;
 	if (!name || !envp)
 		return (NULL);
-	while (envp && ft_strncmp(envp->key, name, ft_strlen(name)))
+	while (envp && ft_strncmp(data->key, name, ft_strlen(name)))
+	{
 		envp = envp->next;
-	if (!envp || ft_strlen(name) != ft_strlen(envp->key))
+		if (envp)
+			data = (t_env *)envp->content;
+	}
+	if (!envp || ft_strlen(name) != ft_strlen(data->key))
 		return (NULL);
-	return (envp->value);
+	return (data->value);
 }
 
 static char	*ft_key(char *str)
@@ -77,61 +83,79 @@ static char	*ft_value(char *str)
 	return (new);
 }
 
-static void	modifying(t_env **envp, char **env, char *arg)
+static void	modifying(t_list **envp, char **env, char *arg)
 {
-	t_env	*curr;
+	t_list	*curr;
+	t_env	*data;
 	char	*key;
 	(void)env;
 
 	if (!(*envp) || !arg)
 		return ;
+	if (!ft_strchr(arg, '='))
+		return ;
 	curr = *envp;
+	data = (t_env *)(curr->content);
 	key = ft_key(arg);
 	if (!key)
 		return ;
-	while ((curr) && ft_strncmp(curr->key, key, ft_strlen(key)))
+	while ((curr) && ft_strncmp(data->key, key, ft_strlen(key)))
+	{
 		curr = curr->next;
-	free(key);
-	if (!curr || ft_strlen(curr->key) != ft_strlen(key))
+		if (curr)
+			data = (t_env *)(curr->content);
+	}
+	if (!curr || (curr && ft_strlen(data->key) != ft_strlen(key)))
+	{
+		free(key);
 		return ;
-	free(curr->value);
-	curr->value = ft_value(arg);
+	}
+	free(key);
+	free(data->value);
+	data->value = ft_value(arg);
 }
 
-static void	adding(t_env **envp, char **env, char *arg)
+static t_env	*create_env(char *str)
 {
-	t_env	*new;
+	t_env *data;
+	
+	data = malloc(sizeof(t_env));
+	if (!data)
+		return (NULL);
+	data->key = ft_key(str);
+	data->value = ft_value(str);
+	if (!data->key)
+	{
+		env_cleaner(data);
+		return (NULL);
+	}
+	return (data);
+}
+
+static void	adding(t_list **envp, char **env, char *arg)
+{
+	t_env	*data;
+	t_list	*e_new;
 	(void)env;
 
-	new = malloc(sizeof(t_env));
-	if (!new)
+	if (!arg)
+		return ;
+	data = create_env(arg);
+	if (!data)
 	{
-		if (envp)
-			ft_envclear(envp);
+		ft_lstclear(envp, env_cleaner);
 		return ;
 	}
-	new->key = ft_key(arg);
-	if (!new->key)
+	e_new = ft_lstnew(data);
+	if (!e_new)
 	{
-		if (envp)
-			ft_envclear(envp);
-		free(new);
+		ft_lstclear(envp, env_cleaner);
 		return ;
 	}
-	new->value = ft_value(arg);
-	if (!new->value)
-	{
-		if (envp)
-			ft_envclear(envp);
-		free(new->key);
-		free(new);
-		return ;
-	}
-	new->next = NULL;
-	env_add_back(envp, new);
+	(*envp) = ft_lstadd_back(envp, e_new);
 }
 
-static void	creating(t_env **envp, char **env, char *arg)
+static void	creating(t_list **envp, char **env, char *arg)
 {
 	(void)arg;
 	int	i;
@@ -144,28 +168,22 @@ static void	creating(t_env **envp, char **env, char *arg)
 	}
 }
 
-static void	del(t_env *lst)
-{
-	free(lst->key);
-	free(lst->value);
-	free(lst);
-}
-
 //voir si fonction parse ou pas? la pas parser
-static void	deleting(t_env **envp, char **env, char *arg)
+static void	deleting(t_list **envp, char **env, char *arg)
 {
-	t_env	*curr;
-	t_env	*prev;
+	t_list	*curr;
+	t_list	*prev;
 	(void)env;
 
 	curr = (*envp);
 	prev = NULL;
-	while ((curr) && ft_strncmp(curr->key, arg, ft_strlen(arg)))
+	while ((curr) && ft_strncmp(((t_env*)(curr->content))->key, arg,
+		ft_strlen(arg)))
 	{
 		prev = curr;
 		curr = curr->next;
 	}
-	if (!curr || ft_strlen(curr->key) != ft_strlen(arg))
+	if (!curr || ft_strlen(((t_env*)(curr->content))->key) != ft_strlen(arg))
 		return ;
 	if (!prev)
 	{
@@ -174,18 +192,19 @@ static void	deleting(t_env **envp, char **env, char *arg)
 	}
 	else
 		prev->next = curr->next;
-	del(curr);
+	env_cleaner((t_env*)(curr->content));
+	free(curr);
 }
 
-static void	cleaning(t_env **envp, char **env, char *arg)
+static void	cleaning(t_list **envp, char **env, char *arg)
 {
 	(void)env;
 	(void)arg;
-	ft_envclear(envp);
+	ft_lstclear(envp, env_cleaner);
 	*envp = 0;
 }
 
-static void	getting(t_env **envp, char **env, char *arg)
+static void	getting(t_list **envp, char **env, char *arg)
 {
 	(void)env;
 	(void)arg;
@@ -205,9 +224,9 @@ static pf	fct(int swtch)
 	return (tableau[swtch]);
 }
 
-t_env	*handler(int swtch, char **env, char *arg)
+t_list	*handler(int swtch, char **env, char *arg)
 {
-	static t_env	*envp;
+	static t_list	*envp;
 	pf hand;
 
 	hand = fct(swtch);

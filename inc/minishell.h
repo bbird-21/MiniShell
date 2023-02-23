@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 09:53:47 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/22 22:12:47 by alvina           ###   ########.fr       */
+/*   Updated: 2023/02/23 11:43:43 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,16 @@ typedef enum e_type
 	PIPE
 } t_type;
 
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}	t_list;
+
 typedef struct s_token
 {
 	char            *value;
     int             type;
-	struct s_token	*next;
 }	t_token;
 
 typedef struct s_cmd
@@ -52,37 +57,39 @@ typedef struct s_env
 {
 	char			*key;
 	char			*value;
-	struct s_env	*next;
 }	t_env;
 
-typedef void (*pf)(t_env **, char **, char *);
+typedef void (*pf)(t_list **, char **, char *);
 
 //		UTILS
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 int		ft_strlen(char *str);
-t_token	*token_add_back(t_token **lst, t_token *new);
 t_cmd	*cmd_add_back(t_cmd **lst, t_cmd *new);
-t_env	*env_add_back(t_env **lst, t_env *new);
-t_token	*token_last(t_token *lst);
 t_cmd	*cmd_last(t_cmd *cmd);
-t_env	*env_last(t_env *cmd);
 char	*ft_strdup(char *s);
 int		ft_strncmp(char *s1, char *s2, int n);
 char	*join(char *s1, char *s2);
 char	*ft_strnstr(char *big, char *little, int len);
+int		ft_strchr(char *str, char c);
+
+
+//		LST UTILES
+t_list	*ft_lstadd_back(t_list **lst, t_list *new);
+t_list	*ft_lstlast(t_list *lst);
+t_list	*ft_lstnew(void *content);
 
 //		INUTILS
-void	print_cmd(t_cmd *cmd);;
-void	print_lst(t_token *lst);
-void	print_env(t_env *lst);
+void	print_env(void *content);
+void	print_token(void *content);
+void	print_lst(t_list *lst, void (*print)(void *));
 
 //		TRASHING
-void	ft_lstdelone(t_token *lst);
-void	ft_lstclear(t_token **list);
+void	token_cleaner(void *content);
+void	env_cleaner(void *content);
+void	ft_lstclear(t_list **lst, void (*del)(void *));
 char	**free_tab(char **tab, int j);
 void	ft_cmdclear(t_cmd **lst);
-void	ft_envclear(t_env **list);
 
 //		MAIN
 void	minishell(char *str);
@@ -98,25 +105,23 @@ int		count_words(char *str);
 char	**first_split(char *str);
 
 //			token_generator
-void	*new_token(t_token **lst, char *str);
 t_token	*create_token(char *str);
-t_token	*token_generator(char **tab);
+t_list	*token_generator(char **tab);
 
 
 //----------TOKENISATION------------
 int		what_red(char *str);
-void	tokenisation(t_token **lst);
+void	tokenisation(t_list **lst);
 
 //-----------PARSE ERROR-----------
 int		parse_quote(char *str);
 int		error_msg(char *value);
-int		parse_pipe(t_token *previous, t_token *curr, t_token *next);
-int		parse_red(t_token *curr, t_token *next);
-int		parse_error(t_token *lst);
-
+int		parse_pipe(t_list *previous, t_token *curr_data, t_list *next);
+int		parse_red(t_token *curr_data, t_list *next);
+int		parse_error(t_list *lst);
 
 //-----------HANDLING_ENVIRONNEMENT-----------
-t_env	*handler(int swtch, char **env, char *arg);
+t_list	*handler(int swtch, char **env, char *arg);
 char	*ft_getenv(char *name);
 
 //------------CMD_CREATION-------------

@@ -10,7 +10,8 @@ SRC		=	srcs/first_split.c \
 			srcs/main.c \
 			srcs/parse_error.c \
 			srcs/cmd_creator.c \
-			srcs/env.c
+			srcs/env.c \
+			srcs/lst_utils.c
 
 OBJS    = ${SRC:.c=.o}
 

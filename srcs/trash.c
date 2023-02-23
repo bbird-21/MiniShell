@@ -3,72 +3,66 @@
 /*                                                        :::      ::::::::   */
 /*   trash.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:43:34 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/22 22:28:15 by alvina           ###   ########.fr       */
+/*   Updated: 2023/02/23 10:25:21 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_lstdelone(t_token *lst)
+void	token_cleaner(void *content)
 {
-	free(lst->value);
-	free(lst);
+	free(((t_token*)content)->value);
+	free((t_token*)content);
 }
 
-void	ft_lstclear(t_token **list)
+void	env_cleaner(void *content)
 {
-	t_token	*head;
-	t_token	*body;
+	t_env	*data;
 
-	if (!list || !(*list))
+	data = (t_env*)content;
+	free(data->key);
+	free(data->value);
+	free(data);
+}
+
+void	ft_lstclear(t_list **lst, void (*del)(void *))
+{
+	t_list	*head;
+	t_list	*body;
+
+	if (!lst || !(*del) || !(*lst))
 		return ;
-	head = *list;
+	head = (*lst);
 	while (head)
 	{
 		body = head->next;
-		ft_lstdelone(head);
-		head = body;
-	}
-}
-
-void	ft_cmdclear(t_cmd **lst)
-{
-	t_cmd	*head;
-	t_cmd	*body;
-
-	if (!lst || !(*lst))
-		return ;
-	head = *lst;
-	while (head)
-	{
-		body = head->next;
-		ft_lstclear(&(head->arg));
-		ft_lstclear(&(head->red));
+		del(head->content);
 		free(head);
 		head = body;
 	}
+	(*lst) = NULL;
 }
 
-void	ft_envclear(t_env **list)
-{
-	t_env	*head;
-	t_env	*body;
+// void	ft_cmdclear(t_cmd **lst)
+// {
+// 	t_cmd	*head;
+// 	t_cmd	*body;
 
-	if (!list || !(*list))
-		return ;
-	head = *list;
-	while (head)
-	{
-		body = head->next;
-		free(head->key);
-		free(head->value);
-		free(head);
-		head = body;
-	}
-}
+// 	if (!lst || !(*lst))
+// 		return ;
+// 	head = *lst;
+// 	while (head)
+// 	{
+// 		body = head->next;
+// 		ft_lstclear(&(head->arg));
+// 		ft_lstclear(&(head->red));
+// 		free(head);
+// 		head = body;
+// 	}
+// }
 
 char	**free_tab(char **tab, int j)
 {

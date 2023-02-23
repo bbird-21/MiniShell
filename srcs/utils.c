@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:29:15 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/22 18:48:36 by alvina           ###   ########.fr       */
+/*   Updated: 2023/02/23 11:43:28 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,6 @@ void	ft_putendl_fd(char *s, int fd)
 	write(fd, "\n", 1);
 }
 
-t_token	*token_add_back(t_token **lst, t_token *new)
-{
-	t_token	*last;
-
-	last = NULL;
-	if (*lst == NULL)
-		*lst = new;
-	else
-	{
-		last = token_last(*lst);
-		last->next = new;
-	}
-	return (*lst);
-}
-
 t_cmd	*cmd_add_back(t_cmd **lst, t_cmd *new)
 {
 	t_cmd	*last;
@@ -60,42 +45,7 @@ t_cmd	*cmd_add_back(t_cmd **lst, t_cmd *new)
 	return (*lst);
 }
 
-t_env	*env_add_back(t_env **lst, t_env *new)
-{
-	t_env	*last;
-
-	last = NULL;
-	if (*lst == NULL)
-		*lst = new;
-	else
-	{
-		last = env_last(*lst);
-		last->next = new;
-	}
-	return (*lst);
-}
-
-t_token	*token_last(t_token *lst)
-{
-	if (lst->next)
-	{
-		while (lst && lst->next)
-			lst = lst->next;
-	}
-	return (lst);
-}
-
 t_cmd	*cmd_last(t_cmd *cmd)
-{
-	if (cmd->next)
-	{
-		while (cmd && cmd->next)
-			cmd = cmd->next;
-	}
-	return (cmd);
-}
-
-t_env	*env_last(t_env *cmd)
 {
 	if (cmd->next)
 	{
@@ -135,6 +85,22 @@ char	*ft_strnstr(char *big, char *little, int len)
 	return (0);
 }
 
+int	ft_strchr(char *str, char c)
+{
+	int	i;
+
+	i = 0;
+	if (!str)
+		return (0);
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	ft_strncmp(char *s1, char *s2, int n)
 {
 	int	i;
@@ -143,7 +109,9 @@ int	ft_strncmp(char *s1, char *s2, int n)
 	if (n == 0)
 		return (0);
 	if (!s1 || !s2)
-		return (0);
+		return (1);
+	if (n > ft_strlen(s1) || n > ft_strlen(s2))
+		return (1);
 	while ((i < (n - 1)) && s1[i] && s2[i] && (s1[i] == s2[i]))
 		i++;
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);

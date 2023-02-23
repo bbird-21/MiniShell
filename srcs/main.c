@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:42:29 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/22 21:30:00 by alvina           ###   ########.fr       */
+/*   Updated: 2023/02/23 11:58:40 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,55 +14,54 @@
 
 t_token	*create_token(char *str)
 {
-	t_token	*lst;
+	t_token	*data;
 
-	lst = malloc(sizeof(t_token));
-	if (!lst)
+	data = malloc(sizeof(t_token));
+	if (!data)
 		return (NULL);
-	lst->value = ft_strdup(str);
-	if (!lst->value)
+	data->value = ft_strdup(str);
+	if (!data->value)
 	{
-		free(lst);
+		free(data);
 		return (NULL);
 	}
-	lst->type = 0;
-	lst->next = NULL;
-	return (lst);
+	data->type = 0;
+	return (data);
 }
 
-void	*new_token(t_token **lst, char *str)
-{
-	t_token		*new;
-
-	new = create_token(str);
-	if (!new)
-		return (NULL);
-	return (token_add_back(lst, new));
-}
-
-t_token	*token_generator(char **tab)
+t_list	*token_generator(char **tab)
 {
 	int		i;
-	t_token *lst;
+	t_token *data;
+	t_list	*t_new;
+	t_list	*t_lst;
 
 	i = 0;
-	lst = NULL;
+	t_lst = NULL;
 	while (tab[i])
 	{
-		if (!new_token(&lst, tab[i]))
+		data = create_token(tab[i]);
+		if (!data)
 		{
-			ft_lstclear(&lst);
+			ft_lstclear(&t_lst, token_cleaner);
 			return (0);
 		}
+        t_new = ft_lstnew(data);
+		if (!t_new)
+		{
+			ft_lstclear(&t_lst, token_cleaner);
+			return (0);
+		}
+        t_lst = ft_lstadd_back(&t_lst, t_new);
 		i++;
 	}
-	return (lst);
+	return (t_lst);
 }
 
 void	minishell(char *str)
 {
 	char 	**tab;
-	// t_token *lst;
+	t_list *token_lst;
 
 	tab = first_split(str);
 	if (!tab)
@@ -71,40 +70,40 @@ void	minishell(char *str)
 		handler(4, NULL, NULL);
 		exit(0);
 	}
-	int i = 0;
-	while(tab[i])
-		printf("%s \n", tab[i++]);
-	// lst = token_generator(tab);
+	token_lst = token_generator(tab);
 	free_tab(tab, -1);
 	free(str);
-	// if (!lst)
-	// {
-	// 	handler(4, NULL, NULL);
-	// 	exit(0);
-	// }
-	// tokenisation(&lst);
-	// if (!parse_error(lst))
-	// {
-	// 	ft_lstclear(&lst);
-	// handler(4, NULL, NULL);
-	// 	return ;
-	// }
-	// print_lst(lst);
-    // cmd_generator(&lst);
+	if (!token_lst)
+	{
+		handler(4, NULL, NULL);
+		exit(0);
+	}
+	tokenisation(&token_lst);
+	if (!parse_error(token_lst))
+	{
+		ft_lstclear(&token_lst, token_cleaner);
+		handler(4, NULL, NULL);
+		return ;
+	}
+	print_lst(token_lst, print_token);
+	ft_lstclear(&token_lst, token_cleaner);
+    // cmd_generator(&token_lst);
+	handler(4, NULL, NULL);
 }
 
 int main(int ac, char **av, char **env)
 {
 	char	*str;
-	// t_env	*envp;
+	t_list	*envp;
 	
 	(void)ac;
 	(void)av;
-
-	handler(0, env, NULL);	
+	envp = handler(0, env, NULL);	
 	// envp = handler(2, env, av[1]);
-	// envp = handler(1, env, "PATH");
-	// envp = handler(3, env, "PATH=dhdh");
+	// envp = handler(1, env, "CLE");
+	// envp = handler(3, env, "CLE=lol");
+	// print_lst(envp, print_env);
+	// printf("%s \n", ft_getenv("CLE="));
 	while (21)
 	{
         str = readline("nanoshell > ");
@@ -118,5 +117,4 @@ int main(int ac, char **av, char **env)
 		}
 		minishell(str);
 	}
-	handler(4, NULL, NULL);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenisation.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 18:33:36 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/18 19:13:47 by alvina           ###   ########.fr       */
+/*   Updated: 2023/02/23 08:39:28 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,32 +24,34 @@ int	what_red(char *str)
 		return (ROUT);
 }
 
-void	tokenisation(t_token **lst)
+void	tokenisation(t_list **lst)
 {
-	t_token *previous;
-	t_token	*bl;
+	t_list *previous;
+	t_list	*curr;
+	t_token	*c_data;
 
 	previous = NULL;
-	bl = *lst;
-	while (bl)
+	curr = *lst;
+	while (curr)
 	{
-		if (is_pipe(bl->value))
-			bl->type = PIPE;
-		else if (is_red(bl->value))
-			bl->type = what_red(bl->value);
+		c_data = (t_token*)(curr->content);
+		if (is_pipe(c_data->value))
+			c_data->type = PIPE;
+		else if (is_red(c_data->value))
+			c_data->type = what_red(c_data->value);
 		else if (previous)
 		{
-			if (is_red(previous->value) && !is_separator((bl->value)))
+			if (is_red(((t_token*)(previous->content))->value) && !is_separator(c_data->value))
 			{
-				if (previous->type == 5)
-					bl->type = LIM;
+				if (c_data->type == 5)
+					c_data->type = LIM;
 				else
-					bl->type = FD;
+					c_data->type = FD;
 			}
 		}
 		else
-			bl->type = WORD;
-		previous = bl;
-		bl = bl->next;
+			c_data->type = WORD;
+		previous = curr;
+		curr = curr->next;
 	}
 }
