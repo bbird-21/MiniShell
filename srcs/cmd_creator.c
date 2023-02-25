@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_creator.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:51:42 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/23 15:31:18 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/24 18:48:33 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_list	*arg_list(t_list **arg, char *str)
 	}
     return (ft_lstadd_back(arg, new));
 }
- 
+ //a optimier en les fondant ensemble
 t_list   *red_list(t_list **red, int type, char *file)
 {
     t_token *data;
@@ -69,7 +69,7 @@ t_cmd   *data_cmd(t_list *token, int *flag)
     *flag = 1;
     data = initializing_data();
     if (!data)
-        return (NULL);
+            return (NULL);
 	while (token)
     {
         content = (t_token *)token->content;

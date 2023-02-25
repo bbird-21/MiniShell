@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:42:29 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/23 17:23:01 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/24 19:24:18 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,29 +91,35 @@ void	minishell(char *str)
 
 int main(int ac, char **av, char **env)
 {
-	char	*str;
-	t_list	*envp;
+	// char	*str;
+	// t_list	*envp;
 	
 	(void)ac;
 	(void)av;
-	envp = handler(0, env, NULL);	
+	// (void)env;
+	handler(0, env, NULL);
+	unset(av[1]);
 	// envp = handler(2, env, av[1]);
 	// envp = handler(1, env, "CLE");
 	// envp = handler(3, env, "CLE=lol");
 	// print_lst(envp, print_env);
+	// export(av[1]);
+	//  envp = handler(3, env, av[1]);
+	ft_env();
+	handler(4, NULL, NULL);
 	// printf("%s \n", ft_getenv("CLE="));
-	rl_outstream = stderr;
-	while (21)
-	{
-        str = readline("nanoshell > ");
-		if (!str || (str[0] == '\0' && ft_strlen(str) == 1)
-			|| (ft_strnstr(str, "exit", 4) && ft_strlen(str) == 4))
-		{
-			if (ft_strnstr(str, "exit", 4))
-				free(str);
-			handler(4, NULL, NULL);
-			exit(0);
-		}
-		minishell(str);
-	}
+	// rl_outstream = stderr;
+	// while (21)
+	// {
+    //     str = readline("nanoshell > ");
+	// 	if (!str || (str[0] == '\0' && ft_strlen(str) == 1)
+	// 		|| (ft_strnstr(str, "exit", 4) && ft_strlen(str) == 4))
+	// 	{
+	// 		if (ft_strnstr(str, "exit", 4))
+	// 			free(str);
+	// 		handler(4, NULL, NULL);
+	// 		exit(0);
+	// 	}
+	// 	minishell(str);
+	// }
 }

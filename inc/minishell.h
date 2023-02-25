@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 09:53:47 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/23 14:46:09 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/24 19:09:59 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ int		ft_strncmp(char *s1, char *s2, int n);
 char	*join(char *s1, char *s2);
 char	*ft_strnstr(char *big, char *little, int len);
 int		ft_strchr(char *str, char c);
-
+int		ft_isalnum(int c);
+int		ft_isalpha(int c);
 
 //		LST UTILES
 t_list	*ft_lstadd_back(t_list **lst, t_list *new);
@@ -121,11 +122,19 @@ int		parse_error(t_list *lst);
 //-----------HANDLING_ENVIRONNEMENT-----------
 t_list	*handler(int swtch, char **env, char *arg);
 char	*ft_getenv(char *name);
+char	*ft_key(char *str);
+char	*ft_value(char *str);
 
 //------------CMD_CREATION-------------
 t_list	*arg_list(t_list **arg, char *str);
 t_list	*red_list(t_list **red, int type, char *file);
 t_cmd	*data_cmd(t_list *token, int *flag);
 void	cmd_generator(t_list **token);
+
+//------------BUILT-INS------------
+void	pwd(void);
+void	export(char *name);
+void	unset(char *key);
+void    ft_env(void);
 
 #endif

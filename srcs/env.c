@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:24:06 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/23 16:11:12 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/24 17:17:08 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*ft_getenv(char *name)
 	return (data->value);
 }
 
-static char	*ft_key(char *str)
+char	*ft_key(char *str)
 {
 	int		i;
 	char	*new;
@@ -42,12 +42,16 @@ static char	*ft_key(char *str)
 		return (NULL);
 	while (str[i] != '=' && str[i])
 		i++;
+	if (str[i - 1] == '+')
+		i--;
 	new = malloc(sizeof(char) * i + 1);
 	if (!new)
 		return (NULL);
 	i = 0;
 	while (str[i] != '=' && str[i])
 	{
+		if (str[i] == '+' && str[i + 1] == '=')
+			break;
 		new[i] = str[i];
 		i++;
 	}
@@ -55,7 +59,7 @@ static char	*ft_key(char *str)
 	return (new);
 }
 
-static char	*ft_value(char *str)
+char	*ft_value(char *str)
 {
 	int		i;
 	int		j;
@@ -103,7 +107,7 @@ static void	modifying(t_list **envp, char **env, char *arg)
 		if (curr)
 			data = (t_env *)(curr->content);
 	}
-	if (!curr || (curr && ft_strlen(data->key) != ft_strlen(key)))
+	if (!curr || ft_strlen(data->key) != ft_strlen(key))
 	{
 		free(key);
 		return ;
@@ -111,6 +115,54 @@ static void	modifying(t_list **envp, char **env, char *arg)
 	free(key);
 	free(data->value);
 	data->value = ft_value(arg);
+}
+
+static void	appending(t_list **envp, char **env, char *arg)
+{
+	t_list	*curr;
+	t_env	*data;
+	char	*new;
+	char	*key;
+	char	*value;
+	int		i;
+	int		j;
+	(void)env;
+
+	i = 0;
+	j = 0;
+	curr = *envp;
+	data = (t_env *)curr->content;
+	key = ft_key(arg);
+	value = ft_value(arg);
+	if (!arg || !curr)
+		return ;
+	while (curr && ft_strncmp(data->key, key, ft_strlen(key)))
+	{
+		curr = curr->next;
+		if (curr)
+			data = (t_env *)curr->content;
+	}
+	if (!curr || (ft_strlen(data->key) != ft_strlen(key)))
+		return ;
+	new = malloc(sizeof(char *) * ft_strlen(data->value) + ft_strlen(value) + 1);
+	if (data->value)
+	{
+		while (data->value[i])
+		{
+			new[i] = (data->value)[i];
+			i++;
+		}
+	}
+	if (value)
+	{
+		while (value[j])
+			new[i++] = value[j++];
+	}
+	new[i] = '\0';
+	free(key);
+	free(value);
+	free(data->value);
+	data->value = new;
 }
 
 static t_env	*create_env(char *str)
@@ -211,13 +263,14 @@ static void	getting(t_list **envp, char **env, char *arg)
 
 static pf	fct(int swtch)
 {
-	static pf	tableau[6] = {
+	static pf	tableau[7] = {
 		creating,
 		deleting,
 		adding,
 		modifying,
 		cleaning,
-		getting
+		getting,
+		appending
 	};
 	return (tableau[swtch]);
 }

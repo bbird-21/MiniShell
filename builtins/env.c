@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/18 19:10:40 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/24 18:04:27 by alvina           ###   ########.fr       */
+/*   Created: 2023/02/24 18:33:29 by alvina            #+#    #+#             */
+/*   Updated: 2023/02/24 19:13:02 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void    pwd(void)
+void    ft_env(void)
 {
-    ft_putendl_fd(ft_getenv("PWD"), 1);
+    t_list   *envp;
+
+    envp = handler(5, NULL, NULL);
+    print_lst(envp, print_env);
 }

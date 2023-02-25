@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mdr.c                                              :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:21:04 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/23 16:11:49 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/24 19:28:58 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static char    *back(char *pwd, char *arg)
     return (old);
 }
 
-int cd(int ac, char **av)
+void    cd(char *dir)
 {
     (void)ac;
     char *str;
@@ -97,7 +97,6 @@ int cd(int ac, char **av)
         str = back(getenv("PWD"), av[1]);
     else
         str = join(getenv("PWD"), av[1]);
-    //verifier si dossier ouvrable
     printf("path directory = %s", str);
     if (chdir(str) == -1)
 	{

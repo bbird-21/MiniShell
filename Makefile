@@ -11,7 +11,11 @@ SRC		=	srcs/first_split.c \
 			srcs/parse_error.c \
 			srcs/cmd_creator.c \
 			srcs/env.c \
-			srcs/lst_utils.c
+			srcs/lst_utils.c \
+			builtins/pwd.c \
+			builtins/export.c \
+			builtins/env.c \
+			builtins/unset.c
 
 OBJS    = ${SRC:.c=.o}
 
