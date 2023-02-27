@@ -6,7 +6,7 @@
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:03:03 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/24 19:21:53 by alvina           ###   ########.fr       */
+/*   Updated: 2023/02/27 21:18:42 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ static int is_correct(char *str)
 void   export(char *name)
 {
     t_list  *envp;
-    char    *key;    
+    char    *key;
+    char    *var; 
     
     envp = handler(5, NULL, NULL);
     if (!name)
@@ -46,8 +47,10 @@ void   export(char *name)
         return ;
     }
     key = ft_key(name);
-    if (ft_getenv(key))
+    var = ft_getenv(key);
+    if (var)
     {
+        free(var);
         if (ft_strnstr(name, "+=", ft_strlen(name)))
             handler(6, NULL, name);
         else

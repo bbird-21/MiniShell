@@ -6,7 +6,7 @@
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:24:06 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/24 17:17:08 by alvina           ###   ########.fr       */
+/*   Updated: 2023/02/27 21:08:18 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ft_getenv(char *name)
 	}
 	if (!envp || ft_strlen(name) != ft_strlen(data->key))
 		return (NULL);
-	return (data->value);
+	return (ft_strdup(data->value));
 }
 
 char	*ft_key(char *str)

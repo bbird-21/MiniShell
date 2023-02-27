@@ -6,7 +6,7 @@
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:42:29 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/24 19:24:18 by alvina           ###   ########.fr       */
+/*   Updated: 2023/02/27 21:38:44 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,16 +96,24 @@ int main(int ac, char **av, char **env)
 	
 	(void)ac;
 	(void)av;
-	// (void)env;
+	(void)env;
+	// cd(av[1]);
 	handler(0, env, NULL);
-	unset(av[1]);
+	// unset(av[1]);
+	pwd();
+	cd(av[1]);
+	char *pwd = ft_getenv("PWD");
+	char *oldpwd = ft_getenv("OLDPWD");
+	printf("pwd = %s, oldpwd = %s \n", pwd, oldpwd);
+	free(pwd);
+	free(oldpwd);
 	// envp = handler(2, env, av[1]);
 	// envp = handler(1, env, "CLE");
 	// envp = handler(3, env, "CLE=lol");
 	// print_lst(envp, print_env);
 	// export(av[1]);
 	//  envp = handler(3, env, av[1]);
-	ft_env();
+	// ft_env();
 	handler(4, NULL, NULL);
 	// printf("%s \n", ft_getenv("CLE="));
 	// rl_outstream = stderr;

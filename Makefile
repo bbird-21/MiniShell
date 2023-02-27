@@ -15,7 +15,8 @@ SRC		=	srcs/first_split.c \
 			builtins/pwd.c \
 			builtins/export.c \
 			builtins/env.c \
-			builtins/unset.c
+			builtins/unset.c \
+			builtins/cd.c
 
 OBJS    = ${SRC:.c=.o}
 
