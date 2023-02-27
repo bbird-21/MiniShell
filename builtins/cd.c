@@ -6,7 +6,7 @@
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:21:04 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/24 19:28:58 by alvina           ###   ########.fr       */
+/*   Updated: 2023/02/27 15:07:58 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,36 +75,54 @@ static char    *back(char *pwd, char *arg)
     return (old);
 }
 
-void    cd(char *dir)
+void    cd(char *arg)
 {
-    (void)ac;
-    char *str;
+    char    *pwd;
+    char    *oldpwd;
+    char    *dir_path;
+    char    *tmp;
+    
 
-    if (ac > 2)
+    if (!arg || (arg[0] == '~' && ft_strlen(arg) == 1)
     {
-        ft_putendl_fd("usage : cd <absolute/relative path", 1);
-        exit(2);
-    }
-    getcwd(OLDPATH, ft_strlen(getenv("PWD")));
-    if (ac == 1 || ft_strnstr(av[1], "~", 1))
-    {
-        chdir(getenv("HOME"));
+        if (ft_getenv("HOME"))
+            chdir(ft_getenv("HOME"));
         exit(0);
     }
-    if ((ft_strlen(av[1]) == 1 && av[1][0] == '.') || ft_strlen(av[1]) == 0)
+    if ((ft_strlen(arg) == 1 && arg[0] == '.') || ft_strlen(arg) == 0)
         exit(0);
-    if (ft_strnstr(av[1], "..", 2) || ft_strnstr(av[1], "/..", 3) || ft_strnstr(av[1], "../", 3))
-        str = back(getenv("PWD"), av[1]);
+    if (root_dir(arg, 0))
+        dir_path = root_dir(arg, 1);
+    // else if (ft_strlen(arg) == 1 && arg[0] == '-')
+    // {
+    //     getcwd(oldpwd, PATH_MAX);
+    //     dir = ft_getenv("OLDPWD");
+    // }
     else
-        str = join(getenv("PWD"), av[1]);
-    printf("path directory = %s", str);
-    if (chdir(str) == -1)
+    {
+        getcwd(oldpwd, PATH_MAX);
+        dir_path = join_slash(oldpwd, arg);
+        free(oldpwd);
+        printf("path directory = %s", dir_path);
+    }
+    if (chdir(dir_path) == -1)
 	{
-        free(str);
+        free(dir_path);
         ft_putstr_fd("cd: ", 2);
         perror("");
-        ft_putendl_fd(av[1], 2);
+        ft_putendl_fd(arg, 2);
         exit(errno);
     }
-	exit(0);
+    free(dir_path);
+    tmp = ft_getenv("PWD");
+    oldpwd = join("OLDPWD=", tmp);
+    env(3, NULL, oldpwd);
+    free(tmp);
+    getcwd(tmp, PATH_MAX);
+    pwd = join("PWD=", tmp);
+    env(3, NULL, pwd);
+    free(tmp);
+    free(oldpwd);
+    free(pwd);
+	return ;
 }

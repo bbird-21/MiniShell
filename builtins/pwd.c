@@ -6,7 +6,7 @@
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:10:40 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/24 18:04:27 by alvina           ###   ########.fr       */
+/*   Updated: 2023/02/27 15:10:12 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void    pwd(void)
 {
-    ft_putendl_fd(ft_getenv("PWD"), 1);
+    ft_putendl_fd(getcwd(NULL, PATH_MAX), 1);
 }

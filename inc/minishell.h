@@ -6,12 +6,13 @@
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 09:53:47 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/24 19:09:59 by alvina           ###   ########.fr       */
+/*   Updated: 2023/02/27 14:30:52 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+# define PATH_MAX 4096
 
 #include <stdio.h>
 #include <stdlib.h>
