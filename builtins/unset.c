@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:33:39 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/24 19:13:16 by alvina           ###   ########.fr       */
+/*   Updated: 2023/02/28 19:15:31 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+extern int	g_exit_status;
 
 static int is_correc(char *str)
 {
@@ -30,16 +31,14 @@ static int is_correc(char *str)
 
 void    unset(char *key)
 {
+    g_exit_status = 0;
     if (!key)
-    {
-        ft_putendl_fd("unset : not enough arguments", 2);
         return ;
-    }
     if (!is_correc(key))
     {
-        ft_putstr_fd("unset: ", 2);
-        ft_putstr_fd(key, 2);
-        ft_putendl_fd(": invalid parameter name", 2);
+        // ft_putstr_fd("unset: ", 2);
+        // ft_putstr_fd(key, 2);
+        // ft_putendl_fd(": invalid parameter name", 2);
         return ;
     }
     handler(1, NULL, key);

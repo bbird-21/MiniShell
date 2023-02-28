@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:03:03 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/27 21:18:42 by alvina           ###   ########.fr       */
+/*   Updated: 2023/02/28 19:12:19 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+extern int	g_exit_status;
 
 static int is_correct(char *str)
 {
@@ -37,12 +38,14 @@ void   export(char *name)
     char    *var; 
     
     envp = handler(5, NULL, NULL);
+    g_exit_status = 0;
     if (!name)
         return (print_lst(envp, print_env));
     if (!ft_strchr(name, '='))
         return ;
     if (!is_correct(name) || (ft_strlen(name) == 1 && name[0] == 0))
     {
+        g_exit_status = 1;
         ft_putendl_fd("export : not a valid identifier", 2);
         return ;
     }
@@ -59,5 +62,6 @@ void   export(char *name)
     else
         handler(2, NULL, name);
     free(key);
+    g_exit_status = 0;
     return ;
 }

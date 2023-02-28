@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 09:53:47 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/28 15:58:48 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/28 18:54:56 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,6 @@ void	cmd_cleaner(void *content);
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 char	**free_tab(char **tab, int j);
 
-//		MAIN
-void	minishell(char *str);
-
 //------------TOKEN_CREATION-----------
 //			split
 int		is_space(char *str);
@@ -129,8 +126,7 @@ char	*ft_key(char *str);
 char	*ft_value(char *str);
 
 //------------CMD_CREATION-------------
-t_list	*arg_list(t_list **arg, char *str);
-t_list	*red_list(t_list **red, int type, char *file);
+t_list	*arg_red_list(t_list **arg_red, int type, char *str);
 t_cmd	*data_cmd(t_list *token, int *flag);
 void	cmd_generator(t_list **token);
 
@@ -141,6 +137,7 @@ void	unset(char *key);
 void    ft_env(void);
 void    cd(char *arg);
 void	echo(char **tab);
+void    ft_exit(char *str);
 
 void	expansion(t_list *token_lst);
 void    exec(t_list *cmd_lst);

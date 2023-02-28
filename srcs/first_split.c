@@ -6,11 +6,12 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 09:55:05 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/28 10:50:48 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/28 18:55:30 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+extern int	g_exit_status;
 
 int	length(char *str)
 {

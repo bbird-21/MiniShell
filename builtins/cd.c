@@ -6,11 +6,12 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:21:04 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/28 12:48:00 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/28 19:06:21 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+extern int	g_exit_status;
 
 static char    *root_dir(void)
 {
@@ -82,7 +83,10 @@ void    cd(char *arg)
     
     path = dir_path(arg);
     if (!path)
+    {
+        g_exit_status = 0;
         return ;
+    }
     if (chdir(arg) == -1)
     {
         if (chdir(path) == -1)
@@ -91,11 +95,13 @@ void    cd(char *arg)
             ft_putstr_fd("cd: ", 2);
             ft_putstr_fd(arg, 2);
             perror(" ");
+            g_exit_status = errno;
             return ;
         }
     }
     free(path);
     set_oldpwd();
     set_pwd();
+    g_exit_status = 0;
 	return ;
 }

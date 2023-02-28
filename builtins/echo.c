@@ -6,12 +6,13 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:55:39 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/28 15:58:35 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/28 19:08:42 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <unistd.h>
+extern int	g_exit_status;
 
 # define NO_ENDL 0
 # define ENDL 1
@@ -84,17 +85,13 @@ void	echo(char **tab)
 		n = NO_ENDL;
 		i++;
 	}
-	if (n == NO_ENDL)
-	{
-		if (to_print == 0)
-			return ;
-		else
-			print_tab(&tab[to_print]);
-			return ;
-	}
+	if (n == NO_ENDL && to_print != 0)
+		print_tab(&tab[to_print]);
 	else
 	{
-		print_tab(tab);
+		if (tab)
+			print_tab(tab);
 		write(1, "\n", 1);
 	}
+	g_exit_status = 0;
 }

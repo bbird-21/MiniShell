@@ -6,11 +6,12 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:51:42 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/28 11:23:32 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/28 18:55:20 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+extern int	g_exit_status;
 
 t_list	*arg_red_list(t_list **arg_red, int type, char *str)
 {
