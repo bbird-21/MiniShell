@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:29:15 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/24 18:58:54 by alvina           ###   ########.fr       */
+/*   Updated: 2023/02/28 11:25:14 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,32 @@ char	*join(char *s1, char *s2)
 	{
 		if (s2[0] != '/')
         	str[i++] = '/';
+		while (s2[j])
+			str[i++] = s2[j++];
+	}
+	str[i] = '\0';
+	return (str);
+}
+
+char	*simple_join(char *s1, char *s2)
+{
+	char	*str;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	str = (char *) malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2)) + 1);
+	if (!str)
+		return (NULL);
+	if (s1)
+	{
+		while (s1[j])
+			str[i++] = s1[j++];
+		j = 0;
+	}
+    if (s2)
+	{
 		while (s2[j])
 			str[i++] = s2[j++];
 	}

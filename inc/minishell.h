@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 09:53:47 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/27 21:39:52 by alvina           ###   ########.fr       */
+/*   Updated: 2023/02/28 15:58:48 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ char	*ft_strnstr(char *big, char *little, int len);
 int		ft_strchr(char *str, char c);
 int		ft_isalnum(int c);
 int		ft_isalpha(int c);
+char	*simple_join(char *s1, char *s2);
 
 //		LST UTILES
 t_list	*ft_lstadd_back(t_list **lst, t_list *new);
@@ -103,11 +104,11 @@ int		is_pipe(char *str);
 int 	is_separator(char *str);
 int		changing_state(char c);
 int		count_words(char *str);
-char	**first_split(char *str);
+void	first_split(char *str);
 
 //			token_generator
 t_token	*create_token(char *str);
-t_list	*token_generator(char **tab);
+void	token_generator(char **tab);
 
 
 //----------TOKENISATION------------
@@ -139,5 +140,9 @@ void	export(char *name);
 void	unset(char *key);
 void    ft_env(void);
 void    cd(char *arg);
+void	echo(char **tab);
+
+void	expansion(t_list *token_lst);
+void    exec(t_list *cmd_lst);
 
 #endif
