@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:43:34 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/06 18:58:27 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/03/07 20:05:55 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	token_cleaner(void *content)
 {
 	free(((t_token*)content)->value);
-	// free((t_token*)content);
+	free((t_token*)content);
 }
 
 void	env_cleaner(void *content)

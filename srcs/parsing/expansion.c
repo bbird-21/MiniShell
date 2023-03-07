@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:28:29 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/07 18:14:39 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/07 19:46:26 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ static char	*set_expansion(char *token, char **new)
 			(*new)[k++] = token[i++];
 	}
 	(*new)[k] = 0;
+	free(token);
 	return (*new);
 }
 
@@ -166,6 +167,7 @@ char	*state_01(char *str)
 	
 	new = remove_quotes(str);
 	magic_space(new);
+	free(str);
 	return (new);
 }
 
@@ -180,6 +182,7 @@ char	*state_02(char *str)
 	new2 = expansion(new);
 	magic_space(new2);
 	free(new);
+	free(str);
 	return (new2);
 }
 

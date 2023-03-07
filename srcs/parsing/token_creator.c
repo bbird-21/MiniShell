@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 19:53:35 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/01 17:19:13 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/03/07 19:40:43 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	token_generator(char **tab)
 	// 	handler(4, NULL, NULL);
 	// 	return ;
 	// }
-	return (split_state(t_lst));
+	return (split_state(&t_lst));
 	// return (expansion(t_lst));
 	// return (cmd_generator(&t_lst));
 	

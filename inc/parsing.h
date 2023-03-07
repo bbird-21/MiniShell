@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 20:25:50 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/01 16:03:17 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/03/07 19:40:36 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 char 	*remove_quotes(char *str);
 char	*do_job(char *str);
-void	split_state(t_list	*list);
+void	split_state(t_list	**list);
 char	*get_token(char *str, int *k);
 char	**ft_split(char const *s, char c);
 void	magic_space(char *str);

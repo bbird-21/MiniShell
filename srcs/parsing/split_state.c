@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_state.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 22:02:38 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/07 18:20:39 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/07 20:08:56 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static int	countwords(char *str)
 	return (word);
 }
 
-void	split_state(t_list	*l)
+void	split_state(t_list	**l)
 {
 	static int	index = 0;
 	t_list		*new_list;
@@ -115,27 +115,25 @@ void	split_state(t_list	*l)
 	count = 0;	
 	subdivide_token = NULL;
 	new_list = NULL;
-	tmp = l;
+	tmp = (*l);
 	while (tmp)
 	{
 		data = (t_token *)(tmp->content);
 		j = 0;
 		while (j < countwords(data->value))
 		{
-			// printf("data->value : %s\n", &data->value[index]);
 			add_node_back_token(&subdivide_token, data->value, &index, data->type);
 			j++;
 		}
 		if (j > 1)
-		{
 			tokjoin(&subdivide_token);
-		}
 		ft_lstadd_back(&new_list, subdivide_token);
 		subdivide_token = NULL;
 		tmp = tmp->next;
 		index = 0;
 	}
+	ft_lstclear(&subdivide_token, token_cleaner);
+	ft_lstclear(l, token_cleaner);
 	print_lst(new_list, print_token);
-	// (*l) = *new_list;
 	return (cmd_generator(&new_list));
 }
