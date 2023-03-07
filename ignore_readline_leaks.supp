@@ -1,7 +1,6 @@
 {
-ignore_readline_leaks
-Memcheck:Leak 
-...
-fun:readline
-}                       # sert a ignorer les leaks de readline
-                        # compiler valgrind avec --suppressions=ignore_readline_leaks.supp
+    ignore_libreadine_conditional_jump_errors
+    Memcheck:Leak
+    ...
+    obj:/libreadline.so.
+}

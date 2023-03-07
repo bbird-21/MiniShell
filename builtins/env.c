@@ -1,54 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   trash.c                                            :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/14 14:43:34 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/14 15:34:34 by ale-sain         ###   ########.fr       */
+/*   Created: 2023/02/24 18:33:29 by alvina            #+#    #+#             */
+/*   Updated: 2023/02/28 20:47:12 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_lstclear(t_token **list)
+void    ft_env(void)
 {
-	t_token	*head;
-	t_token	*body;
+    t_list   *envp;
 
-	if (!list || !(*list))
-		return ;
-	head = *list;
-	while (head)
-	{
-		body = head->next;
-		free(head);
-		head = body;
-	}
-}
-
-char	**free_tab(char **tab, int j)
-{
-	int	i;
-
-	i = 0;
-	if (j == -1)
-	{
-		while (tab[i])
-		{
-			free(tab[i]);
-			i++;
-		}
-	}
-	else
-	{
-		while (i < j)
-		{
-			free(tab[i]);
-			i++;
-		}
-	}
-	free(tab);
-	return (NULL);
+    envp = handler(5, NULL, NULL);
+    g_exit_status = 0;
+    print_lst(envp, print_env);
 }
