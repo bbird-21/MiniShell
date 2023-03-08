@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 09:53:47 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/28 20:32:22 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/08 17:44:41 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include "expansion.h"
 # include "clean.h"
 # include "builtins.h"
+# include "here_doc.h"
 
 /*	Declaration of the global variable required to manage the
 	exit_status code  */
@@ -56,7 +57,6 @@ void	tokenisation(t_list **lst);
 
 /*	Error management  */
 void	free_exit(char *error);
-
 
 //-----------HANDLING_ENVIRONNEMENT-----------
 t_list	*handler(int swtch, char **env, char *arg);

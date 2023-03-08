@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 19:49:16 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/28 20:50:28 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/08 17:45:38 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int main(int ac, char **av, char **env)
 	rl_outstream = stderr;
 	while (21)
 	{
-        str = readline("nanoshell > ");
+        str = readline("femtoshell > ");
 		if (!str || (str[0] == '\0' && ft_strlen(str) == 1)
 			|| (ft_strnstr(str, "exit", 4) && ft_strlen(str) == 4))
 		{

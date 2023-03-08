@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:12:42 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/01 17:37:03 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/03/08 19:55:14 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_dblist
 typedef struct s_list
 {
 	void			*content;
+	int				pfd[2];
 	struct s_list	*next;
 }					t_list;
 

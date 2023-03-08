@@ -6,7 +6,7 @@
 #    By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/17 17:30:47 by mmeguedm          #+#    #+#              #
-#    Updated: 2023/03/01 20:40:10 by mmeguedm         ###   ########.fr        #
+#    Updated: 2023/03/08 19:49:24 by mmeguedm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,10 +60,12 @@ SRC			=	$(addprefix $(SRC_PATH),					\
 						trash.c								\
 						utils.c								\
 						split_state.c						\
+						get_next_line.c						\
 						error.c								\
 						tokjoin.c							\
 						lst.c								\
 						expansion.c							\
+						here_doc.c							\
 						singleton.c							\
 						split.c								\
 					)										\

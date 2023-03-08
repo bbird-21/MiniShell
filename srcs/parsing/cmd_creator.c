@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:51:42 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/07 20:08:24 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/03/08 19:17:33 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,8 @@ void    cmd_generator(t_list **token)
         i = -1;
 	}
     ft_lstclear(&head, token_cleaner);
+    printf("CMD_GENERATOR\n");
     print_lst(list_cmd, print_cmd);
-    ft_lstclear(&list_cmd, cmd_cleaner);
-    return ;
+    // ft_lstclear(&list_cmd, cmd_cleaner);
+    return (here_doc(&list_cmd));
 }
