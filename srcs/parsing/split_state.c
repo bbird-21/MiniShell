@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_state.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 22:02:38 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/07 20:08:56 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/03/09 11:16:52 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,7 @@ void	split_state(t_list	**l)
 	t_list		*tmp;
 	t_token 	*data;
 	int			j;
-	int			count;
 
-	count = 0;	
 	subdivide_token = NULL;
 	new_list = NULL;
 	tmp = (*l);

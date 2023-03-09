@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:29:15 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/07 17:45:23 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/09 11:01:42 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	ft_strlen(char *str)
 	i = 0;
 	if (!str)
 		return (0);
-	while (str[i])
+	while (str[i] != 0)
 		i++;
 	return (i);
 }
@@ -215,7 +215,7 @@ char	*ft_strjoin(char *line, char *buffer)
 		return (NULL);
 	if (line != NULL)
 	{
-		while (line[i])
+		while (line[i] != 0)
 		{
 			p[i] = line[i];
 			i++;

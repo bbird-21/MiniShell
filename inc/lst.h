@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 18:18:27 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/07 18:20:56 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/09 09:50:05 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ void		print_token(void *content);
 void		print_env(void *content);
 void		print_cmd(void *content);
 
+char	*trans_env(void *content);
+char	*trans_token(void *content);
+char	**translator(t_list *lst, char *(translate)(void *));
 // void	*new_token(t_token **lst, char *str);
 // t_token	*ft_lstadd_back(t_token **lst, t_token *new);
 // t_token	*ft_lstnew(char *str);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:32:27 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/07 18:21:03 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/09 11:38:19 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,6 @@ void	print_cmd(void *content)
 
 void	print_lst(t_list *lst, void (*print)(void *))
 {
-	int	count;
-
-	count = 0;
 	if (!lst)
 		return ;
 	while (lst)
@@ -71,4 +68,57 @@ void	print_lst(t_list *lst, void (*print)(void *))
 		lst = lst->next;
 	}
 	printf("\n");
+}
+
+char	*trans_env(void *content)
+{
+	t_env *data;
+	char	*tmp;
+	char	*new;
+
+	data = (t_env *)content;
+	tmp = simple_join(data->key, "=");
+	new = simple_join(tmp, data->value);
+	free(tmp);
+	return (new);
+}
+
+char	*trans_token(void *content)
+{
+	t_token	*data;
+
+	data = (t_token *)content;
+	return (ft_strdup(data->value));
+}
+
+/* How to use translator ? 
+		To generate double tab of ARG from t_cmd :
+				t_cmd *cont = (t_cmd *)list_cmd->content;
+				char **tab = translator(cont->arg, trans_token);
+		To generate double tab of ENV :
+				char **tab = translator(handler(5, NULL, NULL), trans_env); */
+char	**translator(t_list *lst, char *(translate)(void *))
+{
+	t_list *head;
+	int		i;
+	char	**tab;
+
+	i = 0;
+	head = lst;
+	while (lst)
+	{
+		lst = lst->next;
+		i++;
+	}
+	lst = head;
+	tab = malloc(sizeof(char *) * (i + 1));
+	i = 0;
+	while (lst)
+	{
+		tab[i] = translate(lst->content);
+		lst = lst->next;
+		i++;
+	}
+	tab[i] = 0;
+	return (tab);
 }

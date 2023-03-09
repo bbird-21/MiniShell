@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+         #
+#    By: alvina <alvina@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/17 17:30:47 by mmeguedm          #+#    #+#              #
-#    Updated: 2023/03/08 19:49:24 by mmeguedm         ###   ########.fr        #
+#    Updated: 2023/03/09 10:20:35 by alvina           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,7 +86,7 @@ obj/%.o: srcs/%.c $(INC)
 
 $(NAME) : $(OBJ) $(INC)
 	@mkdir -p $(OBJ_PATH)
-	@$(CC) $(CFLAGS) $(LIBS) $(OBJ) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBS)
 	@printf "\n\n"
 	@echo "\033[1;32mCompiling done !"
 	@echo "\033[1;36m"
