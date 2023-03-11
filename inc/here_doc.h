@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 17:39:14 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/08 17:51:03 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/03/11 18:55:44 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,6 @@
 #include "minishell.h"
 
 void	here_doc(t_list **list);
+void    opening(t_list **cmd);
 
 #endif

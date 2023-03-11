@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:12:42 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/08 19:55:14 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/03/11 18:52:08 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ typedef struct s_dblist
 typedef struct s_list
 {
 	void			*content;
-	int				pfd[2];
 	struct s_list	*next;
 }					t_list;
 
@@ -79,6 +78,7 @@ typedef struct s_cmd
 {
 	t_list 		*arg;
 	t_list 		*red;
+	int			pfd[2];
 	int			infile;
 	int			outfile;
 }				t_cmd;

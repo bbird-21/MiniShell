@@ -6,7 +6,7 @@
 #    By: alvina <alvina@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/17 17:30:47 by mmeguedm          #+#    #+#              #
-#    Updated: 2023/03/09 10:20:35 by alvina           ###   ########.fr        #
+#    Updated: 2023/03/11 19:01:32 by alvina           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,6 +68,7 @@ SRC			=	$(addprefix $(SRC_PATH),					\
 						here_doc.c							\
 						singleton.c							\
 						split.c								\
+						opening.c							\
 					)										\
 				)
 
@@ -84,7 +85,7 @@ obj/%.o: srcs/%.c $(INC)
 
 # --------- Linking -----------------------------------------------------------------
 
-$(NAME) : $(OBJ) $(INC)
+$(NAME) : $(OBJ) $(INC) Makefile
 	@mkdir -p $(OBJ_PATH)
 	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBS)
 	@printf "\n\n"

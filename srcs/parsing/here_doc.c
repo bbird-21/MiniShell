@@ -6,7 +6,7 @@
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 17:32:12 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/09 11:51:30 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/11 18:59:53 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ static void do_here_doc(t_list **lst, char *limiter)
 		}
 		if (ft_strcmp(line, limiter))
 			break ;
-		ft_putstr_fd(line, (*lst)->pfd[1]);
+		ft_putstr_fd(line, ((t_cmd *)((*lst)->content))->pfd[1]);
 		if (!ft_strcmp(line, "\n"))
-			ft_putstr_fd("\n", (*lst)->pfd[1]);
+			ft_putstr_fd("\n", ((t_cmd *)((*lst)->content))->pfd[1]);
 	}
 	free(line);
 }
 
-void	here_doc(t_list **list)
+void	here_doc(t_list **list) 
 {
 	t_list	*tmp;
 	t_cmd	*cmd;
@@ -61,9 +61,10 @@ void	here_doc(t_list **list)
 		if (cmd->red)
 		{
 			token = (t_token *)(cmd->red->content);
-			if (token && token->type == DROUT)
+			if (token && token->type == DRIN)
 				do_here_doc(list, token->value);
 		}
 		tmp = tmp->next;
 	}
+	return (opening(list));
 }
