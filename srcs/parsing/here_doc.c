@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 17:32:12 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/11 18:59:53 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/13 13:16:57 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,12 @@ void	here_doc(t_list **list)
 	while (tmp)
 	{
 		cmd = (t_cmd *)(tmp->content);
-		if (cmd->red)
+		while (cmd->red)
 		{
 			token = (t_token *)(cmd->red->content);
 			if (token && token->type == DRIN)
 				do_here_doc(list, token->value);
+			cmd->red = cmd->red->next;
 		}
 		tmp = tmp->next;
 	}
