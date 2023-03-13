@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 17:32:12 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/13 13:16:57 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/03/13 13:45:44 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	here_doc(t_list **list)
 		cmd = (t_cmd *)(tmp->content);
 		while (cmd->red)
 		{
+			if (pipe(cmd->pfd) == -1)
+				free_exit("pipe");
 			token = (t_token *)(cmd->red->content);
 			if (token && token->type == DRIN)
 				do_here_doc(list, token->value);
