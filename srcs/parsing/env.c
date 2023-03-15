@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:24:06 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/27 21:08:18 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/15 14:55:38 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "minishell.h"
 
 char	*ft_getenv(char *name)
 {
@@ -21,7 +21,7 @@ char	*ft_getenv(char *name)
 	data = (t_env *)envp->content;
 	if (!name || !envp)
 		return (NULL);
-	while (envp && ft_strncmp(data->key, name, ft_strlen(name)))
+	while (envp && !ft_strcmp(data->key, name))
 	{
 		envp = envp->next;
 		if (envp)
@@ -278,7 +278,7 @@ static pf	fct(int swtch)
 t_list	*handler(int swtch, char **env, char *arg)
 {
 	static t_list	*envp;
-	pf hand;
+	pf				hand;
 
 	hand = fct(swtch);
 	hand(&envp, env, arg);

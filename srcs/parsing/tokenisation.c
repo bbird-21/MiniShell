@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   tokenisation.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 18:33:36 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/23 08:39:28 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/11 18:52:42 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "minishell.h"
 
 int	what_red(char *str)
 {
-	if (ft_strnstr(str, "<<", 2))
+	if (ft_strnstr(str, ">>", 2))
 		return (DROUT);
-	else if (ft_strnstr(str, ">>", 2))
+	else if (ft_strnstr(str, "<<", 2))
 		return (DRIN);
 	else if (ft_strnstr(str, "<", 1))
 		return (RIN);

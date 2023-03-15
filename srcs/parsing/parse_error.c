@@ -6,12 +6,12 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:44:41 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/28 18:55:40 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/02/28 20:47:59 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
-extern int	g_exit_status;
+#include "minishell.h"
+
 
 int	error_msg(char *value)
 {

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   trash.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:43:34 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/28 18:55:48 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/07 20:05:55 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
-extern int	g_exit_status;
+#include "minishell.h"
 
 void	token_cleaner(void *content)
 {
@@ -44,7 +43,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 	t_list	*head;
 	t_list	*body;
 
-	if (!lst || !(*del) || !(*lst))
+	if (!lst || !(*lst))
 		return ;
 	head = (*lst);
 	while (head)

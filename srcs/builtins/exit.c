@@ -6,13 +6,12 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:11:19 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/28 19:03:12 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/15 19:02:57 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <limits.h>
-#include "../inc/minishell.h"
-extern int	g_exit_status;
+#include "minishell.h"
 
 static unsigned long long	ft_atoll(const char *nptr)
 {
@@ -43,10 +42,12 @@ static unsigned long long	ft_atoll(const char *nptr)
 	    return (nb * neg);
 }
 
-void    ft_exit(char *str)
+void    ft_exit(char **arg)
 {
     long long n;
+    char    *str;
     
+    str = arg[0];
     if (!str || (ft_strlen(str) == 1 && str[0] == '0'))
     {
         g_exit_status = 0;

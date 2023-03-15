@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lst_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 08:15:57 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/23 08:16:07 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/09 09:32:51 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "minishell.h"
 
 t_list	*ft_lstnew(void *content)
 {

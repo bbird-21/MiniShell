@@ -1,51 +1,139 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/02/17 17:30:47 by mmeguedm          #+#    #+#              #
+#    Updated: 2023/03/15 19:08:10 by ale-sain         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-NAME	= minishell
+# --------- Prerequisites ------------------------------------------------------
 
-SRC		=	srcs/first_split.c \
-			srcs/split_utils.c \
-			srcs/tokenisation.c \
-			srcs/utils.c \
-			srcs/inutils.c \
-			srcs/trash.c \
-			srcs/main.c \
-			srcs/parse_error.c \
-			srcs/cmd_creator.c \
-			srcs/env.c \
-			srcs/lst_utils.c \
-			builtins/pwd.c \
-			builtins/export.c \
-			builtins/env.c \
-			builtins/unset.c \
-			builtins/cd.c \
-			builtins/exit.c
+NAME		= minishell
 
-OBJS    = ${SRC:.c=.o}
+CC			= cc
+CFLAGS		= -Wall -Wextra -I $(INC_PATH) -g3
 
-OPTION 	= -I ./inc/
+LIBS		= -L/usr/local/lib -I/usr/local/include -lreadline
 
-CC		= cc
-RM		= rm -f
+# --------- Include files path ------------------------------------------------------
 
-CFLAGS	= -Wall -Wextra -Werror -g3
+INC_PATH	= inc/
 
+# --------- Sources files path ------------------------------------------------------
 
-.c.o:
-			${CC} -c ${CFLAGS} ${OPTION} $< -o ${<:.c=.o}
+SRC_PATH	= srcs/
+PS_SRC_PATH	= $(SRC_PATH)parsing/
+MN_SRC_PATH	= $(SRC_PATH)main/
 
-${NAME}:	${OBJS} Makefile
-			${CC} -o ${NAME} ${OBJS} -L/usr/local/lib -I/usr/local/include -lreadline
+# --------- Objects files path ------------------------------------------------------
 
-all:		${NAME}
+OBJ_PATH	= obj/
+PS_OBJ_PATH = $(OBJ_PATH)parsing/
+MN_OBJ_PATH = $(OBJ_PATH)main/
 
-clean:
-			${RM} ${OBJS}
+# --------- Header files -----------------------------------------------------------
 
-fclean:		clean
-			${RM} ${NAME}
+INC			= $(addprefix $(INC_PATH),		\
+					minishell.h				\
+					tools.h					\
+					utils.h					\
+					lst.h					\
+					builtins.h				\
+				)
 
-re:			fclean all
+# --------- Sources files -----------------------------------------------------------
 
-malloc_test: $(OBJS)
-	$(CC) $(CFLAGS) -fsanitize=undefined -rdynamic -o $@ ${OBJS} -L/usr/local/lib -I/usr/local/include -lreadline -L. -lmallocator
+SRC			=	$(addprefix $(SRC_PATH),					\
+					main/main.c								\
+					$(addprefix parsing/,					\
+						cmd_creator.c						\
+						env.c								\
+						first_split.c						\
+						lst_utils.c							\
+						parse_error.c						\
+						split_utils.c						\
+						token_creator.c						\
+						tokenisation.c						\
+						trash.c								\
+						utils.c								\
+						split_state.c						\
+						get_next_line.c						\
+						error.c								\
+						tokjoin.c							\
+						lst.c								\
+						expansion.c							\
+						here_doc.c							\
+						singleton.c							\
+						split.c								\
+						opening.c							\
+					)										\
+					$(addprefix exec/,						\
+						mini_pipex.c						\
+					)										\
+					$(addprefix builtins/,					\
+						cd.c								\
+						echo.c								\
+						env.c 								\
+						exit.c 								\
+						export.c 							\
+						pwd.c 								\
+						unset.c 							\
+					)										\
+				)
 
-.PHONY: all clean fclean re
+# --------- Object files ------------------------------------------------------------
+
+OBJ			=	$(patsubst srcs/%.c, obj/%.o, $(SRC))
+
+# --------- Compiling ---------------------------------------------------------------
+
+obj/%.o: srcs/%.c $(INC)
+	@ mkdir -p $(dir $@)
+	@ printf "%-60s\r" "Compiling $<"
+	@ $(CC) $(CFLAGS) -c $< -o $@
+
+# --------- Linking -----------------------------------------------------------------
+
+$(NAME) : $(OBJ) $(INC) Makefile
+	@mkdir -p $(OBJ_PATH)
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBS)
+	@printf "\n\n"
+	@echo "\033[1;32mCompiling done !"
+	@echo "\033[1;36m"
+	@cat .femtoshell.logo.c
+	@echo "\033[0m"
+
+# --------- Phony targets -----------------------------------------------------------
+
+all : $(NAME)
+
+test : fclean $(NAME)
+
+test : CFLAGS+= -g3 -fsanitize=address -MMD
+
+clean :
+		rm -rf $(OBJ_PATH) 
+
+fclean : clean
+		rm -rf $(NAME)
+
+re : fclean $(NAME)
+
+.PHONY : all clean fclean re directories test
+
+# add_token.c							\
+# error.c								\
+# expansion.c							\
+# first_split.c						\
+# lst.c 								\
+# memory_free.c						\
+# singleton.c							\
+# split.c								\
+# split_utils.c 						\
+# tokenisation.c						\
+# utils.c								\
+# utils2.c							\

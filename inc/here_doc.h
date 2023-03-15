@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   here_doc.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/24 18:33:29 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/28 19:08:57 by ale-sain         ###   ########.fr       */
+/*   Created: 2023/03/08 17:39:14 by mmeguedm          #+#    #+#             */
+/*   Updated: 2023/03/11 18:55:44 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
-extern int	g_exit_status;
+#ifndef HERE_DOC_H
+# define HERE_DOC_H
 
-void    ft_env(void)
-{
-    t_list   *envp;
+#include "minishell.h"
 
-    envp = handler(5, NULL, NULL);
-    g_exit_status = 0;
-    print_lst(envp, print_env);
-}
+void	here_doc(t_list **list);
+void    opening(t_list **cmd);
+
+#endif

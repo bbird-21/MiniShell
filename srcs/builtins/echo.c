@@ -6,13 +6,11 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:55:39 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/28 19:08:42 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/15 19:11:19 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
-extern int	g_exit_status;
+#include "minishell.h"
 
 # define NO_ENDL 0
 # define ENDL 1
@@ -37,14 +35,6 @@ static int	slash_n(char *str)
 	return (0);
 }
 
-static void	ft_putstr_fd(char *str, int fd)
-{
-	int i = 0;
-	while (str[i])
-		i++;
-	write(fd, str, i);
-}
-
 static void	print_tab(char **tab)
 {
 	int	i;
@@ -61,7 +51,7 @@ static void	print_tab(char **tab)
 	}
 }
 
-void	echo(char **tab)
+void	echo(char **arg)
 {
 	int	i;
 	int n;
@@ -70,14 +60,14 @@ void	echo(char **tab)
 	i = 0;
 	n = ENDL;
 	to_print = 0;
-	if (!tab || !*tab)
+	if (!arg || !*arg)
 	{
 		write(1, "\n", 1);
 		return ;
 	}
-	while (tab[i])
+	while (arg[i])
 	{
-		if (!slash_n(tab[i]))
+		if (!slash_n(arg[i]))
 		{
 			to_print = i;
 			break;
@@ -86,11 +76,11 @@ void	echo(char **tab)
 		i++;
 	}
 	if (n == NO_ENDL && to_print != 0)
-		print_tab(&tab[to_print]);
+		print_tab(&arg[to_print]);
 	else
 	{
-		if (tab)
-			print_tab(tab);
+		if (arg)
+			print_tab(arg);
 		write(1, "\n", 1);
 	}
 	g_exit_status = 0;

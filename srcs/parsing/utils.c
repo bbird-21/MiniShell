@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:29:15 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/28 11:25:14 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/09 11:01:42 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "minishell.h"
 
 void	ft_putstr_fd(char *s, int fd)
 {
@@ -99,7 +99,7 @@ int	ft_strlen(char *str)
 	i = 0;
 	if (!str)
 		return (0);
-	while (str[i])
+	while (str[i] != 0)
 		i++;
 	return (i);
 }
@@ -181,19 +181,64 @@ char	*simple_join(char *s1, char *s2)
 	return (str);
 }
 
-int	ft_isalnum(int c)
-{
-	if ((c >= 48 && c <= 57) || (c >= 65 && c <= 90)
-		|| (c >= 97 && c <= 122))
-		return (1);
-	else
-		return (0);
-}
-
 int	ft_isalpha(int c)
 {
 	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
 		return (1);
 	else
 		return (0);
+}
+
+int	ft_isalnum(int c)
+{
+	return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
+		|| (c >= '0' && c <= '9'));
+}
+
+int	ft_issign(int c)
+{
+	return ((c == '+') || (c == '-') || (c == '^'));
+}
+
+
+char	*ft_strjoin(char *line, char *buffer)
+{
+	char	*p;
+	int		i;
+	int		j;
+
+	j = 0;
+	i = 0;
+	p = malloc(sizeof(char) * (ft_strlen((char *)line)
+				+ ft_strlen((char *)buffer)) + 1);
+	if (!p)
+		return (NULL);
+	if (line != NULL)
+	{
+		while (line[i] != 0)
+		{
+			p[i] = line[i];
+			i++;
+		}
+	}
+	while (buffer[j])
+		p[i++] = buffer[j++];
+	p[i] = '\0';
+	if (line != NULL)
+		free(line);
+	return (p);
+}
+
+bool	ft_strcmp(const char *s1, const char *s2)
+{	
+	unsigned int	i;
+
+	if (!s1 || !s2)
+		return (false);
+	i = 0;
+	while (s1[i] == s2[i] && (s1[i] || s2[i]))
+		i++;
+	if (s1[i] == s2[i])
+		return (true);
+	return (false);
 }

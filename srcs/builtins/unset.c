@@ -6,12 +6,11 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:33:39 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/28 19:15:31 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/15 19:06:05 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
-extern int	g_exit_status;
+#include "minishell.h"
 
 static int is_correc(char *str)
 {
@@ -29,8 +28,11 @@ static int is_correc(char *str)
 	return (1);
 }
 
-void    unset(char *key)
+void    unset(char **arg)
 {
+    char    *key;
+
+    key = arg[0];
     g_exit_status = 0;
     if (!key)
         return ;
