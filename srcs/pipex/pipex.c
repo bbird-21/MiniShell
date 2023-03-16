@@ -6,7 +6,11 @@
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:47:51 by mmeguedm          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/03/24 15:44:00 by alvina           ###   ########.fr       */
+=======
+/*   Updated: 2023/03/16 17:42:24 by mmeguedm         ###   ########.fr       */
+>>>>>>> 5da9612 (dup in progress)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +37,7 @@ static int counter(t_list *cmd)
 
 void	loop_job(t_storage_cmd *st_cmd)
 {
+<<<<<<< HEAD
 	if (pipe(st_cmd->pfd) == -1)
 		free_exit("pipe");
 	st_cmd->pid[st_cmd->pos] = fork();
@@ -105,6 +110,41 @@ void	dup_and_exe(t_storage_cmd *st_cmd)
 		cmd_not_found(st_cmd);
 	else if (execve(st_cmd->bin_path, st_cmd->bin_args, st_cmd->env) == -1)
 		cmd_not_found(st_cmd);
+=======
+	if (!st_cmd->bin_path || !cmd_args)
+		cmd_not_found(st_cmd);
+	if (st_cmd->infile >= 0)
+        dup2(st_cmd->infile, STDIN_FILENO);
+	else
+		dup2(st_cmd->pfd[0], STDIN_FILENO);
+	if (st_cmd->outfile >= 0)
+		dup2(st_cmd->outfile, STDOUT_FILENO);
+	close(st_cmd->pfd[0]);
+	close(st_cmd->pfd[1]);
+	execve(st_cmd->bin_path, cmd_args, st_cmd->env);
+	printf("error\n");
+	return (free_exit(st_cmd->bin));
+	// if (st_cmd->pos == 1)
+	// {
+	// 	if (st_cmd->fd[0] == -1)
+	// 	{
+	// 		dup2(st_cmd->pfd[1], STDOUT_FILENO);
+	// 		return (free_exit("dup"));
+		// }
+		// else if (!ft_strcmp(data->args.argv[1], "here_doc"))
+		// 	dup2(st_cmd->fd[0], STDIN_FILENO);
+	// }
+	// else
+	// 	dup2(st_cmd->fd_in, STDIN_FILENO);
+	// if (st_cmd->pos != st_cmd->nb_cmd)
+	// else
+	// {
+	// 	if (dup2(st_cmd->fd[1], STDOUT_FILENO) == -1)
+	// 		return (free_exit("dup"));
+	// }
+	// printf("test\n");
+	// close_fds(st_cmd);
+>>>>>>> 5da9612 (dup in progress)
 }
 
 
@@ -181,12 +221,26 @@ void	mini_gc(t_list *cmd, t_storage_cmd *st)
 		s = st;
 }
 
+static int	get_nb_cmd(t_list *list)
+{
+	int	nb;
+
+	nb = 0;
+	while (list)
+	{
+		nb++;
+		list = list->next;
+	}
+	return (nb);
+}
+
 static void	fill_bin(t_list	*list, t_storage_cmd *st_cmd)
 {
 	t_cmd			*cmd;
 	int				status;
 	t_list			*lst;
 
+<<<<<<< HEAD
 	lst = list;
 	st_cmd->nb_cmd = counter(list);
 	st_cmd->fd_tmp = 0;
@@ -233,6 +287,24 @@ static void	fill_bin(t_list	*list, t_storage_cmd *st_cmd)
 	{
 		// printf("st_cmd[%d] : %d\n", i, st_cmd->pid[i]);
 		waitpid(st_cmd->pid[i], &status, 0);
+=======
+	i = 0;
+	st_cmd->nb_cmd = get_nb_cmd(list);
+	st_cmd->pid = malloc(sizeof(pid_t) * st_cmd->nb_cmd);
+	cmd = (t_cmd *)(list->content);
+	while (list)
+	{
+		cmd = (t_cmd *)(list->content);
+		cmd_list = cmd->arg;
+		token = (t_token *)(cmd_list->content);
+		cmd_arg = translator(cmd->arg, trans_token);
+		st_cmd->infile = cmd->infile;
+		st_cmd->outfile = cmd->outfile;
+		fill_data_bin(st_cmd, token->value);
+		loop_job(st_cmd, i, cmd_arg);
+		printf("content->infile : %d\n", cmd->infile);
+		printf("i : %d\n", i);
+>>>>>>> 5da9612 (dup in progress)
 		i++;
 	}
 	clean_data(st_cmd);

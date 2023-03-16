@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_creator.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:51:42 by ale-sain          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/03/24 18:33:38 by alvina           ###   ########.fr       */
+=======
+/*   Updated: 2023/03/16 17:07:58 by mmeguedm         ###   ########.fr       */
+>>>>>>> 5da9612 (dup in progress)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +46,11 @@ t_cmd   *initializing_data(void)
     data->red = NULL;
     data->infile = -2;
     data->outfile = -2;
+<<<<<<< HEAD
     data->pfd[0] = 0;
     data->pfd[1] = 0;
+=======
+>>>>>>> 5da9612 (dup in progress)
     return (data);
 }
 
@@ -141,10 +148,13 @@ void    cmd_generator(t_list **token)
         i = -1;
 	}
     ft_lstclear(&head, token_cleaner);
+<<<<<<< HEAD
     // printf("CMD_GENERATOR\n");
     t_cmd *cmd = (t_cmd *)list_cmd->content;
     reverse_magic_space(&cmd->arg);
     // print_lst(list_cmd, print_cmd);
+=======
+>>>>>>> 5da9612 (dup in progress)
     // ft_lstclear(&list_cmd, cmd_cleaner);
     return (here_doc(&list_cmd));
 }
