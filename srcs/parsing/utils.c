@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:29:15 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/09 11:01:42 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/16 02:39:23 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,12 +194,6 @@ int	ft_isalnum(int c)
 	return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
 		|| (c >= '0' && c <= '9'));
 }
-
-int	ft_issign(int c)
-{
-	return ((c == '+') || (c == '-') || (c == '^'));
-}
-
 
 char	*ft_strjoin(char *line, char *buffer)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   opening.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:21:25 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/09 16:22:20 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/14 18:24:02 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,7 @@ static int	infiling(t_cmd *cmd, t_token *token)
 	{
 		fd = open(token->value, O_RDONLY);
 		if (fd == 0 || fd == -1)
-		{
-			ft_putstr_fd(token->value, 2);
-			perror(" ");
-			return (0);
-		}
+			return (perror(token->value), 0);
 		cmd->infile = fd;
 	}
 	printf("in : %d\n", cmd->infile);
@@ -42,11 +38,7 @@ static int outfiling(t_cmd *cmd, t_token *token)
 	else
 		fd = open(token->value, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
-	{
-		ft_putstr_fd(token->value, 2);
-		perror(" ");
-		return (0);
-	}
+		return (perror(token->value), 0);
 	cmd->outfile = fd;
 	printf("out : %d\n", cmd->outfile);
 	return (1);
@@ -92,5 +84,5 @@ void    opening(t_list **cmd)
 		lst = lst->next;
 	}
 	print_files(*cmd);
-	return ;
+	return (pipex(cmd));
 }

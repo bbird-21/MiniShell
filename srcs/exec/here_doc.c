@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 17:32:12 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/13 20:25:42 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/03/14 15:14:10 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,26 +47,28 @@ static void do_here_doc(t_list **lst, char *limiter)
 	free(line);
 }
 
-void	read_pipe(t_list *list)
-{
-	t_cmd	*cmd;
-	char	msg[11];
-	
-	printf("READ_PIPE\n");
-	while (list)
-	{
-		printf("test\n");
-		cmd = (t_cmd *)(list->content);
-		while (cmd->red)
-		{
-			close(cmd->pfd[1]);
-			read(cmd->pfd[0], msg, 11);
-			printf("msg : %s\n", msg);
-			cmd->red = cmd->red->next;
-		}
-		list = list->next;
-	}
-}
+// void	read_pipe(t_list *list)
+// {
+// 	t_cmd	*cmd;
+// 	char	msg[120];
+// 	int		readed;
+
+// 	printf("READ_PIPE\n");
+// 	while (list)
+// 	{
+// 		printf("test\n");
+// 		cmd = (t_cmd *)(list->content);
+// 		while (cmd->red)
+// 		{
+// 			close(cmd->pfd[1]);
+// 			readed = read(cmd->pfd[0], msg, 11);
+// 			msg[readed] = 0;
+// 			printf("msg : %s\n", msg);
+// 			cmd->red = cmd->red->next;
+// 		}
+// 		list = list->next;
+// 	}
+// }
 
 void	here_doc(t_list **list) 
 {
@@ -91,6 +93,6 @@ void	here_doc(t_list **list)
 		}
 		tmp = tmp->next;
 	}
-	read_pipe(*list);
+	// read_pipe(*list);
 	return (opening(list));
 }

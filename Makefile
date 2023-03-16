@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alvina <alvina@student.42.fr>              +#+  +:+       +#+         #
+#    By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/17 17:30:47 by mmeguedm          #+#    #+#              #
-#    Updated: 2023/03/11 19:01:32 by alvina           ###   ########.fr        #
+#    Updated: 2023/03/16 02:42:02 by mmeguedm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,12 @@ INC			= $(addprefix $(INC_PATH),		\
 					tools.h					\
 					utils.h					\
 					lst.h					\
+					builtins.h				\
+					clean.h					\
+					exec.h					\
+					expansion.h				\
+					here_doc.h				\
+					parsing.h				\
 				)
 
 # --------- Sources files -----------------------------------------------------------
@@ -65,10 +71,18 @@ SRC			=	$(addprefix $(SRC_PATH),					\
 						tokjoin.c							\
 						lst.c								\
 						expansion.c							\
-						here_doc.c							\
-						singleton.c							\
 						split.c								\
+					)										\
+					$(addprefix exec/,						\
+						here_doc.c							\
 						opening.c							\
+					)										\
+					$(addprefix pipex/,						\
+						error.c								\
+						extra.c								\
+						get.c								\
+						pipex.c								\
+						utils_pipex.c						\
 					)										\
 				)
 

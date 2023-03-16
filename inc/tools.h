@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:12:42 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/13 19:42:17 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/03/16 02:38:31 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # define EXPAND 36
 
+# include <aio.h>
 typedef enum e_env_setting{
 	CREATING,
 	DELETING,
@@ -43,12 +44,23 @@ typedef enum e_type
 
 typedef struct s_token
 {
-	char			*value;
-	int				type;
+	char	*value;
+	int		type;
+	char	**path;
+	char	**bin_args;
+	char	*bin_path;
+	char	*bin;
+	int		pos;
 	struct s_token	*next;
 	struct s_token	*prev;
 }					t_token;
 
+typedef struct s_args
+{
+	int		argc;
+	char	**argv;
+	char	**env;
+}			t_args;
 
 typedef	struct	s_env
 {
@@ -57,14 +69,6 @@ typedef	struct	s_env
 	struct s_env	*next;
 	struct s_env	*prev;
 }					t_env;
-
-typedef struct s_dblist
-{
-	t_token			*first;
-	t_token			*last;
-	t_env			*first_env;
-	t_env			*prev_env;
-}					t_dblist;
 
 typedef struct s_list
 {
@@ -84,23 +88,48 @@ typedef struct s_cmd
 	int			outfile;
 }				t_cmd;
 
-typedef struct s_gc
-{
-	void			*addr;
-	struct	s_gc	*next;
-}					t_gc;
-
-typedef struct s_llptr
-{
-	t_token			*token;
-	t_cmd			*cmd;
-}					t_llptr;
-
 typedef enum e_state
 {
 	NONE,
 	SP_QUOTES,
 	DB_QUOTES
 }	t_state;
+
+/*	Required by Pipex to create the new double linked list
+	that contains all data about binaries.
+ */
+typedef struct s_storage_cmd
+{
+	char					**path;
+	char					**bin_args;
+	char					*bin_path;
+	char					*bin;
+	char					**env;
+	int						nb_cmd;
+	int						pfd[2];
+	int						fd_in;
+	int						fd[2];
+	pid_t					*pid;
+	int						pos;
+	struct s_storage_cmd	*next;
+	struct s_storage_cmd	*prev;
+}							t_storage_cmd;
+
+typedef struct s_dblist
+{
+	t_storage_cmd	*first;
+	t_storage_cmd	*last;
+}					t_dblist;
+
+typedef struct s_data
+{
+	int				pfd[2];
+	int				fd_in;
+	int				fd[2];
+	pid_t			*pid;
+	t_dblist		dblist;
+	t_args			args;
+}					t_data;
+/*	End of Pipex prerequisites  */
 
 #endif
