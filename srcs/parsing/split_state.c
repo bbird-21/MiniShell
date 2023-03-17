@@ -6,7 +6,7 @@
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 22:02:38 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/09 11:16:52 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/17 16:18:29 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,6 @@ void	split_state(t_list	**l)
 	}
 	ft_lstclear(&subdivide_token, token_cleaner);
 	ft_lstclear(l, token_cleaner);
-	print_lst(new_list, print_token);
+	// print_lst(new_list, print_token);
 	return (cmd_generator(&new_list));
 }

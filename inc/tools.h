@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:12:42 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/16 02:38:31 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/03/17 20:13:49 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,6 @@ typedef struct s_token
 {
 	char	*value;
 	int		type;
-	char	**path;
-	char	**bin_args;
-	char	*bin_path;
-	char	*bin;
-	int		pos;
-	struct s_token	*next;
-	struct s_token	*prev;
 }					t_token;
 
 typedef struct s_args
@@ -66,8 +59,6 @@ typedef	struct	s_env
 {
 	char			*key;
 	char			*value;
-	struct s_env	*next;
-	struct s_env	*prev;
 }					t_env;
 
 typedef struct s_list
@@ -100,19 +91,17 @@ typedef enum e_state
  */
 typedef struct s_storage_cmd
 {
-	char					**path;
 	char					**bin_args;
 	char					*bin_path;
-	char					*bin;
 	char					**env;
 	int						nb_cmd;
-	int						pfd[2];
-	int						fd_in;
-	int						fd[2];
-	pid_t					*pid;
 	int						pos;
-	struct s_storage_cmd	*next;
-	struct s_storage_cmd	*prev;
+	int						pfd[2];
+	int						fd_tmp;
+	int						fd_in;
+	int						fd_out;
+	int						ok;
+	pid_t					*pid;
 }							t_storage_cmd;
 
 typedef struct s_dblist

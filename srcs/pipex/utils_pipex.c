@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pipex.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 02:38:56 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/16 02:39:33 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/03/17 18:42:59 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,25 +52,25 @@ char	*ft_strjoin_path(char *line, char *buffer)
 	return (p);
 }
 
-void	close_fds(t_storage_cmd *st_cmd)
-{
-	if (st_cmd->fd[0] != -1)
-		close(st_cmd->fd[0]);
-	if (st_cmd->fd[1] != -1)
-		close(st_cmd->fd[1]);
-	if (st_cmd->pfd[0] != -1)
-		close(st_cmd->pfd[0]);
-	if (st_cmd->pfd[1] != -1)
-		close(st_cmd->pfd[1]);
-}
+// void	close_fds(t_storage_cmd *st_cmd)
+// {
+// 	if (st_cmd->fd[0] != -1)
+// 		close(st_cmd->fd[0]);
+// 	if (st_cmd->fd[1] != -1)
+// 		close(st_cmd->fd[1]);
+// 	if (st_cmd->pfd[0] != -1)
+// 		close(st_cmd->pfd[0]);
+// 	if (st_cmd->pfd[1] != -1)
+// 		close(st_cmd->pfd[1]);
+// }
 
 void	cmd_not_found(t_storage_cmd *node)
 {
 	ft_putstr_fd("command not found: ", STDOUT_FILENO);
-	ft_putstr_fd(node->bin, STDOUT_FILENO);
+	ft_putstr_fd(node->bin_args[0], STDOUT_FILENO);
 	ft_putstr_fd("\n", STDOUT_FILENO);
 	// lstfree(st_cmd);
-	close_fds(node);
+	// close_fds(node);
 	close(node->fd_in);
 	exit(21);
 }

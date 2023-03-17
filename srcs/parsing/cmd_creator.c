@@ -6,7 +6,7 @@
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:51:42 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/09 11:22:08 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/17 18:59:46 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ t_cmd   *initializing_data(void)
         return (NULL);
     data->arg = NULL;
     data->red = NULL;
-    data->infile = 0;
-    data->outfile = 0;
+    data->infile = -2;
+    data->outfile = -2;
     return (data);
 }
 
@@ -111,8 +111,8 @@ void    cmd_generator(t_list **token)
         i = -1;
 	}
     ft_lstclear(&head, token_cleaner);
-    printf("CMD_GENERATOR\n");
-    print_lst(list_cmd, print_cmd);
+    // printf("CMD_GENERATOR\n");
+    // print_lst(list_cmd, print_cmd);
     // ft_lstclear(&list_cmd, cmd_cleaner);
     return (here_doc(&list_cmd));
 }

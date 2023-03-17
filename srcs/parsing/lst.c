@@ -6,7 +6,7 @@
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:32:27 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/09 11:38:19 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/17 19:49:40 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ char	**translator(t_list *lst, char *(translate)(void *))
 
 	i = 0;
 	head = lst;
+	if (!lst)
+		return (NULL);
 	while (lst)
 	{
 		lst = lst->next;

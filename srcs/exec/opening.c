@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   opening.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:21:25 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/14 18:24:02 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/03/17 19:26:54 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static int	infiling(t_cmd *cmd, t_token *token)
 			return (perror(token->value), 0);
 		cmd->infile = fd;
 	}
-	printf("in : %d\n", cmd->infile);
 	return (1);
 }
 
@@ -40,7 +39,6 @@ static int outfiling(t_cmd *cmd, t_token *token)
 	if (fd == -1)
 		return (perror(token->value), 0);
 	cmd->outfile = fd;
-	printf("out : %d\n", cmd->outfile);
 	return (1);
 }
 
@@ -72,17 +70,25 @@ void    opening(t_list **cmd)
 			if (data->type == RIN || data->type == DRIN)
 			{
 				if (!infiling(content, data))
+				{
+					content->infile = -1;
+					content->outfile = -1;
 					break;
+				}
 			}
 			else
 			{
 				if (!outfiling(content, data))
+				{
+					content->infile = -1;
+					content->outfile = -1;
 					break;
+				}
 			}
 			red = red->next;
 		}
 		lst = lst->next;
 	}
-	print_files(*cmd);
+	// print_files(*cmd);
 	return (pipex(cmd));
 }

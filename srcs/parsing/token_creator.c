@@ -6,7 +6,7 @@
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 19:53:35 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/09 11:04:41 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/17 16:16:31 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,4 @@ void	token_generator(char **tab)
 	return (split_state(&t_lst));
 	// return (expansion(t_lst));
 	// return (cmd_generator(&t_lst));
-	
 }

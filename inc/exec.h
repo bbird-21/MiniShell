@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 16:04:12 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/16 02:43:10 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/03/17 19:55:21 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_error
 /*	Prototypes required by <get.c>  */
 char	*get_bin(char *cmd);
 char	**get_path(char **env);
-char	*get_bin_path(char *cmd, char *bin, char **path);
+char	*get_bin_path(char *cmd, char **path);
 char	**get_bin_args(char *cmd, char *bin);
 
 /*	Extra functions required for norminette  */
@@ -54,7 +54,7 @@ char	**extra_bin_args(char *cmd, char *bin, int i);
 void	extra_launcher(t_data *data, int i);
 void	extra_init(t_data *data);
 void	extra_loop_free(t_storage_cmd *node);
-void	loop_job(t_storage_cmd *tmp, int i, char **cmd_arg);
+void	loop_job(t_storage_cmd *st_cmd);
 void	cmd_not_found(t_storage_cmd *node);
 
 
@@ -63,7 +63,7 @@ void	init_data_list(t_data *data);
 void	init(int argc, char **argv, char **env, t_data *data);
 void	pipex(t_list **cmd);
 void	dup_and_exe(t_storage_cmd *st_cmd, char **cmd_arg);
-void	fill_data_bin(t_storage_cmd *st_cmd, char *cmd);
+void	fill_data_bin(t_storage_cmd *st_cmd, t_cmd *cmd);
 
 void	close_fds(t_storage_cmd *st_cmd);
 char	*ft_strjoin_path(char *line, char *buffer);
