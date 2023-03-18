@@ -6,7 +6,7 @@
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:12:42 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/17 20:13:49 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/18 18:46:09 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_list
 }					t_list;
 
 typedef void (*pf)(t_list **, char **, char *);
+typedef void (*ptr_fun)(char **);
 
 typedef struct s_cmd
 {
@@ -101,6 +102,7 @@ typedef struct s_storage_cmd
 	int						fd_in;
 	int						fd_out;
 	int						ok;
+	int						toclose;
 	pid_t					*pid;
 }							t_storage_cmd;
 

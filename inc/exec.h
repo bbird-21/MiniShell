@@ -6,7 +6,7 @@
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 16:04:12 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/17 19:55:21 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/18 19:12:12 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,16 @@ void	cmd_not_found(t_storage_cmd *node);
 void	init_data_list(t_data *data);
 void	init(int argc, char **argv, char **env, t_data *data);
 void	pipex(t_list **cmd);
-void	dup_and_exe(t_storage_cmd *st_cmd, char **cmd_arg);
+void	dup_and_exe(t_storage_cmd *st_cmd);
 void	fill_data_bin(t_storage_cmd *st_cmd, t_cmd *cmd);
 
 void	close_fds(t_storage_cmd *st_cmd);
 char	*ft_strjoin_path(char *line, char *buffer);
 char	*ft_strnchr(char *s1, char *s2, size_t len);
+
+/*	Exec of the built-ins	*/
+ptr_fun	funct(int flag);
+void    execve_builtin(int flag, char **arg);
+int is_builtin(char *str, int pipe);
 
 #endif

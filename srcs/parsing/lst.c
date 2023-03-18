@@ -6,7 +6,7 @@
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:32:27 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/17 19:49:40 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/18 20:19:30 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void	print_lst(t_list *lst, void (*print)(void *))
 		print(lst->content);
 		lst = lst->next;
 	}
-	printf("\n");
 }
 
 char	*trans_env(void *content)

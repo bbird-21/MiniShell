@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 17:32:12 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/14 15:14:10 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/03/18 16:26:32 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void	here_doc(t_list **list)
 		}
 		tmp = tmp->next;
 	}
+	// close(cmd->pfd[1]);
 	// read_pipe(*list);
 	return (opening(list));
 }

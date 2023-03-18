@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 09:53:47 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/14 16:20:41 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/03/18 19:16:16 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <stdbool.h>
 # include <errno.h>
 # include <string.h>
+# include <fcntl.h>
+# include <sys/wait.h>
 
 /*	Personal Library  */
 # include "utils.h"

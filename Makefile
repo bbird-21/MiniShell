@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+         #
+#    By: alvina <alvina@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/17 17:30:47 by mmeguedm          #+#    #+#              #
-#    Updated: 2023/03/16 02:42:02 by mmeguedm         ###   ########.fr        #
+#    Updated: 2023/03/18 19:15:41 by alvina           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,6 +83,16 @@ SRC			=	$(addprefix $(SRC_PATH),					\
 						get.c								\
 						pipex.c								\
 						utils_pipex.c						\
+						exec_built.c 						\
+					)										\
+					$(addprefix builtins/,					\
+						cd.c 								\
+						echo.c 								\
+						env.c 								\
+						exit.c 								\
+						export.c 							\
+						pwd.c 								\
+						unset.c 							\
 					)										\
 				)
 

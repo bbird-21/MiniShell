@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/18 19:10:40 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/28 20:47:59 by ale-sain         ###   ########.fr       */
+/*   Created: 2023/02/24 18:33:29 by alvina            #+#    #+#             */
+/*   Updated: 2023/03/15 19:02:11 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-void    pwd(void)
+void    ft_env(char **arg)
 {
-    char    *pwd;
-    
-    pwd = malloc(sizeof(char) * PATH_MAX);
-    getcwd(pwd, PATH_MAX);
-    ft_putendl_fd(pwd, 1);
+    t_list   *envp;
+
+    (void)arg;
+    envp = handler(5, NULL, NULL);
     g_exit_status = 0;
-    free(pwd);
+    print_lst(envp, print_env);
 }
