@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_built.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 18:45:11 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/18 19:11:47 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/20 17:35:30 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void    execve_builtin(int flag, char **arg)
 	ptr_fun  exec;
 
     if (flag == -2)
-        return ;
+        exit(0);
     exec = funct(flag);
 	exec(&arg[1]);
 }
@@ -39,11 +39,23 @@ void    execve_builtin(int flag, char **arg)
 int is_builtin(char *str, int pipe)
 {
     if (ft_strnstr(str, "env", 3) && ft_strlen(str) == 3)
+    {
+        if (!pipe)
+            return (-1);
         return (2);
+    }
     if (ft_strnstr(str, "echo", 4) && ft_strlen(str) == 4)
+    {
+        if (!pipe)
+            return (-1);
         return (1);
+    }
     if (ft_strnstr(str, "pwd", 3) && ft_strlen(str) == 3)
+    {
+        if (!pipe)
+            return (-1);
         return (5);
+    }
     if (ft_strnstr(str, "cd", 2) && ft_strlen(str) == 2)
     {
         if (pipe)

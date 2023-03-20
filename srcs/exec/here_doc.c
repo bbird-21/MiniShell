@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 17:32:12 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/18 16:26:32 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/20 16:27:47 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,16 +84,18 @@ void	here_doc(t_list **list)
 		red = cmd->red;
 		while (red)
 		{
-			if (pipe(cmd->pfd) == -1)
-				free_exit("pipe");
+			// printf("pipe : %d\n", cmd->pfd[1]);
 			token = (t_token *)(red->content);
 			if (token && token->type == DRIN)
+			{
+				if (pipe(cmd->pfd) == -1)
+					free_exit("pipe");
 				do_here_doc(list, token->value);
+			}
 			red = red->next;
 		}
 		tmp = tmp->next;
 	}
-	// close(cmd->pfd[1]);
 	// read_pipe(*list);
 	return (opening(list));
 }

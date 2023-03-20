@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:47:51 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/18 20:15:38 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/20 17:41:57 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,39 +24,23 @@ static int counter(t_list *cmd)
         return (0);
     while (tmp)
     {
-		// content = (t_cmd *)tmp->content;
-        // if (content->infile != -1 && content->arg)
-			i++;
+		i++;
 		tmp = tmp->next;
     }
     return (i);
 }
 
-// void	init_list(t_data *data)
+// void	ft_close(int fd, char *str)
 // {
-// 	data->dblist.first = NULL;
-// 	data->dblist.last = NULL;
-// }
+// 	int a;
 
-// if (st_cmd->pos == 1)
-	// {
-	// 	if (st_cmd->fd[0] == -1)
-	// 	{
-	// 		dup2(st_cmd->pfd[1], STDOUT_FILENO);
-	// 		return (free_exit("dup"));
-	// 	}
-	// 	else if (!ft_strcmp(data->args.argv[1], "here_doc"))
-	// 		dup2(st_cmd->fd[0], STDIN_FILENO);
-	// }
-	// else
-	// 	dup2(st_cmd->fd_in, STDIN_FILENO);
-	// if (st_cmd->pos != st_cmd->nb_cmd)
-	// else
-	// {
-	// 	if (dup2(st_cmd->fd[1], STDOUT_FILENO) == -1)
-	// 		return (free_exit("dup"));
-	// }
-	// printf("test\n");
+// 	printf("\t\t\t\t\t\tin %s -> fd %d : ", str, fd);
+// 	a = close(fd);
+// 	if (!a)
+// 		printf("success\n");
+// 	else
+// 		printf("failure\n");
+// }
 
 void	loop_job(t_storage_cmd *st_cmd)
 {
@@ -69,16 +53,8 @@ void	loop_job(t_storage_cmd *st_cmd)
 		dup_and_exe(st_cmd);
 	else
 	{
-		if (st_cmd->pfd[1])
-			close(st_cmd->pfd[1]);
-		if (st_cmd->toclose)
-			close(st_cmd->toclose);
-		// if (st_cmd->pos && st_cmd->fd_tmp)
-		// 	close(st_cmd->fd_tmp); /* ?? a echanger, modifier?*/
-		if (st_cmd->pos != st_cmd->nb_cmd)
+		if (st_cmd->pos != st_cmd->nb_cmd - 1)
 			st_cmd->fd_tmp = st_cmd->pfd[0];
-		if (st_cmd->pfd[0])
-			close(st_cmd->pfd[0]);
 	}
 }
 
@@ -87,18 +63,15 @@ void	dupping(t_storage_cmd *st_cmd)
 	if (st_cmd->fd_in >= 0)
 	{
 		dup2(st_cmd->fd_in, STDIN_FILENO);
-		if (st_cmd->fd_in >= 2)
+		if (st_cmd->fd_in > 2)
 			close(st_cmd->fd_in);
 	}
 	else if (st_cmd->fd_tmp)
-	{
 		dup2(st_cmd->fd_tmp, STDIN_FILENO);
-		close(st_cmd->fd_tmp);
-	}
 	if (st_cmd->fd_out >= 0)
-    {
+	{
 		dup2(st_cmd->fd_out, STDOUT_FILENO);
-		if (st_cmd->fd_out >= 2)
+		if (st_cmd->fd_out > 2)
 			close(st_cmd->fd_out);
 	}
 	else if (st_cmd->pos != st_cmd->nb_cmd - 1)
@@ -108,30 +81,33 @@ void	dupping(t_storage_cmd *st_cmd)
 void	protecting(t_storage_cmd *st_cmd)
 {
 	if (st_cmd->ok == 0 || st_cmd->fd_in == -1) /* if not any command or fdin or fdout invalid*/
+	{
+		close(st_cmd->pfd[0]);
+		close(st_cmd->pfd[1]);
+		if (st_cmd->toclose)
+			close(st_cmd->toclose);
 		exit(21);
-	if (!st_cmd->bin_path || !st_cmd->bin_args)
-		cmd_not_found(st_cmd);
+	}
 }
 
 void	dup_and_exe(t_storage_cmd *st_cmd)
 {
-	// printf("to be exe : path : %s\n", st_cmd->bin_path);
+	// printf("path : %s\n", st_cmd->bin_path);
 	protecting(st_cmd);
-	// printf("here\n");
 	dupping(st_cmd);
-	// printf("here\n");
-	// close_fds(st_cmd);
-	// close(st_cmd->pfd[0]);
+	close(st_cmd->pfd[0]);
 	close(st_cmd->pfd[1]);
 	if (st_cmd->toclose)
-		close(st_cmd->toclose);
-	// printf("to be exe : path : %s\n", st_cmd->bin_path);
-	// if (is_builtin(st_cmd->bin_args[0], 1) != -1)
-    //     execve_builtin(is_builtin(st_cmd->bin_args[0], 1), st_cmd->bin_args);
-	// else
+			close(st_cmd->toclose);
+	if (is_builtin(st_cmd->bin_args[0], 1) != -1)
+    {
+		execve_builtin(is_builtin(st_cmd->bin_args[0], 1), st_cmd->bin_args);
+		exit(0);
+	}
+	else if (!st_cmd->bin_path || !st_cmd->bin_args)
+		cmd_not_found(st_cmd);
+	else
 		execve(st_cmd->bin_path, st_cmd->bin_args, st_cmd->env);
-	// printf("Error\n");
-	// return (free_exit(st_cmd->bin));
 }
 
 void	fill_data_bin(t_storage_cmd *st_cmd, t_cmd *cmd)
@@ -168,81 +144,38 @@ static void	fill_bin(t_list	*list, t_storage_cmd *st_cmd)
 	while (list)
 	{
 		cmd = (t_cmd *)(list->content);
-		// if (cmd->infile != -1 && cmd->arg)
-		// {
-			fill_data_bin(st_cmd, cmd);
-			if (st_cmd->nb_cmd == 1)
-   			{
-        		if (is_builtin(st_cmd->bin_args[0], 0) != -1 && st_cmd->fd_in != -1)
-        		{
-            		if (st_cmd->fd_in >= 0)
-                		dup2(st_cmd->fd_in, STDIN_FILENO);
-           	 		if (st_cmd->fd_out >= 0)
-                		dup2(st_cmd->fd_out, STDOUT_FILENO);
-            		execve_builtin(is_builtin(st_cmd->bin_args[0], 0), st_cmd->bin_args);
-            		return ;
-				}
-        	}
-			// printf("nb : %d pos : %d\n", st_cmd->nb_cmd, st_cmd->pos);
-			loop_job(st_cmd);
-			st_cmd->pos++;
-		// }
+		fill_data_bin(st_cmd, cmd);
+		if (st_cmd->nb_cmd == 1)
+   		{
+        	if (is_builtin(st_cmd->bin_args[0], 0) != -1 && st_cmd->fd_in != -1)
+        	{
+            	execve_builtin(is_builtin(st_cmd->bin_args[0], 0), st_cmd->bin_args);
+				return ;
+			}
+		}
+		loop_job(st_cmd);
+		close(st_cmd->pfd[1]);
+		st_cmd->pos++;
 		list = list->next;
 	}
-	while (--st_cmd->pos >= 0)
+	close(st_cmd->pfd[0]);
+	if (st_cmd->fd_tmp)
+		close(st_cmd->fd_tmp);
+	if (st_cmd->toclose)
+			close(st_cmd->toclose);
+	int i = 0;
+	while (i < st_cmd->pos)
 	{
-		// printf("st_cmd[%d] : %d\n", st_cmd->pos, st_cmd->pid[st_cmd->pos]);
-		waitpid(st_cmd->pid[st_cmd->pos], NULL, 0);
+		// printf("st_cmd[%d] : %d\n", i, st_cmd->pid[i]);
+		waitpid(st_cmd->pid[i], NULL, 0);
+		i++;
 	}
-	// while (first)
-	// {
-	// 	cmd = (t_cmd *)(first->content);
-	// 	cmd_list = cmd->arg;
-	// 	while (cmd_list)
-	// 	{
-	// 		token = (t_token *)(cmd_list->content);
-	// 		printf("token->value     : %s\n", token->value);
-	// 		printf("token->bin 		 : %s\n", token->bin);
-	// 		printf("token->bin_path  : %s\n", token->bin_path);
-	// 		cmd_list = cmd_list->next;
-	// 	}
-	// 	printf("next\n");
-	// 	first = first->next;
-	// }
-	// while (actual_bin < argc - 1)
-	// {
-	// 	actual_bin++;
-	// }
 }
 
 void	pipex(t_list **cmd)
 {
 	t_storage_cmd	st_cmd;
-	// t_list			*tmp;
-	// t_cmd			*cmd2;
 	
 	st_cmd.env = translator(handler(5, NULL, NULL), trans_env);
-	// printf("PIPEX !\n");
 	fill_bin(*cmd, &st_cmd);
-	// tmp = *cmd;
-	// while (tmp)
-	// {
-	// 	printf(":)\n");
-	// 	cmd2 = (t_cmd *)(tmp->content);
-	// 	while (cmd2->arg)
-	// 	{
-	// 		printf("arg->value : %s\n", ((t_token *)(cmd2->arg->content))->value);
-	// 		printf("infile = %d\n", cmd2->infile);
-	// 		cmd2->arg = cmd2->arg->next;
-	// 	}
-	// 	tmp = tmp->next;
-	// }
-
-
-
-	// init_list(&data);
-	// fill_bin(argc, argv, env, &data);
-	// launcher(&data);
-	// close_fds(&data);
-	// lstfree(&data);
 }
