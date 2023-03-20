@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:51:42 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/20 14:37:30 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/20 20:31:58 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,28 @@ t_cmd   *data_cmd(t_list *token, int *flag)
     return (data);
 }
 
+void	reverse_magic_space(t_list **arg)
+{
+	t_list *tmp;
+    t_token *content;
+    int     i;
+
+    tmp = *arg;
+    i = 0;
+    while (*arg)
+    {
+        content = (t_token*)(*arg)->content;
+        while (content->value[i])
+        {
+            if (content->value[i] == -32)
+                content->value[i] = ' ';
+            i++;
+        }
+        (*arg) = (*arg)->next;
+    }
+    *arg = tmp;
+}
+
 void    cmd_generator(t_list **token)
 {
 	t_list  *list_cmd;
@@ -114,6 +136,8 @@ void    cmd_generator(t_list **token)
 	}
     ft_lstclear(&head, token_cleaner);
     // printf("CMD_GENERATOR\n");
+    t_cmd *cmd = (t_cmd *)list_cmd->content;
+    reverse_magic_space(&cmd->arg);
     // print_lst(list_cmd, print_cmd);
     // ft_lstclear(&list_cmd, cmd_cleaner);
     return (here_doc(&list_cmd));

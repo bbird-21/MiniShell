@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pipex.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 02:38:56 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/17 18:42:59 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/20 20:25:14 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	cmd_not_found(t_storage_cmd *node)
 	ft_putstr_fd("\n", STDOUT_FILENO);
 	// lstfree(st_cmd);
 	// close_fds(node);
-	close(node->fd_in);
+	if (node->fd_in > 2)
+		close(node->fd_in);
 	exit(21);
 }

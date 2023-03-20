@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokjoin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 21:18:56 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/06 19:55:22 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/03/20 20:09:22 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,9 @@ void	tokjoin(t_list **list)
 
 	tmp = (*list);
 	data = (t_token *)((*list)->content);
+	new = NULL;
 	new = malloc(sizeof(char) * getsize(*(list)) + 1);
+	new[0] = '\0';
 	while (tmp)
 	{
 		data = (t_token *)(tmp->content);

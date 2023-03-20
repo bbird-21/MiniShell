@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:29:15 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/16 02:39:23 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/03/20 19:46:43 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,22 +203,29 @@ char	*ft_strjoin(char *line, char *buffer)
 
 	j = 0;
 	i = 0;
-	p = malloc(sizeof(char) * (ft_strlen((char *)line)
-				+ ft_strlen((char *)buffer)) + 1);
+	p = malloc(sizeof(char) * (ft_strlen(line)
+				+ ft_strlen(buffer)) + 1);
 	if (!p)
 		return (NULL);
 	if (line != NULL)
 	{
-		while (line[i] != 0)
+		if (line[i])
 		{
-			p[i] = line[i];
-			i++;
+			while (line[i] != 0)
+			{
+				p[i] = line[i];
+				i++;
+			}
 		}
 	}
 	while (buffer[j])
-		p[i++] = buffer[j++];
+	{
+		p[i] = buffer[j];
+		i++;
+		j++;
+	}
 	p[i] = '\0';
-	if (line != NULL)
+	if (line != NULL || line[i] != 0)
 		free(line);
 	return (p);
 }

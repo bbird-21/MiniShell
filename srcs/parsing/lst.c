@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:32:27 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/18 20:19:30 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/20 20:30:32 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ void	print_token(void *content)
 	t_token *data;
 
 	data = (t_token *)content;
-	printf("%s ", data->value);
-	printf("%d \n", data->type);
+	if (data->value)
+		printf("%s ", data->value);
+	if (data->type)
+		printf("%d \n", data->type);
 }
 
 void	print_env(void *content)
@@ -54,7 +56,7 @@ void	print_cmd(void *content)
 	printf("\n---COMMANDE---\n");
 	printf("\nARG : ");
 	print_lst(data->arg, print_token);
-	printf("\nRED : ");
+	printf("\nRED :");
 	print_lst(data->red, print_token);
 }
 
