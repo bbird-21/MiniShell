@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:44:41 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/02/28 20:47:59 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:38:04 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	error_msg(char *value)
 {
 	ft_putstr_fd("nanoshell: syntax error near unexpected token : ", 2);
 	ft_putendl_fd(value, 2);
+	g_exit_status = 2;
 	return (0);
 }
 
@@ -25,8 +26,8 @@ int	parse_pipe(t_list *previous, t_token *curr_data, t_list *next)
 {
 	if (!previous || !next)
 		return (error_msg(curr_data->value));
-	if (ft_strlen(curr_data->value) > 2)
-		return (error_msg(&curr_data->value[2]));
+	if (ft_strlen(curr_data->value) > 1)
+		return (error_msg(&curr_data->value[1]));
 	return (1);
 }
 

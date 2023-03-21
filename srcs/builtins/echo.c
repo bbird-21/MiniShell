@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:55:39 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/20 18:32:19 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/21 13:56:21 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,20 +62,30 @@ static void	ft_putnbr_fd(int n, int fd)
 static void	print_tab(char **tab)
 {
 	int	i;
+	int	j;
 
 	i = 0;
+	j = 0;
 	if (!*tab)
 		return ;
 	while (tab[i])
 	{
-		if (!ft_strncmp(tab[i], "$?", 2) && ft_strlen(tab[i]) == 2)
+		while (tab[i][j])
 		{
-			ft_putnbr_fd(g_exit_status, 1);
-			break;
+			if (!ft_strncmp(&tab[i][j], "$?", 2))
+			{
+				ft_putnbr_fd(g_exit_status, 1);
+				j += 2;
+			}
+			else
+			{
+				write(1, &tab[i][j], 1);
+				j++;
+			}
 		}
-		ft_putstr_fd(tab[i], 1);
 		if (tab[i + 1])
 			write(1, " ", 1);
+		j = 0;
 		i++;
 	}
 }
@@ -92,7 +102,7 @@ void	echo(char **arg)
 	if (!arg || !*arg)
 	{
 		write(1, "\n", 1);
-		return ;
+		exit(0);
 	}
 	while (arg[i])
 	{
@@ -115,5 +125,5 @@ void	echo(char **arg)
 			print_tab(arg);
 		write(1, "\n", 1);
 	}
-	g_exit_status = 0;
+	exit(0);
 }

@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:03:03 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/15 19:04:22 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/21 13:46:17 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ void   export(char **arg)
     char    *var;
     char    *name;
     
+    if (!check_arg(arg, 1, "export"))
+    {
+        g_exit_status = 1;
+        return ;
+    }
     name = arg[0];
     envp = handler(5, NULL, NULL);
     g_exit_status = 0;

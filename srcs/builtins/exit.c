@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:11:19 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/15 19:02:57 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/21 13:43:42 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,19 @@ void    ft_exit(char **arg)
     long long n;
     char    *str;
     
-    str = arg[0];
+    if (!check_arg(arg, 1, "exit"))
+    {
+        g_exit_status = 1;
+        exit(1);
+    }
+    if (*arg)
+        str = arg[0];
+    else
+        str = NULL;
     if (!str || (ft_strlen(str) == 1 && str[0] == '0'))
     {
         g_exit_status = 0;
+        ft_putstr_fd("exit\n", 2);
         exit(0);
     }
     n = ft_atoll(str);
@@ -62,6 +71,7 @@ void    ft_exit(char **arg)
         ft_putendl_fd(": numeric argument required", 2);
         exit(2);
     }
+    ft_putstr_fd("exit\n", 2);
     if (n >= 0 && n <= 255)
     {
         g_exit_status = n;

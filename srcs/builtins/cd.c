@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:21:04 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/15 19:11:01 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/21 13:44:17 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,12 @@ void    cd(char **arg)
 {
     char    *path;
 
+    if (!check_arg(arg, 1, "cd"))
+    {
+        g_exit_status = 1;
+        return ;
+    }
     path = dir_path(arg[0]);
-// if (arg[1])
-//     /* ERROR */
     if (!path)
     {
         g_exit_status = 0;
@@ -97,7 +100,7 @@ void    cd(char **arg)
             ft_putstr_fd("cd: ", 2);
             ft_putstr_fd(arg[0], 2);
             perror(" ");
-            g_exit_status = 127;
+            g_exit_status = 1;
             return ;
         }
     }

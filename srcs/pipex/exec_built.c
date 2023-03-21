@@ -6,11 +6,30 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 18:45:11 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/20 17:35:30 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:14:59 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int check_arg(char **arg, int max, char *fct)
+{
+    int i;
+
+    i = 0;
+    if (!arg || !*arg) 
+        return (1);
+    while (arg[i])
+        i++;
+    if (i > max)
+    {
+        ft_putstr_fd("femtoshell: ", 2);
+        ft_putstr_fd(fct, 2);
+        ft_putstr_fd(": too many arguments\n", 2);
+        return (0);
+    }
+    return(1);
+}
 
 ptr_fun	funct(int flag)
 {

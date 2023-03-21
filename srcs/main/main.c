@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 19:49:16 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/09 09:56:18 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/21 13:35:03 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,8 @@ int main(int ac, char **av, char **env)
 	while (21)
 	{
         str = readline("femtoshell > ");
-		if (!str || (str[0] == '\0' && ft_strlen(str) == 1)
-			|| (ft_strnstr(str, "exit", 4) && ft_strlen(str) == 4))
+		if (!str || (str[0] == '\0' && ft_strlen(str) == 1))
 		{
-			if (ft_strnstr(str, "exit", 4))
-				free(str);
 			handler(4, NULL, NULL);
 			exit(0);
 		}

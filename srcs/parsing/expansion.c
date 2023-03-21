@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:28:29 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/09 10:33:13 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/21 16:06:41 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,10 @@ static char	*set_expansion(char *token, char **new)
 	}
 	(*new)[k] = 0;
 	free(token);
+	i = 0;
+	// while (new[i])
+	// 	printf("%c \n", new[i++]);
+	printf("%s \n", new[i]);
 	return (*new);
 }
 
@@ -209,7 +213,9 @@ static t_fp_exp	handling_table(unsigned char state)
 char 	*do_job(char *str)
 {
 	t_fp_exp	fp;
-	
-	fp = handling_table(get_state(str[0]));
+	if (str)
+		fp = handling_table(get_state(str[0]));
+	else
+		return (NULL);
 	return (fp(str));
 }

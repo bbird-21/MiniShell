@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 22:02:38 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/20 20:34:17 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/21 16:22:35 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,36 +46,6 @@ int	get_state(char c)
 	return (NONE);
 }
 
-char	*get_token(char *str, int *k)
-{
-	char			*dup;
-	int				j;
-	int				state;
-
-	state = get_state(str[*k]);
-	j = 0;
-	dup = malloc(sizeof(char) * ft_strlen(str) + 1);
-	if (!dup)
-		return (NULL);
-	while (str[*k])
-	{
-		dup[j] = str[*k];
-		j++;
-		(*k)++;
-		if (new_state(str[*k], state))
-		{
-			if (!state)
-				break ;
-			dup[j] = str[*k];
-			j++;
-			(*k)++;
-			break ;
-		}
-	}
-	dup[j] = '\0';
-	return (do_job(dup));
-}
-
 static int	countwords(char *str)
 {
 	int		index;
@@ -102,6 +72,39 @@ static int	countwords(char *str)
 	return (word);
 }
 
+char	*get_token(char *str, int *k)
+{
+	char			*dup;
+	int				j;
+	int				state;
+
+	state = get_state(str[*k]);
+	j = 0;
+	dup = malloc(sizeof(char) * ft_strlen(str) + 1);
+	if (!dup)
+		return (NULL);
+	while (str[*k])
+	{
+		dup[j] = str[*k];
+		j++;
+		(*k)++;
+		if (new_state(str[*k], state))
+		{
+			if (!state)
+				break ;
+			dup[j] = str[*k];
+			j++;
+			(*k)++;
+			break ;
+		}
+	}
+	if (ft_strlen(dup) == 1 && dup[j - 1] == '$' && countwords(str) != 1)
+		return (do_job(NULL));
+	// dup[j - 1] = ''; /*to prevent echo $'?' /-> $? // -> ?*/
+	dup[j] = '\0';
+	return (do_job(dup));
+}
+
 void	split_state(t_list	**l)
 {
 	static int	index = 0;
@@ -110,6 +113,7 @@ void	split_state(t_list	**l)
 	t_list		*tmp;
 	t_token 	*data;
 	int			j;
+	char *str;
 
 	subdivide_token = NULL;
 	new_list = NULL;
@@ -124,7 +128,9 @@ void	split_state(t_list	**l)
 			j++;
 		}
 		if (j > 1)
-			tokjoin(&subdivide_token);
+			join_token(&subdivide_token, tokjoin(&subdivide_token));
+		// else
+		// 	join_token(&subdivide_token, ((t_token*)(subdivide_token->content))->value);
 		ft_lstadd_back(&new_list, subdivide_token);
 		subdivide_token = NULL;
 		tmp = tmp->next;

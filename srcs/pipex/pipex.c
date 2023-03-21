@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:47:51 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/20 17:41:57 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/21 09:52:13 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,9 @@ void	protecting(t_storage_cmd *st_cmd)
 		close(st_cmd->pfd[1]);
 		if (st_cmd->toclose)
 			close(st_cmd->toclose);
-		exit(21);
+		if (st_cmd->fd_in == -1)
+			exit(1);
+		exit(0);
 	}
 }
 
@@ -100,14 +102,12 @@ void	dup_and_exe(t_storage_cmd *st_cmd)
 	if (st_cmd->toclose)
 			close(st_cmd->toclose);
 	if (is_builtin(st_cmd->bin_args[0], 1) != -1)
-    {
 		execve_builtin(is_builtin(st_cmd->bin_args[0], 1), st_cmd->bin_args);
-		exit(0);
-	}
-	else if (!st_cmd->bin_path || !st_cmd->bin_args)
-		cmd_not_found(st_cmd);
 	else
-		execve(st_cmd->bin_path, st_cmd->bin_args, st_cmd->env);
+	{
+		if (execve(st_cmd->bin_path, st_cmd->bin_args, st_cmd->env) == -1)
+			cmd_not_found(st_cmd);
+	}
 }
 
 void	fill_data_bin(t_storage_cmd *st_cmd, t_cmd *cmd)
@@ -128,9 +128,18 @@ void	fill_data_bin(t_storage_cmd *st_cmd, t_cmd *cmd)
 	}
 }
 
+int	ft_out(int *status)
+{
+	if (WIFEXITED(*status))
+		return (WEXITSTATUS(*status));
+	else
+		return (0);
+}
+
 static void	fill_bin(t_list	*list, t_storage_cmd *st_cmd)
 {
 	t_cmd			*cmd;
+	int				status;
 
 	st_cmd->nb_cmd = counter(list);
 	st_cmd->fd_tmp = 0;
@@ -167,9 +176,10 @@ static void	fill_bin(t_list	*list, t_storage_cmd *st_cmd)
 	while (i < st_cmd->pos)
 	{
 		// printf("st_cmd[%d] : %d\n", i, st_cmd->pid[i]);
-		waitpid(st_cmd->pid[i], NULL, 0);
+		waitpid(st_cmd->pid[i], &status, 0);
 		i++;
 	}
+	g_exit_status = ft_out(&status);
 }
 
 void	pipex(t_list **cmd)

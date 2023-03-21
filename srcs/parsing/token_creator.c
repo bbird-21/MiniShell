@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 19:53:35 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/20 20:34:00 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:37:18 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void	token_generator(char **tab)
 	if (!parse_error(t_lst))
 	{
 		ft_lstclear(&t_lst, token_cleaner);
-		handler(4, NULL, NULL);
 		return ;
 	}
 	return (split_state(&t_lst));

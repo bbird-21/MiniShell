@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 16:04:12 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/18 19:12:12 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/21 13:41:56 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,6 @@ char	*ft_strnchr(char *s1, char *s2, size_t len);
 ptr_fun	funct(int flag);
 void    execve_builtin(int flag, char **arg);
 int is_builtin(char *str, int pipe);
+int check_arg(char **arg, int max, char *fct);
 
 #endif

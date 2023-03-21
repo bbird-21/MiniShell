@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:33:39 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/15 19:06:05 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/21 13:46:58 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,22 @@ void    unset(char **arg)
     char    *key;
 
     key = arg[0];
+    if (!check_arg(arg, 1, "unset"))
+    {
+        g_exit_status = 1;
+        return ;
+    }
     g_exit_status = 0;
     if (!key)
         return ;
     if (!is_correc(key))
     {
-        // ft_putstr_fd("unset: ", 2);
-        // ft_putstr_fd(key, 2);
-        // ft_putendl_fd(": invalid parameter name", 2);
+        ft_putstr_fd("unset: ", 2);
+        ft_putstr_fd(key, 2);
+        ft_putendl_fd(": invalid parameter name", 2);
+        g_exit_status = 1;
         return ;
     }
     handler(1, NULL, key);
+    g_exit_status = 0;
 }
