@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 21:18:56 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/21 16:20:27 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/22 15:44:23 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void	join_token(t_list **list, char *new)
 	ft_lstclear(list, token_cleaner);
 	(*list) = new_list;
 }
-char	*tokjoin(t_list **list)
+
+void	tokjoin(t_list **list)
 {
 	char		*new;
 	t_list		*tmp;
@@ -81,5 +82,5 @@ char	*tokjoin(t_list **list)
 			new = ft_strjoin(new, data->value);
 		tmp = tmp->next;
 	}
-	return (new);
+	join_token(list, new);
 }

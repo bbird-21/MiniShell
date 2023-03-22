@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 17:32:12 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/20 16:27:47 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/22 18:01:43 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,34 @@ static void do_here_doc(t_list **lst, char *limiter)
 	line = NULL;
 	while (!ft_strcmp(line, limiter))
 	{
-		ft_putstr_fd("heredoc> ", STDOUT_FILENO);
+		catch_signals(1);
+		if (g_exit_status == -1)
+			return ;
+		if (g_exit_status != -2)
+		{
+			ft_putstr_fd("heredoc> ", STDOUT_FILENO);
+			g_exit_status = 0;
+		}
 		free(line);
 		line = get_next_line(STDIN_FILENO);
-		if (!line)
-			return (ft_lstclear(lst, token_cleaner) ,free_exit(NULL));
-		if (!*line)
+		catch_signals(1);
+		if (g_exit_status == -1)
+			return ;
+		if (g_exit_status != -2)
 		{
-			nul_character(limiter);
-			break ;
+			if (!line)
+				return (ft_lstclear(lst, token_cleaner), free_exit(NULL));
+			if (!*line)
+			{
+				nul_character(limiter);
+				break ;
+			}
+			if (ft_strcmp(line, limiter))
+				break ;
+			ft_putstr_fd(line, ((t_cmd *)((*lst)->content))->pfd[1]);
+			if (!ft_strcmp(line, "\n"))
+				ft_putstr_fd("\n", ((t_cmd *)((*lst)->content))->pfd[1]);
 		}
-		if (ft_strcmp(line, limiter))
-			break ;
-		ft_putstr_fd(line, ((t_cmd *)((*lst)->content))->pfd[1]);
-		if (!ft_strcmp(line, "\n"))
-			ft_putstr_fd("\n", ((t_cmd *)((*lst)->content))->pfd[1]);
 	}
 	free(line);
 }
@@ -91,6 +104,13 @@ void	here_doc(t_list **list)
 				if (pipe(cmd->pfd) == -1)
 					free_exit("pipe");
 				do_here_doc(list, token->value);
+				if (g_exit_status == -1)
+				{
+					ft_putstr_fd("\n", 1);
+					rl_on_new_line();
+					g_exit_status = 130;
+					return ;
+				}
 			}
 			red = red->next;
 		}

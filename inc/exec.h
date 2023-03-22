@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 16:04:12 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/21 13:41:56 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/22 17:03:49 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,9 @@ ptr_fun	funct(int flag);
 void    execve_builtin(int flag, char **arg);
 int is_builtin(char *str, int pipe);
 int check_arg(char **arg, int max, char *fct);
+
+/*	signals 	*/
+void	catch_signals(int dokoro);
+void	main_doko(int signum);
 
 #endif

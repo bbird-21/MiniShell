@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:29:15 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/20 19:46:43 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/22 15:47:10 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,7 +225,7 @@ char	*ft_strjoin(char *line, char *buffer)
 		j++;
 	}
 	p[i] = '\0';
-	if (line != NULL || line[i] != 0)
+	if (line)
 		free(line);
 	return (p);
 }

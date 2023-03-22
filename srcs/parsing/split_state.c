@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 22:02:38 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/21 16:22:35 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/22 16:06:32 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ char	*get_token(char *str, int *k)
 			break ;
 		}
 	}
-	if (ft_strlen(dup) == 1 && dup[j - 1] == '$' && countwords(str) != 1)
-		return (do_job(NULL));
+	// if (ft_strlen(dup) == 1 && dup[j - 1] == '$' && countwords(str) != 1)
+	// 	return (do_job(NULL));
 	// dup[j - 1] = ''; /*to prevent echo $'?' /-> $? // -> ?*/
 	dup[j] = '\0';
 	return (do_job(dup));
@@ -113,7 +113,6 @@ void	split_state(t_list	**l)
 	t_list		*tmp;
 	t_token 	*data;
 	int			j;
-	char *str;
 
 	subdivide_token = NULL;
 	new_list = NULL;
@@ -128,9 +127,7 @@ void	split_state(t_list	**l)
 			j++;
 		}
 		if (j > 1)
-			join_token(&subdivide_token, tokjoin(&subdivide_token));
-		// else
-		// 	join_token(&subdivide_token, ((t_token*)(subdivide_token->content))->value);
+			tokjoin(&subdivide_token);
 		ft_lstadd_back(&new_list, subdivide_token);
 		subdivide_token = NULL;
 		tmp = tmp->next;

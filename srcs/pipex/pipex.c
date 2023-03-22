@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:47:51 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/21 09:52:13 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/22 15:54:38 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ static void	fill_bin(t_list	*list, t_storage_cmd *st_cmd)
 	{
 		cmd = (t_cmd *)(list->content);
 		fill_data_bin(st_cmd, cmd);
-		if (st_cmd->nb_cmd == 1)
+		if (st_cmd->nb_cmd == 1 && st_cmd->bin_args)
    		{
         	if (is_builtin(st_cmd->bin_args[0], 0) != -1 && st_cmd->fd_in != -1)
         	{

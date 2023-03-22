@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:28:29 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/21 16:06:41 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/22 16:06:20 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ static char	*set_expansion(char *token, char **new)
 	i = 0;
 	// while (new[i])
 	// 	printf("%c \n", new[i++]);
-	printf("%s \n", new[i]);
+	// printf("%s \n", new[i]);
 	return (*new);
 }
 
