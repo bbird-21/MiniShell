@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 19:49:16 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/22 17:22:26 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/23 21:37:56 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,10 @@ int main(int ac, char **av, char **env)
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, &sig_handler);
         str = readline("femtoshell > ");
-		if (!str)
+		if (!str || !str[0])
 		{
 			ft_putstr_fd("exit\n", 2);
-			mini_gc(NULL, NULL);
-			handler(DELETING, NULL, NULL);
+			handler(CLEANING, NULL, NULL);
 			exit(0);
 		}
 		first_split(str);

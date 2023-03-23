@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 17:32:12 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/22 18:01:43 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/23 21:42:01 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void do_here_doc(t_list **lst, char *limiter)
 			ft_lstclear(lst, cmd_cleaner);
 			return;
 		}
+		free(line);
 		line = readline("heredoc> ");
 		if (!line)
 		{
@@ -47,11 +48,13 @@ static void do_here_doc(t_list **lst, char *limiter)
 			break ;
 		}
 		if (ft_strcmp(line, limiter))
+		{
+			free(line);
 			break ;
+		}
 		ft_putstr_fd(line, ((t_cmd *)((*lst)->content))->pfd[1]);
 		if (!ft_strcmp(line, "\n"))
 			ft_putstr_fd("\n", ((t_cmd *)((*lst)->content))->pfd[1]);
-		free(line);
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:47:51 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/22 15:54:38 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/23 21:44:03 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,11 +149,15 @@ void	mini_gc(t_list *cmd, t_storage_cmd *st)
 	if (!cmd && !st)
 	{
 		if (c)
+		{
 			ft_lstclear(&c, cmd_cleaner);
+			c = NULL;
+		}
 		if (s)
 		{
 			empty_data(s);
 			clean_data(s);
+			s = NULL;
 		}
 		return ;
 	}
@@ -174,7 +178,7 @@ static void	fill_bin(t_list	*list, t_storage_cmd *st_cmd)
 	st_cmd->fd_tmp = 0;
 	st_cmd->pos = 0;
 	st_cmd->pid = malloc(sizeof(int) * st_cmd->nb_cmd);
-	cmd = (t_cmd *)list->content;
+	cmd = (t_cmd *)list->content; 
 	if (cmd->pfd[1])
 		st_cmd->toclose = cmd->pfd[1];
 	else

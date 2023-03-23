@@ -6,7 +6,7 @@
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:21:25 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/17 19:26:54 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/23 21:44:12 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,6 @@ void    opening(t_list **cmd)
 		lst = lst->next;
 	}
 	// print_files(*cmd);
+	// ft_lstclear(cmd, cmd_cleaner);
 	return (pipex(cmd));
 }

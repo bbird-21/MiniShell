@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:11:19 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/21 13:43:42 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/23 21:13:26 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void    ft_exit(char **arg)
     {
         g_exit_status = 1;
         mini_gc(NULL, NULL);
-        handler(DELETING, NULL, NULL);
+        handler(CLEANING, NULL, NULL);
         exit(1);
     }
     if (*arg)
@@ -62,7 +62,7 @@ void    ft_exit(char **arg)
     {
         g_exit_status = 0;
         mini_gc(NULL, NULL);
-        handler(DELETING, NULL, NULL);
+        handler(CLEANING, NULL, NULL);
         ft_putstr_fd("exit\n", 2);
         exit(0);
     }
@@ -77,7 +77,7 @@ void    ft_exit(char **arg)
     }
     ft_putstr_fd("exit\n", 2);
     mini_gc(NULL, NULL);
-    handler(DELETING, NULL, NULL);
+    handler(CLEANING, NULL, NULL);
     if (n >= 0 && n <= 255)
     {
         g_exit_status = n;

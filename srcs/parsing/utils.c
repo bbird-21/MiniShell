@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:29:15 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/22 15:47:10 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/23 21:38:26 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,7 +237,7 @@ bool	ft_strcmp(const char *s1, const char *s2)
 	if (!s1 || !s2)
 		return (false);
 	i = 0;
-	while (s1[i] == s2[i] && (s1[i] || s2[i]))
+	while ((s1[i] || s2[i]) && s1[i] == s2[i])
 		i++;
 	if (s1[i] == s2[i])
 		return (true);
