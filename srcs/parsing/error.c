@@ -15,6 +15,5 @@
 void	free_exit(char *error)
 {
 	perror(error);
-	
 	exit(g_exit_status);
 }

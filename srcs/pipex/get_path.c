@@ -51,6 +51,7 @@ char	*get_bin_path(char *cmd, char **path)
 		bin_path = NULL;
 		i++;
 	}
+	free_tab(path, -1);
 	if (!bin_path)
 		return (NULL);
 	return (bin_path);

@@ -44,23 +44,15 @@ typedef struct s_error
 }			t_error;
 
 /*	Prototypes required by <get.c>  */
-char	*get_bin(char *cmd);
 char	**get_path(char **env);
 char	*get_bin_path(char *cmd, char **path);
-char	**get_bin_args(char *cmd, char *bin);
 
 /*	Extra functions required for norminette  */
-char	**extra_bin_args(char *cmd, char *bin, int i);
-void	extra_launcher(t_data *data, int i);
-void	extra_init(t_data *data);
-void	extra_loop_free(t_storage_cmd *node);
 void	loop_job(t_storage_cmd *st_cmd);
 void	cmd_not_found(t_storage_cmd *node);
 
 
 /*	Init and launch pipex	*/
-void	init_data_list(t_data *data);
-void	init(int argc, char **argv, char **env, t_data *data);
 void	pipex(t_list **cmd);
 void	dup_and_exe(t_storage_cmd *st_cmd);
 void	fill_data_bin(t_storage_cmd *st_cmd, t_cmd *cmd);
@@ -76,7 +68,11 @@ int is_builtin(char *str, int pipe);
 int check_arg(char **arg, int max, char *fct);
 
 /*	signals 	*/
-void	catch_signals(int dokoro);
-void	main_doko(int signum);
+int	ft_state(int state);
+void	sig_handler(int signum);
+
+void	mini_gc(t_list *cmd, t_storage_cmd *st);
+void	clean_data(t_storage_cmd *cmd);
+void	empty_data(t_storage_cmd *cmd);
 
 #endif

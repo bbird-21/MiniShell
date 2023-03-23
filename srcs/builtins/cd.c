@@ -23,6 +23,7 @@ static char    *root_dir(void)
     return (res);
 }
 
+
 static char    *dir_path(char *arg)
 {
     char    *path;

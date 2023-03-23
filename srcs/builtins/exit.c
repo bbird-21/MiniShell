@@ -50,6 +50,8 @@ void    ft_exit(char **arg)
     if (!check_arg(arg, 1, "exit"))
     {
         g_exit_status = 1;
+        mini_gc(NULL, NULL);
+        handler(DELETING, NULL, NULL);
         exit(1);
     }
     if (*arg)
@@ -59,6 +61,8 @@ void    ft_exit(char **arg)
     if (!str || (ft_strlen(str) == 1 && str[0] == '0'))
     {
         g_exit_status = 0;
+        mini_gc(NULL, NULL);
+        handler(DELETING, NULL, NULL);
         ft_putstr_fd("exit\n", 2);
         exit(0);
     }
@@ -72,6 +76,8 @@ void    ft_exit(char **arg)
         exit(2);
     }
     ft_putstr_fd("exit\n", 2);
+    mini_gc(NULL, NULL);
+    handler(DELETING, NULL, NULL);
     if (n >= 0 && n <= 255)
     {
         g_exit_status = n;

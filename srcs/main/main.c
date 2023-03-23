@@ -15,44 +15,47 @@
 
 int	g_exit_status;
 
-void	main_doko(int signum)
+void	sig_handler(int signum)
 {
+	int state;
+
+	state = ft_state(-1);
 	if (signum == 2)
 	{
-		ft_putstr_fd("\n", 1);
-		rl_on_new_line();
-		rl_redisplay();
-    	g_exit_status = 130;
+		if (state == 0)
+		{
+			ft_putstr_fd("\n", 2);
+			rl_on_new_line();
+			rl_redisplay();
+			g_exit_status = 130;
+		}
+		else if (state == 1)
+		{
+			ft_putstr_fd("\n", 2);
+			g_exit_status = 130;
+		}
+		else
+			exit(130);
 	}
-	else if (signum == 3)
-		g_exit_status = 131;
+	else
+	{
+		if (state == 1)
+		{
+			ft_putstr_fd("Quit (core dumped zebi)\n", 2);
+			g_exit_status = 131;
+		}
+		else
+			exit(131);
+	}
 }
 
-void	heredoc_doko(int signum)
+int	ft_state(int state)
 {
-	if (signum == 2)
-		g_exit_status = -1;
-	else if (signum == 3)
-		g_exit_status = -2;
-}
+	static int pos;
 
-// void	exec_doko(int signum)
-// {
-	
-// }
-
-void	catch_signals(int dokoro)
-{
-	struct sigaction	sa_c;
-
-	if (!dokoro)
-		sa_c.sa_handler = main_doko;
-	else if (dokoro == 1)
-		sa_c.sa_handler = heredoc_doko;
-	// else
-	// 	sa_c.sa_handler = exec_doko;
-	sigaction(SIGINT, &sa_c, NULL);
-	sigaction(SIGQUIT, &sa_c, NULL);
+	if (state >= 0)
+		pos = state;
+	return (pos);
 }
 
 int main(int ac, char **av, char **env)
@@ -67,11 +70,15 @@ int main(int ac, char **av, char **env)
 	rl_outstream = stderr;
 	while (21)
 	{
-		catch_signals(0);
+		ft_state(0);
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, &sig_handler);
         str = readline("femtoshell > ");
 		if (!str)
 		{
 			ft_putstr_fd("exit\n", 2);
+			mini_gc(NULL, NULL);
+			handler(DELETING, NULL, NULL);
 			exit(0);
 		}
 		first_split(str);

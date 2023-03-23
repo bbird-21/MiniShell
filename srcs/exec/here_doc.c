@@ -11,14 +11,19 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+#include <signal.h>
 
 void	nul_character(char *limiter)
 {
-	ft_putstr_fd("\nwarning: here-document ", STDOUT_FILENO);
+	ft_putstr_fd("warning: here-document ", STDOUT_FILENO);
 	ft_putstr_fd("delimited by end-of-file (wanted ", STDOUT_FILENO);
 	ft_putstr_fd(limiter, STDOUT_FILENO);
 	ft_putstr_fd(")\n", STDOUT_FILENO);
+}
+
+void	sigint(int signum)
+{
+		g_exit_status = -1;
 }
 
 static void do_here_doc(t_list **lst, char *limiter)
@@ -28,36 +33,26 @@ static void do_here_doc(t_list **lst, char *limiter)
 	line = NULL;
 	while (!ft_strcmp(line, limiter))
 	{
-		catch_signals(1);
+		signal(SIGINT, &sigint); // a modifier
 		if (g_exit_status == -1)
-			return ;
-		if (g_exit_status != -2)
 		{
-			ft_putstr_fd("heredoc> ", STDOUT_FILENO);
-			g_exit_status = 0;
+			g_exit_status = 130;
+			ft_lstclear(lst, cmd_cleaner);
+			return;
 		}
+		line = readline("heredoc> ");
+		if (!line)
+		{
+			nul_character(limiter);
+			break ;
+		}
+		if (ft_strcmp(line, limiter))
+			break ;
+		ft_putstr_fd(line, ((t_cmd *)((*lst)->content))->pfd[1]);
+		if (!ft_strcmp(line, "\n"))
+			ft_putstr_fd("\n", ((t_cmd *)((*lst)->content))->pfd[1]);
 		free(line);
-		line = get_next_line(STDIN_FILENO);
-		catch_signals(1);
-		if (g_exit_status == -1)
-			return ;
-		if (g_exit_status != -2)
-		{
-			if (!line)
-				return (ft_lstclear(lst, token_cleaner), free_exit(NULL));
-			if (!*line)
-			{
-				nul_character(limiter);
-				break ;
-			}
-			if (ft_strcmp(line, limiter))
-				break ;
-			ft_putstr_fd(line, ((t_cmd *)((*lst)->content))->pfd[1]);
-			if (!ft_strcmp(line, "\n"))
-				ft_putstr_fd("\n", ((t_cmd *)((*lst)->content))->pfd[1]);
-		}
 	}
-	free(line);
 }
 
 // void	read_pipe(t_list *list)

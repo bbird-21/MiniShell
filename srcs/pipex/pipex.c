@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <signal.h>
 
 static int counter(t_list *cmd)
 {
@@ -30,18 +31,6 @@ static int counter(t_list *cmd)
     return (i);
 }
 
-// void	ft_close(int fd, char *str)
-// {
-// 	int a;
-
-// 	printf("\t\t\t\t\t\tin %s -> fd %d : ", str, fd);
-// 	a = close(fd);
-// 	if (!a)
-// 		printf("success\n");
-// 	else
-// 		printf("failure\n");
-// }
-
 void	loop_job(t_storage_cmd *st_cmd)
 {
 	if (pipe(st_cmd->pfd) == -1)
@@ -50,9 +39,13 @@ void	loop_job(t_storage_cmd *st_cmd)
 	if (st_cmd->pid[st_cmd->pos] == -1)
 		free_exit("fork");
 	else if (st_cmd->pid[st_cmd->pos] == 0)
+	{
+		ft_state(2);
 		dup_and_exe(st_cmd);
+	}
 	else
 	{
+		ft_state(1);
 		if (st_cmd->pos != st_cmd->nb_cmd - 1)
 			st_cmd->fd_tmp = st_cmd->pfd[0];
 	}
@@ -113,6 +106,7 @@ void	dup_and_exe(t_storage_cmd *st_cmd)
 void	fill_data_bin(t_storage_cmd *st_cmd, t_cmd *cmd)
 {
 	char	**arg;
+	char	**path;
 
 	arg = translator(cmd->arg, trans_token);
 	st_cmd->ok = 1;
@@ -128,19 +122,54 @@ void	fill_data_bin(t_storage_cmd *st_cmd, t_cmd *cmd)
 	}
 }
 
-int	ft_out(int *status)
+void	ft_out(int *status)
 {
 	if (WIFEXITED(*status))
-		return (WEXITSTATUS(*status));
-	else
-		return (0);
+		g_exit_status = WEXITSTATUS(*status);
+}
+
+void	empty_data(t_storage_cmd *cmd)
+{
+	free_tab(cmd->bin_args, -1);
+	free(cmd->bin_path);
+}
+
+void	clean_data(t_storage_cmd *cmd)
+{
+	free_tab(cmd->env, -1);
+	free(cmd->pid);
+	// free(cmd);
+}
+
+void	mini_gc(t_list *cmd, t_storage_cmd *st)
+{
+	static t_list *c;
+	static t_storage_cmd *s;
+
+	if (!cmd && !st)
+	{
+		if (c)
+			ft_lstclear(&c, cmd_cleaner);
+		if (s)
+		{
+			empty_data(s);
+			clean_data(s);
+		}
+		return ;
+	}
+	if (cmd)
+		c = cmd;
+	if (st)
+		s = st;
 }
 
 static void	fill_bin(t_list	*list, t_storage_cmd *st_cmd)
 {
 	t_cmd			*cmd;
 	int				status;
+	t_list			*lst;
 
+	lst = list;
 	st_cmd->nb_cmd = counter(list);
 	st_cmd->fd_tmp = 0;
 	st_cmd->pos = 0;
@@ -150,23 +179,30 @@ static void	fill_bin(t_list	*list, t_storage_cmd *st_cmd)
 		st_cmd->toclose = cmd->pfd[1];
 	else
 		st_cmd->toclose = 0;
-	while (list)
+	signal(SIGQUIT, &sig_handler);
+	mini_gc(list, NULL);
+	while (lst)
 	{
-		cmd = (t_cmd *)(list->content);
+		ft_state(1);
+		cmd = (t_cmd *)(lst->content);
 		fill_data_bin(st_cmd, cmd);
+		mini_gc(NULL, st_cmd);
 		if (st_cmd->nb_cmd == 1 && st_cmd->bin_args)
    		{
         	if (is_builtin(st_cmd->bin_args[0], 0) != -1 && st_cmd->fd_in != -1)
         	{
             	execve_builtin(is_builtin(st_cmd->bin_args[0], 0), st_cmd->bin_args);
+				mini_gc(NULL, NULL);
 				return ;
 			}
 		}
 		loop_job(st_cmd);
 		close(st_cmd->pfd[1]);
 		st_cmd->pos++;
-		list = list->next;
+		lst = lst->next;
+		empty_data(st_cmd);
 	}
+	ft_lstclear(&list, cmd_cleaner);
 	close(st_cmd->pfd[0]);
 	if (st_cmd->fd_tmp)
 		close(st_cmd->fd_tmp);
@@ -179,7 +215,8 @@ static void	fill_bin(t_list	*list, t_storage_cmd *st_cmd)
 		waitpid(st_cmd->pid[i], &status, 0);
 		i++;
 	}
-	g_exit_status = ft_out(&status);
+	clean_data(st_cmd);
+	ft_out(&status);
 }
 
 void	pipex(t_list **cmd)

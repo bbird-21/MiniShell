@@ -48,12 +48,12 @@ typedef struct s_token
 	int		type;
 }					t_token;
 
-typedef struct s_args
-{
-	int		argc;
-	char	**argv;
-	char	**env;
-}			t_args;
+// typedef struct s_args
+// {
+// 	int		argc;
+// 	char	**argv;
+// 	char	**env;
+// }			t_args;
 
 typedef	struct	s_env
 {
@@ -64,7 +64,6 @@ typedef	struct	s_env
 typedef struct s_list
 {
 	void			*content;
-	int				a;
 	struct s_list	*next;
 }					t_list;
 
@@ -112,15 +111,15 @@ typedef struct s_dblist
 	t_storage_cmd	*last;
 }					t_dblist;
 
-typedef struct s_data
-{
-	int				pfd[2];
-	int				fd_in;
-	int				fd[2];
-	pid_t			*pid;
-	t_dblist		dblist;
-	t_args			args;
-}					t_data;
+// typedef struct s_data
+// {
+// 	int				pfd[2];
+// 	int				fd_in;
+// 	int				fd[2];
+// 	pid_t			*pid;
+// 	t_dblist		dblist;
+// 	t_args			args;
+// }					t_data;
 /*	End of Pipex prerequisites  */
 
 #endif
