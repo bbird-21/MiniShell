@@ -6,7 +6,7 @@
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:47:51 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/24 12:26:32 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/24 15:44:00 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ void	protecting(t_storage_cmd *st_cmd)
 		close(st_cmd->pfd[1]);
 		if (st_cmd->toclose)
 			close(st_cmd->toclose);
+		mini_gc(NULL, NULL);
+		handler(CLEANING, NULL, NULL);
 		if (st_cmd->fd_in == -1)
 			exit(1);
 		exit(0);
@@ -139,15 +141,18 @@ void	ft_out(int *status)
 
 void	empty_data(t_storage_cmd *cmd)
 {
-	free_tab(cmd->bin_args, -1);
-	free(cmd->bin_path);
+	if (cmd->bin_args)
+		free_tab(cmd->bin_args, -1);
+	if (cmd->bin_path)
+		free(cmd->bin_path);
 }
 
 void	clean_data(t_storage_cmd *cmd)
 {
-	free_tab(cmd->env, -1);
-	free(cmd->pid);
-	// free(cmd);
+	if (cmd->env)
+		free_tab(cmd->env, -1);
+	if (cmd->pid)
+		free(cmd->pid);
 }
 
 void	mini_gc(t_list *cmd, t_storage_cmd *st)

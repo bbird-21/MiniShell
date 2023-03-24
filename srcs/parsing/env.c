@@ -6,7 +6,7 @@
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:24:06 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/24 11:21:40 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/24 16:01:08 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ char	*ft_getenv(char *name)
 
 
 	envp = handler(5, NULL, NULL);
-	data = (t_env *)envp->content;
 	if (!name || !envp)
 		return (NULL);
+	data = (t_env *)envp->content;
 	while (envp && !ft_strcmp(data->key, name))
 	{
 		envp = envp->next;
@@ -215,6 +215,8 @@ static void	creating(t_list **envp, char **env, char *arg)
 	int	i;
 
 	i = 0;
+	if (!env || !*env)
+		return ;
 	while (env[i])
 	{
 		adding(envp, env, env[i]);
@@ -254,7 +256,8 @@ static void	cleaning(t_list **envp, char **env, char *arg)
 {
 	(void)env;
 	(void)arg;
-	ft_lstclear(envp, env_cleaner);
+	if (envp)
+		ft_lstclear(envp, env_cleaner);
 	*envp = 0;
 }
 

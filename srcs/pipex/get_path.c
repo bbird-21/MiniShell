@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get.c                                              :+:      :+:    :+:   */
+/*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 19:37:19 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/20 17:43:39 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/24 16:11:31 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,11 @@ char	*get_bin_path(char *cmd, char **path)
 	i = 0;
 	bin_path = NULL;
 	if (!access(cmd, X_OK))
+	{
+		if (path)
+			free_tab(path, -1);
 		return (ft_strdup(cmd));
+	}
 	else if (access(cmd, X_OK) == -1 && (!path || !*path))
 		return (NULL);
 	while (path[i])

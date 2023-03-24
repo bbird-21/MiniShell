@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:28:29 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/22 16:06:20 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/24 14:34:03 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int	get_exp_size(char *token)
 	int		j;
 	int 	size;
 	char	*sh_var;
+	char	*var_env;
 	
 	size = 0;
 	i = 0;
@@ -79,7 +80,9 @@ int	get_exp_size(char *token)
 			while (token[i] && ft_isalnum(token[i]))
 				sh_var[j++] = token[i++];
 			sh_var[j] = 0;
-			size += ft_strlen(ft_getenv(sh_var));
+			var_env = ft_getenv(sh_var);
+			size += ft_strlen(var_env);
+			free(var_env);
 			free(sh_var);
 			sh_var = NULL;
 		}

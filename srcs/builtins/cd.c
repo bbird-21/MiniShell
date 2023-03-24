@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:21:04 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/21 13:44:17 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/24 16:26:57 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,9 @@ static void    set_pwd(void)
 void    cd(char **arg)
 {
     char    *path;
+    int     flag;
 
+    flag = 0;
     if (!check_arg(arg, 1, "cd"))
     {
         g_exit_status = 1;
@@ -93,7 +95,12 @@ void    cd(char **arg)
         g_exit_status = 0;
         return ;
     }
-    if (chdir(arg[0]) == -1)
+    if (arg && *arg)
+    {
+        if (chdir(arg[0]) == -1)
+            flag = 1;
+    }
+    if (flag == 1 || !arg)
     {
         if (chdir(path) == -1)
         {
