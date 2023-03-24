@@ -6,7 +6,7 @@
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 21:18:56 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/24 14:42:08 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/24 18:48:38 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,23 +66,33 @@ void	join_token(t_list **list, char *new)
 	(*list) = new_list;
 }
 
-void	tokjoin(t_list **list)
+void	tokjoin(t_list **list, int j)
 {
 	char		*new;
 	t_list		*tmp;
 	t_token		*data;
 
-	tmp = (*list);
-	data = (t_token *)((*list)->content);
-	new = NULL;
-	new = malloc(sizeof(char) * getsize(*(list)) + 1);
-	new[0] = '\0';
-	while (tmp)
+	if (j > 1)
 	{
-		data = (t_token *)(tmp->content);
-		if (data->value)
+		tmp = (*list);
+		data = (t_token *)((*list)->content);
+		new = NULL;
+		new = malloc(sizeof(char) * getsize(*(list)) + 1);
+		new[0] = '\0';
+		while (tmp)
+		{
+			data = (t_token *)(tmp->content);
 			new = ft_strjoin(new, data->value);
-		tmp = tmp->next;
+			tmp = tmp->next;
+		}
+		join_token(list, new);
+		return ;
 	}
-	join_token(list, new);
+	data = (t_token *)((*list)->content);
+	if (data->type == WORD || data->type == FD)
+	{
+		new = ft_strdup(((t_token *)((*list)->content))->value);
+		if (new && new[0] != '\0')
+			join_token(list, new);
+	}
 }

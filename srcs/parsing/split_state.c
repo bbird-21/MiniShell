@@ -6,7 +6,7 @@
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 22:02:38 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/24 11:02:50 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/24 18:38:24 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,12 @@ char	*get_token(char *str, int *k)
 			break ;
 		}
 	}
-	// if (ft_strlen(dup) == 1 && dup[j - 1] == '$' && countwords(str) != 1)
-	// 	return (do_job(NULL));
 	dup[j] = '\0';
+	if (ft_strlen(dup) == 1 && dup[j - 1] == '$' && countwords(str) != 1)
+	{
+		free(dup);
+		return (NULL); // a voir
+	}
 	return (do_job(dup));
 }
 
@@ -125,13 +128,13 @@ void	split_state(t_list	**l)
 			add_node_back_token(&subdivide_token, data->value, &index, data->type);
 			j++;
 		}
-		if (j > 1)
-			tokjoin(&subdivide_token);
+		tokjoin(&subdivide_token, j);
 		ft_lstadd_back(&new_list, subdivide_token);
 		subdivide_token = NULL;
 		tmp = tmp->next;
 		index = 0;
 	}
+	// print_lst(new_list, print_token);
 	ft_lstclear(&subdivide_token, token_cleaner);
 	ft_lstclear(l, token_cleaner);
 	// print_lst(new_list, print_token);

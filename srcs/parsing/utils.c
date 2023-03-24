@@ -6,7 +6,7 @@
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:29:15 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/23 21:38:26 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/24 18:07:39 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,6 +207,7 @@ char	*ft_strjoin(char *line, char *buffer)
 				+ ft_strlen(buffer)) + 1);
 	if (!p)
 		return (NULL);
+	// printf("s1 = %d, s2 = %d \n", ft_strlen(line), ft_strlen(buffer));
 	if (line != NULL)
 	{
 		if (line[i])
@@ -218,11 +219,14 @@ char	*ft_strjoin(char *line, char *buffer)
 			}
 		}
 	}
-	while (buffer[j])
+	if (buffer)
 	{
-		p[i] = buffer[j];
-		i++;
-		j++;
+		while (buffer[j])
+		{
+			p[i] = buffer[j];
+			i++;
+			j++;
+		}
 	}
 	p[i] = '\0';
 	if (line)

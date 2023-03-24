@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:32:27 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/21 15:51:01 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/24 17:04:49 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	print_token(void *content)
 
 	data = (t_token *)content;
 	if (data->value)
-		printf("%s ", data->value);
+		printf("value = %s \n", data->value);
 	if (data->type)
 		printf("%d \n", data->type);
 }
