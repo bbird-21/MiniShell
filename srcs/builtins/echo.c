@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:55:39 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/21 13:56:21 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/24 11:19:32 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void	echo(char **arg)
 	if (!arg || !*arg)
 	{
 		write(1, "\n", 1);
+		mini_gc(NULL, NULL);
 		exit(0);
 	}
 	while (arg[i])
@@ -125,5 +126,7 @@ void	echo(char **arg)
 			print_tab(arg);
 		write(1, "\n", 1);
 	}
+	mini_gc(NULL, NULL);
+	handler(CLEANING, NULL, NULL);
 	exit(0);
 }

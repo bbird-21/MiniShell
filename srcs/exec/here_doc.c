@@ -6,7 +6,7 @@
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 17:32:12 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/23 21:42:01 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/24 12:43:35 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	here_doc(t_list **list)
 			{
 				if (pipe(cmd->pfd) == -1)
 					free_exit("pipe");
-				do_here_doc(list, token->value);
+				do_here_doc(&tmp, token->value);
 				if (g_exit_status == -1)
 				{
 					ft_putstr_fd("\n", 1);

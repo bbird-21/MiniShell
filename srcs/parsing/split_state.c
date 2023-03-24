@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_state.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 22:02:38 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/22 16:06:32 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/24 11:02:50 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ char	*get_token(char *str, int *k)
 	}
 	// if (ft_strlen(dup) == 1 && dup[j - 1] == '$' && countwords(str) != 1)
 	// 	return (do_job(NULL));
-	// dup[j - 1] = ''; /*to prevent echo $'?' /-> $? // -> ?*/
 	dup[j] = '\0';
 	return (do_job(dup));
 }

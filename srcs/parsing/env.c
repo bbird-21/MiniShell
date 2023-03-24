@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:24:06 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/16 00:28:06 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/03/24 11:21:40 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ char	*ft_getenv(char *name)
 			data = (t_env *)envp->content;
 	}
 	if (!envp || ft_strlen(name) != ft_strlen(data->key))
+	{
+		ft_lstclear(&envp, env_cleaner);
 		return (NULL);
+	}
 	return (ft_strdup(data->value));
 }
 

@@ -6,7 +6,7 @@
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:51:42 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/23 21:36:14 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/24 10:02:26 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void	reverse_magic_space(t_list **arg)
     }
     *arg = tmp;
 }
+
 
 void    cmd_generator(t_list **token)
 {

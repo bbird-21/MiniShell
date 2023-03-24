@@ -6,7 +6,7 @@
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:21:25 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/23 21:44:12 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/24 12:38:43 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@ static int	infiling(t_cmd *cmd, t_token *token)
 	int	fd;
 
 	if (token->type == DRIN)
+	{
+		// close(cmd->pfd[1]);
+		// cmd->pfd[1] = 0;
 		cmd->infile = cmd->pfd[0];
+	}
 	else
 	{
 		fd = open(token->value, O_RDONLY);

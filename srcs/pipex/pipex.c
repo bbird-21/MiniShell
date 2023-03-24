@@ -6,7 +6,7 @@
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:47:51 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/23 21:44:03 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/24 12:26:32 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,15 +93,18 @@ void	dup_and_exe(t_storage_cmd *st_cmd)
 	close(st_cmd->pfd[0]);
 	close(st_cmd->pfd[1]);
 	if (st_cmd->toclose)
-			close(st_cmd->toclose);
+	{
+		// printf("to close : %d\n", st_cmd->toclose);
+		close(st_cmd->toclose);
+	}
 	if (is_builtin(st_cmd->bin_args[0], 1) != -1)
 		execve_builtin(is_builtin(st_cmd->bin_args[0], 1), st_cmd->bin_args);
-	else
-	{
-		if (execve(st_cmd->bin_path, st_cmd->bin_args, st_cmd->env) == -1)
-			cmd_not_found(st_cmd);
-	}
+	else if (!st_cmd->bin_args || !st_cmd->bin_path)
+		cmd_not_found(st_cmd);
+	else if (execve(st_cmd->bin_path, st_cmd->bin_args, st_cmd->env) == -1)
+		cmd_not_found(st_cmd);
 }
+
 
 void	fill_data_bin(t_storage_cmd *st_cmd, t_cmd *cmd)
 {
@@ -111,7 +114,13 @@ void	fill_data_bin(t_storage_cmd *st_cmd, t_cmd *cmd)
 	arg = translator(cmd->arg, trans_token);
 	st_cmd->ok = 1;
 	st_cmd->fd_in = cmd->infile; /* if -2 : no infile */
+	// printf("cmd fd_in = %d\n", st_cmd->fd_in);
 	st_cmd->fd_out = cmd->outfile; /* if -2 : no outfile */
+	// printf("cmd fd_out = %d\n", st_cmd->fd_out);
+	if (cmd->pfd[1])
+		st_cmd->toclose = cmd->pfd[1];
+	else
+		st_cmd->toclose = 0;
 	st_cmd->bin_args = arg;
 	if (arg)
 		st_cmd->bin_path = get_bin_path(arg[0], get_path(st_cmd->env));
@@ -179,10 +188,6 @@ static void	fill_bin(t_list	*list, t_storage_cmd *st_cmd)
 	st_cmd->pos = 0;
 	st_cmd->pid = malloc(sizeof(int) * st_cmd->nb_cmd);
 	cmd = (t_cmd *)list->content; 
-	if (cmd->pfd[1])
-		st_cmd->toclose = cmd->pfd[1];
-	else
-		st_cmd->toclose = 0;
 	signal(SIGQUIT, &sig_handler);
 	mini_gc(list, NULL);
 	while (lst)
@@ -201,6 +206,12 @@ static void	fill_bin(t_list	*list, t_storage_cmd *st_cmd)
 			}
 		}
 		loop_job(st_cmd);
+		if (st_cmd->fd_in > 2)
+			close(st_cmd->fd_in);
+		if (st_cmd->fd_out > 2)
+			close(st_cmd->fd_out);
+		if (st_cmd->toclose > 2)
+			close(st_cmd->toclose);
 		close(st_cmd->pfd[1]);
 		st_cmd->pos++;
 		lst = lst->next;
@@ -211,7 +222,7 @@ static void	fill_bin(t_list	*list, t_storage_cmd *st_cmd)
 	if (st_cmd->fd_tmp)
 		close(st_cmd->fd_tmp);
 	if (st_cmd->toclose)
-			close(st_cmd->toclose);
+		close(st_cmd->toclose);
 	int i = 0;
 	while (i < st_cmd->pos)
 	{
