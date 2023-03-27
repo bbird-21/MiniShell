@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+         #
+#    By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/17 17:30:47 by mmeguedm          #+#    #+#              #
-#    Updated: 2023/03/20 17:44:43 by ale-sain         ###   ########.fr        #
+#    Updated: 2023/03/27 15:58:50 by mmeguedm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,7 +81,9 @@ SRC			=	$(addprefix $(SRC_PATH),					\
 						error.c								\
 						get_path.c							\
 						pipex.c								\
-						utils_pipex.c						\
+						utils_pipex_01.c					\
+						utils_pipex_02.c					\
+						dup.c								\
 						exec_built.c 						\
 					)										\
 					$(addprefix builtins/,					\

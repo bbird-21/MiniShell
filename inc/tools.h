@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:12:42 by mmeguedm          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/03/18 18:46:09 by alvina           ###   ########.fr       */
-=======
-/*   Updated: 2023/03/16 17:31:15 by mmeguedm         ###   ########.fr       */
->>>>>>> 5da9612 (dup in progress)
+/*   Updated: 2023/03/27 14:05:54 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,15 +95,6 @@ typedef struct s_storage_cmd
 	char					*bin_path;
 	char					**env;
 	int						nb_cmd;
-<<<<<<< HEAD
-=======
-	int						pfd[2];
-	int						fd_in;
-	int						fd[2];
-	int						infile;
-	int						outfile;
-	pid_t					*pid;
->>>>>>> 5da9612 (dup in progress)
 	int						pos;
 	int						pfd[2];
 	int						fd_tmp;

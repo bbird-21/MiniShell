@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 16:04:12 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/24 11:16:22 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/27 16:01:19 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,10 @@ void	sig_handler(int signum);
 void	mini_gc(t_list *cmd, t_storage_cmd *st);
 void	clean_data(t_storage_cmd *cmd);
 void	empty_data(t_storage_cmd *cmd);
+
+/*	Required by <dup.>  */
+void	dup_and_exe(t_storage_cmd *st_cmd);
+void	dupping(t_storage_cmd *st_cmd);
+void	protecting(t_storage_cmd *st_cmd);
 
 #endif

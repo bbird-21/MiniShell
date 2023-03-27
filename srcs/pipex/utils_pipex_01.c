@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_pipex.c                                      :+:      :+:    :+:   */
+/*   utils_pipex_01.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 02:38:56 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/24 11:35:09 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/27 15:58:59 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,6 @@ char	*ft_strjoin_path(char *line, char *buffer)
 	return (p);
 }
 
-// void	close_fds(t_storage_cmd *st_cmd)
-// {
-// 	if (st_cmd->fd[0] != -1)
-// 		close(st_cmd->fd[0]);
-// 	if (st_cmd->fd[1] != -1)
-// 		close(st_cmd->fd[1]);
-// 	if (st_cmd->pfd[0] != -1)
-// 		close(st_cmd->pfd[0]);
-// 	if (st_cmd->pfd[1] != -1)
-// 		close(st_cmd->pfd[1]);
-// }
-
 void	cmd_not_found(t_storage_cmd *node)
 {
 	ft_putstr_fd("command not found: ", STDERR_FILENO);
@@ -77,3 +65,4 @@ void	cmd_not_found(t_storage_cmd *node)
 	handler(CLEANING, NULL, NULL);
 	exit(127);
 }
+

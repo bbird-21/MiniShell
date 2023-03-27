@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   opening.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:21:25 by alvina            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/03/24 12:38:43 by alvina           ###   ########.fr       */
-=======
-/*   Updated: 2023/03/16 17:10:58 by mmeguedm         ###   ########.fr       */
->>>>>>> 5da9612 (dup in progress)
+/*   Updated: 2023/03/27 14:07:15 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +46,8 @@ static int outfiling(t_cmd *cmd, t_token *token)
 	{
 		cmd->outfile = -1;
 		return (perror(token->value), 0);
-<<<<<<< HEAD
-	cmd->outfile = fd;
-=======
 	}
->>>>>>> 5da9612 (dup in progress)
+	cmd->outfile = fd;
 	return (1);
 }
 
@@ -105,10 +98,7 @@ void    opening(t_list **cmd)
 		}
 		lst = lst->next;
 	}
-<<<<<<< HEAD
 	// print_files(*cmd);
 	// ft_lstclear(cmd, cmd_cleaner);
-=======
->>>>>>> 5da9612 (dup in progress)
 	return (pipex(cmd));
 }

@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:47:51 by mmeguedm          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/03/24 15:44:00 by alvina           ###   ########.fr       */
-=======
-/*   Updated: 2023/03/16 17:42:24 by mmeguedm         ###   ########.fr       */
->>>>>>> 5da9612 (dup in progress)
+/*   Updated: 2023/03/27 19:06:14 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,117 +31,6 @@ static int counter(t_list *cmd)
     return (i);
 }
 
-void	loop_job(t_storage_cmd *st_cmd)
-{
-<<<<<<< HEAD
-	if (pipe(st_cmd->pfd) == -1)
-		free_exit("pipe");
-	st_cmd->pid[st_cmd->pos] = fork();
-	if (st_cmd->pid[st_cmd->pos] == -1)
-		free_exit("fork");
-	else if (st_cmd->pid[st_cmd->pos] == 0)
-	{
-		ft_state(2);
-		dup_and_exe(st_cmd);
-	}
-	else
-	{
-		ft_state(1);
-		if (st_cmd->pos != st_cmd->nb_cmd - 1)
-			st_cmd->fd_tmp = st_cmd->pfd[0];
-	}
-}
-
-void	dupping(t_storage_cmd *st_cmd)
-{
-	if (st_cmd->fd_in >= 0)
-	{
-		dup2(st_cmd->fd_in, STDIN_FILENO);
-		if (st_cmd->fd_in > 2)
-			close(st_cmd->fd_in);
-	}
-	else if (st_cmd->fd_tmp)
-		dup2(st_cmd->fd_tmp, STDIN_FILENO);
-	if (st_cmd->fd_out >= 0)
-	{
-		dup2(st_cmd->fd_out, STDOUT_FILENO);
-		if (st_cmd->fd_out > 2)
-			close(st_cmd->fd_out);
-	}
-	else if (st_cmd->pos != st_cmd->nb_cmd - 1)
-		dup2(st_cmd->pfd[1], STDOUT_FILENO);
-}
-
-void	protecting(t_storage_cmd *st_cmd)
-{
-	if (st_cmd->ok == 0 || st_cmd->fd_in == -1) /* if not any command or fdin or fdout invalid*/
-	{
-		close(st_cmd->pfd[0]);
-		close(st_cmd->pfd[1]);
-		if (st_cmd->toclose)
-			close(st_cmd->toclose);
-		mini_gc(NULL, NULL);
-		handler(CLEANING, NULL, NULL);
-		if (st_cmd->fd_in == -1)
-			exit(1);
-		exit(0);
-	}
-}
-
-void	dup_and_exe(t_storage_cmd *st_cmd)
-{
-	// printf("path : %s\n", st_cmd->bin_path);
-	protecting(st_cmd);
-	dupping(st_cmd);
-	close(st_cmd->pfd[0]);
-	close(st_cmd->pfd[1]);
-	if (st_cmd->toclose)
-	{
-		// printf("to close : %d\n", st_cmd->toclose);
-		close(st_cmd->toclose);
-	}
-	if (is_builtin(st_cmd->bin_args[0], 1) != -1)
-		execve_builtin(is_builtin(st_cmd->bin_args[0], 1), st_cmd->bin_args);
-	else if (!st_cmd->bin_args || !st_cmd->bin_path)
-		cmd_not_found(st_cmd);
-	else if (execve(st_cmd->bin_path, st_cmd->bin_args, st_cmd->env) == -1)
-		cmd_not_found(st_cmd);
-=======
-	if (!st_cmd->bin_path || !cmd_args)
-		cmd_not_found(st_cmd);
-	if (st_cmd->infile >= 0)
-        dup2(st_cmd->infile, STDIN_FILENO);
-	else
-		dup2(st_cmd->pfd[0], STDIN_FILENO);
-	if (st_cmd->outfile >= 0)
-		dup2(st_cmd->outfile, STDOUT_FILENO);
-	close(st_cmd->pfd[0]);
-	close(st_cmd->pfd[1]);
-	execve(st_cmd->bin_path, cmd_args, st_cmd->env);
-	printf("error\n");
-	return (free_exit(st_cmd->bin));
-	// if (st_cmd->pos == 1)
-	// {
-	// 	if (st_cmd->fd[0] == -1)
-	// 	{
-	// 		dup2(st_cmd->pfd[1], STDOUT_FILENO);
-	// 		return (free_exit("dup"));
-		// }
-		// else if (!ft_strcmp(data->args.argv[1], "here_doc"))
-		// 	dup2(st_cmd->fd[0], STDIN_FILENO);
-	// }
-	// else
-	// 	dup2(st_cmd->fd_in, STDIN_FILENO);
-	// if (st_cmd->pos != st_cmd->nb_cmd)
-	// else
-	// {
-	// 	if (dup2(st_cmd->fd[1], STDOUT_FILENO) == -1)
-	// 		return (free_exit("dup"));
-	// }
-	// printf("test\n");
-	// close_fds(st_cmd);
->>>>>>> 5da9612 (dup in progress)
-}
 
 
 void	fill_data_bin(t_storage_cmd *st_cmd, t_cmd *cmd)
@@ -173,65 +58,28 @@ void	fill_data_bin(t_storage_cmd *st_cmd, t_cmd *cmd)
 	}
 }
 
-void	ft_out(int *status)
-{
-	if (WIFEXITED(*status))
-		g_exit_status = WEXITSTATUS(*status);
-}
 
-void	empty_data(t_storage_cmd *cmd)
+void	loop_job(t_storage_cmd *st_cmd)
 {
-	if (cmd->bin_args)
-		free_tab(cmd->bin_args, -1);
-	if (cmd->bin_path)
-		free(cmd->bin_path);
-}
-
-void	clean_data(t_storage_cmd *cmd)
-{
-	if (cmd->env)
-		free_tab(cmd->env, -1);
-	if (cmd->pid)
-		free(cmd->pid);
-}
-
-void	mini_gc(t_list *cmd, t_storage_cmd *st)
-{
-	static t_list *c;
-	static t_storage_cmd *s;
-
-	if (!cmd && !st)
+	if (pipe(st_cmd->pfd) == -1)
+		free_exit("pipe");
+	st_cmd->pid[st_cmd->pos] = fork();
+	if (st_cmd->pid[st_cmd->pos] == -1)
+		free_exit("fork");
+	else if (st_cmd->pid[st_cmd->pos] == 0)
 	{
-		if (c)
-		{
-			ft_lstclear(&c, cmd_cleaner);
-			c = NULL;
-		}
-		if (s)
-		{
-			empty_data(s);
-			clean_data(s);
-			s = NULL;
-		}
-		return ;
+		ft_state(2);
+		dup_and_exe(st_cmd);
 	}
-	if (cmd)
-		c = cmd;
-	if (st)
-		s = st;
-}
-
-static int	get_nb_cmd(t_list *list)
-{
-	int	nb;
-
-	nb = 0;
-	while (list)
+	else
 	{
-		nb++;
-		list = list->next;
+		ft_state(1);
+		close(st_cmd->pfd[1]);
+		if (st_cmd->pos != 0)
+			close(st_cmd->fd_tmp);
+		if (st_cmd->pos != st_cmd->nb_cmd - 1)
+			st_cmd->fd_tmp = st_cmd->pfd[0];
 	}
-	return (nb);
 }
 
 static void	fill_bin(t_list	*list, t_storage_cmd *st_cmd)
@@ -239,8 +87,9 @@ static void	fill_bin(t_list	*list, t_storage_cmd *st_cmd)
 	t_cmd			*cmd;
 	int				status;
 	t_list			*lst;
-
-<<<<<<< HEAD
+	int 			i;
+	
+	i = -1;
 	lst = list;
 	st_cmd->nb_cmd = counter(list);
 	st_cmd->fd_tmp = 0;
@@ -271,41 +120,22 @@ static void	fill_bin(t_list	*list, t_storage_cmd *st_cmd)
 			close(st_cmd->fd_out);
 		if (st_cmd->toclose > 2)
 			close(st_cmd->toclose);
-		close(st_cmd->pfd[1]);
 		st_cmd->pos++;
+		printf("st_cmd->pos : %d\n", st_cmd->pos);
 		lst = lst->next;
 		empty_data(st_cmd);
 	}
 	ft_lstclear(&list, cmd_cleaner);
 	close(st_cmd->pfd[0]);
+	close(st_cmd->pfd[1]);
 	if (st_cmd->fd_tmp)
 		close(st_cmd->fd_tmp);
 	if (st_cmd->toclose)
 		close(st_cmd->toclose);
-	int i = 0;
-	while (i < st_cmd->pos)
+	while (++i < st_cmd->pos)
 	{
-		// printf("st_cmd[%d] : %d\n", i, st_cmd->pid[i]);
+		printf("pid : %d\n", st_cmd->pid[i]);
 		waitpid(st_cmd->pid[i], &status, 0);
-=======
-	i = 0;
-	st_cmd->nb_cmd = get_nb_cmd(list);
-	st_cmd->pid = malloc(sizeof(pid_t) * st_cmd->nb_cmd);
-	cmd = (t_cmd *)(list->content);
-	while (list)
-	{
-		cmd = (t_cmd *)(list->content);
-		cmd_list = cmd->arg;
-		token = (t_token *)(cmd_list->content);
-		cmd_arg = translator(cmd->arg, trans_token);
-		st_cmd->infile = cmd->infile;
-		st_cmd->outfile = cmd->outfile;
-		fill_data_bin(st_cmd, token->value);
-		loop_job(st_cmd, i, cmd_arg);
-		printf("content->infile : %d\n", cmd->infile);
-		printf("i : %d\n", i);
->>>>>>> 5da9612 (dup in progress)
-		i++;
 	}
 	clean_data(st_cmd);
 	ft_out(&status);

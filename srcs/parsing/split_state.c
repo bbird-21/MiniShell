@@ -6,11 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 22:02:38 by mmeguedm          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/03/24 18:38:24 by alvina           ###   ########.fr       */
-=======
-/*   Updated: 2023/03/16 17:08:25 by mmeguedm         ###   ########.fr       */
->>>>>>> 5da9612 (dup in progress)
+/*   Updated: 2023/03/27 14:06:31 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,9 +137,6 @@ void	split_state(t_list	**l)
 	// print_lst(new_list, print_token);
 	ft_lstclear(&subdivide_token, token_cleaner);
 	ft_lstclear(l, token_cleaner);
-<<<<<<< HEAD
 	// print_lst(new_list, print_token);
-=======
->>>>>>> 5da9612 (dup in progress)
 	return (cmd_generator(&new_list));
 }
