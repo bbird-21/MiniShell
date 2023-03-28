@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:24:06 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/15 14:55:38 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/28 15:57:36 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ char	*ft_getenv(char *name)
 	t_env	*data;
 
 	envp = handler(5, NULL, NULL);
-	data = (t_env *)envp->content;
 	if (!name || !envp)
 		return (NULL);
+	data = (t_env *)envp->content;
 	while (envp && !ft_strcmp(data->key, name))
 	{
 		envp = envp->next;
@@ -28,7 +28,10 @@ char	*ft_getenv(char *name)
 			data = (t_env *)envp->content;
 	}
 	if (!envp || ft_strlen(name) != ft_strlen(data->key))
+	{
+		ft_lstclear(&envp, env_cleaner);
 		return (NULL);
+	}
 	return (ft_strdup(data->value));
 }
 
@@ -51,7 +54,7 @@ char	*ft_key(char *str)
 	while (str[i] != '=' && str[i])
 	{
 		if (str[i] == '+' && str[i + 1] == '=')
-			break;
+			break ;
 		new[i] = str[i];
 		i++;
 	}
@@ -92,8 +95,8 @@ static void	modifying(t_list **envp, char **env, char *arg)
 	t_list	*curr;
 	t_env	*data;
 	char	*key;
-	(void)env;
 
+	(void)env;
 	if (!(*envp) || !arg)
 		return ;
 	curr = *envp;
@@ -108,43 +111,22 @@ static void	modifying(t_list **envp, char **env, char *arg)
 			data = (t_env *)(curr->content);
 	}
 	if (!curr || ft_strlen(data->key) != ft_strlen(key))
-	{
-		free(key);
-		return ;
-	}
+		return (free(key));
 	free(key);
 	free(data->value);
 	data->value = ft_value(arg);
 }
 
-static void	appending(t_list **envp, char **env, char *arg)
+char	*joining_value(t_env *data, char *value)
 {
-	t_list	*curr;
-	t_env	*data;
-	char	*new;
-	char	*key;
-	char	*value;
 	int		i;
 	int		j;
-	(void)env;
+	char	*new;
 
 	i = 0;
 	j = 0;
-	curr = *envp;
-	data = (t_env *)curr->content;
-	key = ft_key(arg);
-	value = ft_value(arg);
-	if (!arg || !curr)
-		return ;
-	while (curr && ft_strncmp(data->key, key, ft_strlen(key)))
-	{
-		curr = curr->next;
-		if (curr)
-			data = (t_env *)curr->content;
-	}
-	if (!curr || (ft_strlen(data->key) != ft_strlen(key)))
-		return ;
-	new = malloc(sizeof(char *) * ft_strlen(data->value) + ft_strlen(value) + 1);
+	new = malloc(sizeof(char *) * ft_strlen(data->value) + ft_strlen(value)
+			+ 1);
 	if (data->value)
 	{
 		while (data->value[i])
@@ -159,16 +141,39 @@ static void	appending(t_list **envp, char **env, char *arg)
 			new[i++] = value[j++];
 	}
 	new[i] = '\0';
-	free(key);
-	free(value);
 	free(data->value);
-	data->value = new;
+	free(value);
+	return (new);
+}
+
+static void	appending(t_list **envp, char **env, char *arg)
+{
+	t_list	*curr;
+	t_env	*data;
+	char	*key;
+
+	(void)env;
+	curr = *envp;
+	data = (t_env *)curr->content;
+	key = ft_key(arg);
+	if (!arg || !curr)
+		return ;
+	while (curr && ft_strncmp(data->key, key, ft_strlen(key)))
+	{
+		curr = curr->next;
+		if (curr)
+			data = (t_env *)curr->content;
+	}
+	if (!curr || (ft_strlen(data->key) != ft_strlen(key)))
+		return ;
+	free(key);
+	data->value = joining_value(data, ft_value(arg));
 }
 
 static t_env	*create_env(char *str)
 {
-	t_env *data;
-	
+	t_env	*data;
+
 	data = malloc(sizeof(t_env));
 	if (!data)
 		return (NULL);
@@ -186,8 +191,8 @@ static void	adding(t_list **envp, char **env, char *arg)
 {
 	t_env	*data;
 	t_list	*e_new;
-	(void)env;
 
+	(void)env;
 	if (!arg)
 		return ;
 	data = create_env(arg);
@@ -207,10 +212,12 @@ static void	adding(t_list **envp, char **env, char *arg)
 
 static void	creating(t_list **envp, char **env, char *arg)
 {
-	(void)arg;
 	int	i;
 
+	(void)arg;
 	i = 0;
+	if (!env || !*env)
+		return ;
 	while (env[i])
 	{
 		adding(envp, env, env[i]);
@@ -223,17 +230,17 @@ static void	deleting(t_list **envp, char **env, char *arg)
 {
 	t_list	*curr;
 	t_list	*prev;
-	(void)env;
 
+	(void)env;
 	curr = (*envp);
 	prev = NULL;
-	while ((curr) && ft_strncmp(((t_env*)(curr->content))->key, arg,
-		ft_strlen(arg)))
+	while ((curr) && ft_strncmp(((t_env *)(curr->content))->key, arg,
+			ft_strlen(arg)))
 	{
 		prev = curr;
 		curr = curr->next;
 	}
-	if (!curr || ft_strlen(((t_env*)(curr->content))->key) != ft_strlen(arg))
+	if (!curr || ft_strlen(((t_env *)(curr->content))->key) != ft_strlen(arg))
 		return ;
 	if (!prev)
 	{
@@ -242,7 +249,7 @@ static void	deleting(t_list **envp, char **env, char *arg)
 	}
 	else
 		prev->next = curr->next;
-	env_cleaner((t_env*)(curr->content));
+	env_cleaner((t_env *)(curr->content));
 	free(curr);
 }
 
@@ -250,7 +257,8 @@ static void	cleaning(t_list **envp, char **env, char *arg)
 {
 	(void)env;
 	(void)arg;
-	ft_lstclear(envp, env_cleaner);
+	if (envp)
+		ft_lstclear(envp, env_cleaner);
 	*envp = 0;
 }
 
@@ -263,15 +271,14 @@ static void	getting(t_list **envp, char **env, char *arg)
 
 static pf	fct(int swtch)
 {
-	static pf	tableau[7] = {
+	static pf tableau[7] = {
 		creating,
 		deleting,
 		adding,
 		modifying,
 		cleaning,
 		getting,
-		appending
-	};
+		appending};
 	return (tableau[swtch]);
 }
 
@@ -284,4 +291,3 @@ t_list	*handler(int swtch, char **env, char *arg)
 	hand(&envp, env, arg);
 	return (envp);
 }
-

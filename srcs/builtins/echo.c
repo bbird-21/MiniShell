@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:55:39 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/15 19:11:19 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/24 11:19:32 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,57 @@ static int	slash_n(char *str)
 	return (0);
 }
 
+static void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
+}
+
+static void	ft_putnbr_fd(int n, int fd)
+{
+	long	nb;
+
+	nb = n;
+	if (nb < 0)
+	{
+		ft_putchar_fd('-', fd);
+		nb = -nb;
+	}
+	if (nb > 9)
+	{
+		ft_putnbr_fd(nb / 10, fd);
+		ft_putnbr_fd(nb % 10, fd);
+	}
+	else
+		ft_putchar_fd(nb + 48, fd);
+}
+
 static void	print_tab(char **tab)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	if (!tab)
+	j = 0;
+	if (!*tab)
 		return ;
 	while (tab[i])
 	{
-		ft_putstr_fd(tab[i], 1);
+		while (tab[i][j])
+		{
+			if (!ft_strncmp(&tab[i][j], "$?", 2))
+			{
+				ft_putnbr_fd(g_exit_status, 1);
+				j += 2;
+			}
+			else
+			{
+				write(1, &tab[i][j], 1);
+				j++;
+			}
+		}
 		if (tab[i + 1])
 			write(1, " ", 1);
+		j = 0;
 		i++;
 	}
 }
@@ -63,7 +102,8 @@ void	echo(char **arg)
 	if (!arg || !*arg)
 	{
 		write(1, "\n", 1);
-		return ;
+		mini_gc(NULL, NULL);
+		exit(0);
 	}
 	while (arg[i])
 	{
@@ -75,13 +115,18 @@ void	echo(char **arg)
 		n = NO_ENDL;
 		i++;
 	}
-	if (n == NO_ENDL && to_print != 0)
-		print_tab(&arg[to_print]);
+	if (n == NO_ENDL)
+	{
+		if (to_print)
+			print_tab(&arg[to_print]);
+	}
 	else
 	{
 		if (arg)
 			print_tab(arg);
 		write(1, "\n", 1);
 	}
-	g_exit_status = 0;
+	mini_gc(NULL, NULL);
+	handler(CLEANING, NULL, NULL);
+	exit(0);
 }

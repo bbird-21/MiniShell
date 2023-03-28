@@ -6,7 +6,7 @@
 #    By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/17 17:30:47 by mmeguedm          #+#    #+#              #
-#    Updated: 2023/03/15 19:08:10 by ale-sain         ###   ########.fr        #
+#    Updated: 2023/03/28 16:08:33 by ale-sain         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,11 @@ INC			= $(addprefix $(INC_PATH),		\
 					utils.h					\
 					lst.h					\
 					builtins.h				\
+					clean.h					\
+					exec.h					\
+					expansion.h				\
+					here_doc.h				\
+					parsing.h				\
 				)
 
 # --------- Sources files -----------------------------------------------------------
@@ -61,22 +66,28 @@ SRC			=	$(addprefix $(SRC_PATH),					\
 						trash.c								\
 						utils.c								\
 						split_state.c						\
-						get_next_line.c						\
 						error.c								\
 						tokjoin.c							\
 						lst.c								\
 						expansion.c							\
-						here_doc.c							\
-						singleton.c							\
 						split.c								\
-						opening.c							\
 					)										\
 					$(addprefix exec/,						\
-						mini_pipex.c						\
+						here_doc.c							\
+						opening.c							\
+					)										\
+					$(addprefix pipex/,						\
+						error.c								\
+						get_path.c							\
+						pipex.c								\
+						utils_pipex_01.c					\
+						clean_close.c					\
+						exec.c								\
+						exec_built.c 						\
 					)										\
 					$(addprefix builtins/,					\
-						cd.c								\
-						echo.c								\
+						cd.c 								\
+						echo.c 								\
 						env.c 								\
 						exit.c 								\
 						export.c 							\

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:32:27 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/09 11:38:19 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/28 15:59:23 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,18 @@ void	add_node_back_token(t_list **l, char *str, int *index, int type)
 
 void	print_token(void *content)
 {
-	t_token *data;
+	t_token	*data;
 
 	data = (t_token *)content;
-	printf("%s ", data->value);
-	printf("%d \n", data->type);
+	if (data->value)
+		printf("value = %s \n", data->value);
+	if (data->type)
+		printf("%d \n", data->type);
 }
 
 void	print_env(void *content)
 {
-	t_env *data;
+	t_env	*data;
 
 	data = (t_env *)content;
 	printf("%s=", data->key);
@@ -48,13 +50,13 @@ void	print_env(void *content)
 
 void	print_cmd(void *content)
 {
-	t_cmd *data;
-	
+	t_cmd	*data;
+
 	data = (t_cmd *)content;
 	printf("\n---COMMANDE---\n");
 	printf("\nARG : ");
 	print_lst(data->arg, print_token);
-	printf("\nRED : ");
+	printf("\nRED :");
 	print_lst(data->red, print_token);
 }
 
@@ -67,12 +69,11 @@ void	print_lst(t_list *lst, void (*print)(void *))
 		print(lst->content);
 		lst = lst->next;
 	}
-	printf("\n");
 }
 
 char	*trans_env(void *content)
 {
-	t_env *data;
+	t_env	*data;
 	char	*tmp;
 	char	*new;
 
@@ -99,12 +100,14 @@ char	*trans_token(void *content)
 				char **tab = translator(handler(5, NULL, NULL), trans_env); */
 char	**translator(t_list *lst, char *(translate)(void *))
 {
-	t_list *head;
+	t_list	*head;
 	int		i;
 	char	**tab;
 
 	i = 0;
 	head = lst;
+	if (!lst)
+		return (NULL);
 	while (lst)
 	{
 		lst = lst->next;

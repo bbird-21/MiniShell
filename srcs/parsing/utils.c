@@ -6,7 +6,7 @@
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:29:15 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/09 11:01:42 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/24 18:07:39 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,12 +195,6 @@ int	ft_isalnum(int c)
 		|| (c >= '0' && c <= '9'));
 }
 
-int	ft_issign(int c)
-{
-	return ((c == '+') || (c == '-') || (c == '^'));
-}
-
-
 char	*ft_strjoin(char *line, char *buffer)
 {
 	char	*p;
@@ -209,22 +203,33 @@ char	*ft_strjoin(char *line, char *buffer)
 
 	j = 0;
 	i = 0;
-	p = malloc(sizeof(char) * (ft_strlen((char *)line)
-				+ ft_strlen((char *)buffer)) + 1);
+	p = malloc(sizeof(char) * (ft_strlen(line)
+				+ ft_strlen(buffer)) + 1);
 	if (!p)
 		return (NULL);
+	// printf("s1 = %d, s2 = %d \n", ft_strlen(line), ft_strlen(buffer));
 	if (line != NULL)
 	{
-		while (line[i] != 0)
+		if (line[i])
 		{
-			p[i] = line[i];
-			i++;
+			while (line[i] != 0)
+			{
+				p[i] = line[i];
+				i++;
+			}
 		}
 	}
-	while (buffer[j])
-		p[i++] = buffer[j++];
+	if (buffer)
+	{
+		while (buffer[j])
+		{
+			p[i] = buffer[j];
+			i++;
+			j++;
+		}
+	}
 	p[i] = '\0';
-	if (line != NULL)
+	if (line)
 		free(line);
 	return (p);
 }
@@ -236,7 +241,7 @@ bool	ft_strcmp(const char *s1, const char *s2)
 	if (!s1 || !s2)
 		return (false);
 	i = 0;
-	while (s1[i] == s2[i] && (s1[i] || s2[i]))
+	while ((s1[i] || s2[i]) && s1[i] == s2[i])
 		i++;
 	if (s1[i] == s2[i])
 		return (true);

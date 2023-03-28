@@ -6,67 +6,81 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 17:32:12 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/15 14:04:01 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/28 15:54:36 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <signal.h>
 
 void	nul_character(char *limiter)
 {
-	ft_putstr_fd("\nwarning: here-document ", STDOUT_FILENO);
+	ft_putstr_fd("warning: here-document ", STDOUT_FILENO);
 	ft_putstr_fd("delimited by end-of-file (wanted ", STDOUT_FILENO);
 	ft_putstr_fd(limiter, STDOUT_FILENO);
 	ft_putstr_fd(")\n", STDOUT_FILENO);
 }
 
-static void do_here_doc(t_list **lst, char *limiter)
+void	sigint(int signum)
+{
+		g_exit_status = -1;
+}
+
+static int do_here_doc(t_list **lst, char *limiter)
 {
 	char	*line;
 
 	line = NULL;
 	while (!ft_strcmp(line, limiter))
 	{
-		ft_putstr_fd("heredoc> ", STDOUT_FILENO);
+		signal(SIGINT, &sigint); // a modifier
+		if (g_exit_status == -1)
+		{
+			g_exit_status = 130;
+			ft_lstclear(lst, cmd_cleaner);
+			return(0);
+		}
 		free(line);
-		line = get_next_line(STDIN_FILENO);
+		line = readline("heredoc> ");
 		if (!line)
-			return (ft_lstclear(lst, token_cleaner) ,free_exit(NULL));
-		if (!*line)
 		{
 			nul_character(limiter);
 			break ;
 		}
 		if (ft_strcmp(line, limiter))
+		{
+			free(line);
 			break ;
+		}
 		ft_putstr_fd(line, ((t_cmd *)((*lst)->content))->pfd[1]);
 		if (!ft_strcmp(line, "\n"))
 			ft_putstr_fd("\n", ((t_cmd *)((*lst)->content))->pfd[1]);
 	}
-	free(line);
+	return (1);
 }
 
-void	read_pipe(t_list *list)
-{
-	t_cmd	*cmd;
-	char	msg[11];
-	
-	printf("READ_PIPE\n");
-	while (list)
-	{
-		printf("test\n");
-		cmd = (t_cmd *)(list->content);
-		while (cmd->red)
-		{
-			close(cmd->pfd[1]);
-			read(cmd->pfd[0], msg, 11);
-			printf("pipe : %d\n", cmd->pfd[0]);
-			printf("msg : %s\n", msg);
-			cmd->red = cmd->red->next;
-		}
-		list = list->next;
-	}
-}
+// void	read_pipe(t_list *list)
+// {
+// 	t_cmd	*cmd;
+// 	char	msg[120];
+// 	int		readed;
+
+// 	printf("READ_PIPE\n");
+// 	while (list)
+// 	{
+// 		printf("test\n");
+// 		cmd = (t_cmd *)(list->content);
+// 		while (cmd->red)
+// 		{
+// 			close(cmd->pfd[1]);
+// 			readed = read(cmd->pfd[0], msg, 11);
+// 			msg[readed] = 0;
+// 			printf("msg : %s\n", msg);
+// 			cmd->red = cmd->red->next;
+// 		}
+// 		list = list->next;
+// 	}
+// }
 
 void	here_doc(t_list **list) 
 {
@@ -82,11 +96,15 @@ void	here_doc(t_list **list)
 		red = cmd->red;
 		while (red)
 		{
-			if (pipe(cmd->pfd) == -1)
-				free_exit("pipe");
+			// printf("pipe : %d\n", cmd->pfd[1]);
 			token = (t_token *)(red->content);
 			if (token && token->type == DRIN)
-				do_here_doc(list, token->value);
+			{
+				if (pipe(cmd->pfd) == -1)
+					free_exit("pipe");
+				if (!do_here_doc(&tmp, token->value))
+					return ;
+			}
 			red = red->next;
 		}
 		tmp = tmp->next;

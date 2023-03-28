@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:12:42 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/15 18:53:50 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/27 14:05:54 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # define EXPAND 36
 
+# include <aio.h>
 typedef enum e_env_setting{
 	CREATING,
 	DELETING,
@@ -43,38 +44,30 @@ typedef enum e_type
 
 typedef struct s_token
 {
-	char			*value;
-	int				type;
-	struct s_token	*next;
-	struct s_token	*prev;
+	char	*value;
+	int		type;
 }					t_token;
 
+// typedef struct s_args
+// {
+// 	int		argc;
+// 	char	**argv;
+// 	char	**env;
+// }			t_args;
 
 typedef	struct	s_env
 {
 	char			*key;
 	char			*value;
-	struct s_env	*next;
-	struct s_env	*prev;
 }					t_env;
-
-typedef struct s_dblist
-{
-	t_token			*first;
-	t_token			*last;
-	t_env			*first_env;
-	t_env			*prev_env;
-}					t_dblist;
 
 typedef struct s_list
 {
 	void			*content;
-	int				a;
 	struct s_list	*next;
 }					t_list;
 
 typedef void (*pf)(t_list **, char **, char *);
-
 typedef void (*ptr_fun)(char **);
 
 typedef struct s_cmd
@@ -86,23 +79,47 @@ typedef struct s_cmd
 	int			outfile;
 }				t_cmd;
 
-typedef struct s_gc
-{
-	void			*addr;
-	struct	s_gc	*next;
-}					t_gc;
-
-typedef struct s_llptr
-{
-	t_token			*token;
-	t_cmd			*cmd;
-}					t_llptr;
-
 typedef enum e_state
 {
 	NONE,
 	SP_QUOTES,
 	DB_QUOTES
 }	t_state;
+
+/*	Required by Pipex to create the new double linked list
+	that contains all data about binaries.
+ */
+typedef struct s_storage_cmd
+{
+	char					**bin_args;
+	char					*bin_path;
+	char					**env;
+	int						nb_cmd;
+	int						pos;
+	int						pfd[2];
+	int						fd_tmp;
+	int						fd_in;
+	int						fd_out;
+	int						ok;
+	int						toclose;
+	pid_t					*pid;
+}							t_storage_cmd;
+
+typedef struct s_dblist
+{
+	t_storage_cmd	*first;
+	t_storage_cmd	*last;
+}					t_dblist;
+
+// typedef struct s_data
+// {
+// 	int				pfd[2];
+// 	int				fd_in;
+// 	int				fd[2];
+// 	pid_t			*pid;
+// 	t_dblist		dblist;
+// 	t_args			args;
+// }					t_data;
+/*	End of Pipex prerequisites  */
 
 #endif

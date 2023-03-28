@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:21:25 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/15 15:15:55 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/28 10:50:13 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,58 +15,60 @@
 static int	infiling(t_cmd *cmd, t_token *token)
 {
 	int	fd;
+	int	old_fd;
 
+	old_fd = cmd->infile;
 	if (token->type == DRIN)
-	{
-		close(cmd->pfd[1]);
 		cmd->infile = cmd->pfd[0];
-	}
 	else
 	{
 		fd = open(token->value, O_RDONLY);
 		if (fd == 0 || fd == -1)
 		{
-			ft_putstr_fd(token->value, 2);
-			perror(" ");
-			return (0);
+			if (cmd->outfile > 2)
+				close(cmd->outfile);
+			if (old_fd > 2)
+				close(old_fd);
+			return (perror(token->value), 0);
 		}
 		cmd->infile = fd;
 	}
-	printf("in : %d\n", cmd->infile);
+	if (old_fd > 2)
+		close(old_fd);
 	return (1);
 }
 
 static int outfiling(t_cmd *cmd, t_token *token)
 {
 	int	fd;
+	int	old_fd;
 
+	old_fd = cmd->outfile;
 	if (token->type == ROUT)
 		fd = open(token->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else
 		fd = open(token->value, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (old_fd > 2)
+		close(old_fd);
 	if (fd == -1)
 	{
-		ft_putstr_fd(token->value, 2);
-		perror(" ");
-		return (0);
+		if (cmd->infile > 2)
+			close(cmd->infile);
+		return (perror(token->value), 0);
 	}
 	cmd->outfile = fd;
-	printf("out : %d\n", cmd->outfile);
 	return (1);
 }
 
-static void	print_files(t_list *cmd)
-{
-	t_list *tmp;
-
-	tmp = cmd;
-	while (tmp)
-	{
-		printf("\n-------------------\n");
-		printf("infile : %d, outfile : %d\n", ((t_cmd *)(tmp->content))->infile, ((t_cmd *)(tmp->content))->outfile);
-		tmp = tmp->next;
-	}
-}
+// static void	print_files(t_list *cmd)
+// {
+// 	while (cmd)
+// 	{
+// 		printf("\n-------------------\n");
+// 		printf("infile : %d, outfile : %d\n", ((t_cmd *)(cmd->content))->infile, ((t_cmd *)(cmd->content))->outfile);
+// 		cmd = cmd->next;
+// 	}
+// }
 
 void    opening(t_list **cmd)
 {
@@ -87,28 +89,25 @@ void    opening(t_list **cmd)
 			{
 				if (!infiling(content, data))
 				{
-					/* CHANGE*/
 					content->infile = -1;
 					content->outfile = -1;
 					break;
-					/* CHANGE*/
 				}
 			}
 			else
 			{
 				if (!outfiling(content, data))
 				{
-					/* CHANGE*/
 					content->infile = -1;
 					content->outfile = -1;
 					break;
-					/* CHANGE*/
 				}
 			}
 			red = red->next;
 		}
 		lst = lst->next;
 	}
-	print_files(*cmd);
-	return mini_pipex(*cmd);
+	// print_files(*cmd);
+	// ft_lstclear(cmd, cmd_cleaner);
+	return (pipex(cmd));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 23:34:30 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/02/27 19:01:54 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/03/24 18:48:44 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static void	extra_init(int *index, int *nbchar, int *i)
 	*nbchar = 0;
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char *s, char c)
 {
 	char	**split;
 	int		i;
@@ -85,6 +85,13 @@ char	**ft_split(char const *s, char c)
 
 	if (!s)
 		return (NULL);
+	if (!s[0])
+	{
+		split = malloc(sizeof(char *) * 1);
+		split[0] = malloc(1);
+		split[0][0] = 0;
+		return (split);
+	}
 	extra_init(&index, &nbchar, &i);
 	split = (char **)malloc(sizeof(char *) * (nb_words(s, c) + 1));
 	if (!split)

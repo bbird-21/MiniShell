@@ -6,17 +6,16 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 09:55:05 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/28 20:47:59 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/28 15:59:17 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
 int	length(char *str)
 {
 	int	i;
-	int state;
+	int	state;
 
 	i = 0;
 	if (!str)
@@ -32,13 +31,13 @@ int	length(char *str)
 	return (i);
 }
 
-static int    red_str(char *str, char ***tab, int j, int (*f)(char *))
+static int	red_str(char *str, char ***tab, int j, int (*f)(char *))
 {
-    int i;
-    i = 0;
+	int	i;
 
+	i = 0;
 	(*tab)[j] = malloc(sizeof(char) * (f(str) + 1));
-    if (!(*tab)[j])
+	if (!(*tab)[j])
 	{
 		free_tab(*tab, j);
 		return (0);
@@ -52,7 +51,7 @@ static int    red_str(char *str, char ***tab, int j, int (*f)(char *))
 	return (i);
 }
 
-static int		word_str(char *str, char ***tab, int j)
+static int	word_str(char *str, char ***tab, int j)
 {
 	int	i;
 	int	len;
@@ -98,21 +97,21 @@ char	**splitting(char **tab, char *str)
 {
 	int	j;
 	int	i;
-	int state;
+	int	state;
 
 	i = 0;
 	j = 0;
 	state = changing_state((char)-1);
 	while (str[i])
 	{
-        state = changing_state(str[i]);
-        if (state == 0 && is_separator(&str[i]))
+		state = changing_state(str[i]);
+		if (state == 0 && is_separator(&str[i]))
 		{
 			if (!is_space(&str[i]))
-				i += spliter(&str[i], tab, &j, str) -1;
+				i += spliter(&str[i], tab, &j, str) - 1;
 		}
 		else if (str[i] != ' ' || state != 0)
-			i += spliter(&str[i], tab, &j, str) -1;
+			i += spliter(&str[i], tab, &j, str) - 1;
 		i++;
 	}
 	tab[j] = 0;
@@ -121,21 +120,15 @@ char	**splitting(char **tab, char *str)
 
 void	first_split(char *str)
 {
-	char	**tab;
+	char **tab;
 
-	if (!str || str[0] == 0)
+	if (!str || str[0] == 0 || count_words(str) == 0)
 	{
 		free(str);
 		handler(4, NULL, NULL);
 		return ;
 	}
-	if (count_words(str) == 0)
-	{
-		free(str);
-		handler(4, NULL, NULL);
-		return ;
-	}
-	tab = (char **) malloc(sizeof(char *) * (count_words(str) + 1));
+	tab = (char **)malloc(sizeof(char *) * (count_words(str) + 1));
 	if (!tab)
 	{
 		free(str);

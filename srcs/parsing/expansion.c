@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:28:29 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/09 10:33:13 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/28 15:59:13 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 	<State 2> remove quotes -> expand -> magic space
 */
 
-char 	*remove_quotes(char *str)
+char	*remove_quotes(char *str)
 {
 	char	*new;
 	char	state_char;
@@ -44,7 +44,7 @@ int	get_var_size(char *str)
 {
 	int	i;
 	int	vr_size;
-	
+
 	vr_size = 0;
 	i = 0;
 	while (str[i] && ft_isalnum(str[i]))
@@ -59,9 +59,10 @@ int	get_exp_size(char *token)
 {
 	int		i;
 	int		j;
-	int 	size;
+	int		size;
 	char	*sh_var;
-	
+	char	*var_env;
+
 	size = 0;
 	i = 0;
 	while (token[i])
@@ -73,13 +74,15 @@ int	get_exp_size(char *token)
 			if (!ft_isalnum(token[i]))
 			{
 				size++;
-				continue;
+				continue ;
 			}
 			sh_var = malloc(sizeof(char) * (get_var_size(&token[i]) + 2));
 			while (token[i] && ft_isalnum(token[i]))
 				sh_var[j++] = token[i++];
 			sh_var[j] = 0;
-			size += ft_strlen(ft_getenv(sh_var));
+			var_env = ft_getenv(sh_var);
+			size += ft_strlen(var_env);
+			free(var_env);
 			free(sh_var);
 			sh_var = NULL;
 		}
@@ -119,7 +122,7 @@ static char	*set_expansion(char *token, char **new)
 	int		j;
 	int		k;
 	char	*expand_var;
-	
+
 	i = 0;
 	k = 0;
 	(*new) = malloc(sizeof(char) * (get_exp_size(token) + 1));
@@ -129,12 +132,12 @@ static char	*set_expansion(char *token, char **new)
 		if (token[i] == EXPAND)
 		{
 			if (get_expand_var(token, &expand_var, &i, &j))
-				continue;
+				continue ;
 			if (!expand_var)
 			{
 				if (token[i - 1] == EXPAND)
 					(*new)[k++] = token[i - 1];
-				continue;
+				continue ;
 			}
 			while (expand_var[j])
 				(*new)[k++] = expand_var[j++];
@@ -146,13 +149,17 @@ static char	*set_expansion(char *token, char **new)
 	}
 	(*new)[k] = 0;
 	free(token);
+	i = 0;
+	// while (new[i])
+	// 	printf("%c \n", new[i++]);
+	// printf("%s \n", new[i]);
 	return (*new);
 }
 
 char	*expansion(char *token)
 {
-	char		*new;
-	
+	char	*new;
+
 	return (set_expansion(token, &new));
 }
 
@@ -164,7 +171,7 @@ char	*state_00(char *str)
 char	*state_01(char *str)
 {
 	char	*new;
-	
+
 	new = remove_quotes(str);
 	magic_space(new);
 	free(str);
@@ -197,19 +204,20 @@ void	magic_space(char *str)
 
 static t_fp_exp	handling_table(unsigned char state)
 {
-	static t_fp_exp	table[3] = {
+	static t_fp_exp table[3] = {
 		state_00,
 		state_01,
-		state_02
-	};
-	
+		state_02};
 	return (table[state]);
 }
 
-char 	*do_job(char *str)
+char	*do_job(char *str)
 {
 	t_fp_exp	fp;
-	
-	fp = handling_table(get_state(str[0]));
+
+	if (str)
+		fp = handling_table(get_state(str[0]));
+	else
+		return (NULL);
 	return (fp(str));
 }

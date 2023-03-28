@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:33:29 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/15 19:02:11 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/24 14:48:53 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,17 @@ void    ft_env(char **arg)
     t_list   *envp;
 
     (void)arg;
+    if (!check_arg(arg, 0, "env"))
+    {
+        g_exit_status = 1;
+        handler(CLEANING, NULL, NULL);
+        mini_gc(NULL, NULL);
+        exit(1);
+    }
     envp = handler(5, NULL, NULL);
-    g_exit_status = 0;
-    print_lst(envp, print_env);
+    if (envp)
+        print_lst(envp, print_env);
+    handler(CLEANING, NULL, NULL);
+    mini_gc(NULL, NULL);
+    exit(0);
 }

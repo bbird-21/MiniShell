@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 08:15:57 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/09 09:32:51 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/28 15:59:20 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_list	*ft_lstlast(t_list *lst)
 
 t_list	*ft_lstadd_back(t_list **lst, t_list *new)
 {
-	t_list	*last;
+	t_list *last;
 
 	if (*lst == NULL)
 		*lst = new;
@@ -47,5 +47,5 @@ t_list	*ft_lstadd_back(t_list **lst, t_list *new)
 			last->next = new;
 		}
 	}
-    return (*lst);
+	return (*lst);
 }
