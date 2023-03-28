@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+         #
+#    By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/17 17:30:47 by mmeguedm          #+#    #+#              #
-#    Updated: 2023/03/28 10:54:56 by ale-sain         ###   ########.fr        #
+#    Updated: 2023/03/28 20:13:14 by mmeguedm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ LIBS		= -L/usr/local/lib -I/usr/local/include -lreadline
 
 # --------- Include files path ------------------------------------------------------
 
+SIZE = 21
 INC_PATH	= inc/
 
 # --------- Sources files path ------------------------------------------------------
@@ -110,7 +111,8 @@ obj/%.o: srcs/%.c $(INC)
 
 # --------- Linking -----------------------------------------------------------------
 
-$(NAME) : $(OBJ) $(INC) Makefile
+$(NAME) : $(OBJ) $(INC)
+	echo $(SIZE)
 	@mkdir -p $(OBJ_PATH)
 	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBS)
 	@printf "\n\n"
