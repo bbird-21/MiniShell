@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pipex_01.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 02:38:56 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/27 15:58:59 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/03/28 11:11:56 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ void	cmd_not_found(t_storage_cmd *node)
 	ft_putstr_fd("command not found: ", STDERR_FILENO);
 	ft_putstr_fd(node->bin_args[0], STDERR_FILENO);
 	ft_putstr_fd("\n", STDERR_FILENO);
-	// lstfree(st_cmd);
-	// close_fds(node);
 	if (node->fd_in > 2)
 		close(node->fd_in);
+	if (node->fd_out > 2)
+		close(node->fd_out);
 	mini_gc(NULL, NULL);
 	handler(CLEANING, NULL, NULL);
 	exit(127);

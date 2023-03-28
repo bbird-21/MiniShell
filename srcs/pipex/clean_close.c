@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pipex_02.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:56:40 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/27 16:00:10 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/03/28 10:04:54 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,3 @@ void	mini_gc(t_list *cmd, t_storage_cmd *st)
 		s = st;
 }
 
-int	get_nb_cmd(t_list *list)
-{
-	int	nb;
-
-	nb = 0;
-	while (list)
-	{
-		nb++;
-		list = list->next;
-	}
-	return (nb);
-}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   opening.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:21:25 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/27 14:07:15 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/03/28 10:50:13 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,51 +15,60 @@
 static int	infiling(t_cmd *cmd, t_token *token)
 {
 	int	fd;
+	int	old_fd;
 
+	old_fd = cmd->infile;
 	if (token->type == DRIN)
-	{
-		// close(cmd->pfd[1]);
-		// cmd->pfd[1] = 0;
 		cmd->infile = cmd->pfd[0];
-	}
 	else
 	{
 		fd = open(token->value, O_RDONLY);
 		if (fd == 0 || fd == -1)
 		{
-			cmd->infile = -1;
+			if (cmd->outfile > 2)
+				close(cmd->outfile);
+			if (old_fd > 2)
+				close(old_fd);
 			return (perror(token->value), 0);
 		}
+		cmd->infile = fd;
 	}
+	if (old_fd > 2)
+		close(old_fd);
 	return (1);
 }
 
 static int outfiling(t_cmd *cmd, t_token *token)
 {
 	int	fd;
+	int	old_fd;
 
+	old_fd = cmd->outfile;
 	if (token->type == ROUT)
 		fd = open(token->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else
 		fd = open(token->value, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (old_fd > 2)
+		close(old_fd);
 	if (fd == -1)
 	{
-		cmd->outfile = -1;
+		if (cmd->infile > 2)
+			close(cmd->infile);
 		return (perror(token->value), 0);
 	}
 	cmd->outfile = fd;
 	return (1);
 }
 
-static void	print_files(t_list *cmd)
-{
-	while (cmd)
-	{
-		printf("\n-------------------\n");
-		printf("infile : %d, outfile : %d\n", ((t_cmd *)(cmd->content))->infile, ((t_cmd *)(cmd->content))->outfile);
-		cmd = cmd->next;
-	}
-}
+// static void	print_files(t_list *cmd)
+// {
+// 	while (cmd)
+// 	{
+// 		printf("\n-------------------\n");
+// 		printf("infile : %d, outfile : %d\n", ((t_cmd *)(cmd->content))->infile, ((t_cmd *)(cmd->content))->outfile);
+// 		cmd = cmd->next;
+// 	}
+// }
 
 void    opening(t_list **cmd)
 {
