@@ -6,14 +6,14 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 19:49:16 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/28 13:22:00 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/28 15:54:20 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <signal.h>
 
-int	g_exit_status;
+int		g_exit_status;
 
 void	sig_int(int state)
 {
@@ -46,7 +46,7 @@ void	sig_quit(int state)
 
 void	sig_handler(int signum)
 {
-	int state;
+	int	state;
 
 	state = ft_state(-1);
 	if (signum == 2)
@@ -57,14 +57,14 @@ void	sig_handler(int signum)
 
 int	ft_state(int state)
 {
-	static int pos;
+	static int	pos;
 
 	if (state >= 0)
 		pos = state;
 	return (pos);
 }
 
-int main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **env)
 {
 	char	*str;
 
@@ -79,7 +79,7 @@ int main(int ac, char **av, char **env)
 		ft_state(0);
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, &sig_handler);
-        str = readline("femtoshell > ");
+		str = readline("femtoshell > ");
 		if (!str)
 		{
 			ft_putstr_fd("exit\n", 2);

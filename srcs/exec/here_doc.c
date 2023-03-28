@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 17:32:12 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/24 12:43:35 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/28 15:54:36 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	sigint(int signum)
 		g_exit_status = -1;
 }
 
-static void do_here_doc(t_list **lst, char *limiter)
+static int do_here_doc(t_list **lst, char *limiter)
 {
 	char	*line;
 
@@ -38,7 +38,7 @@ static void do_here_doc(t_list **lst, char *limiter)
 		{
 			g_exit_status = 130;
 			ft_lstclear(lst, cmd_cleaner);
-			return;
+			return(0);
 		}
 		free(line);
 		line = readline("heredoc> ");
@@ -56,6 +56,7 @@ static void do_here_doc(t_list **lst, char *limiter)
 		if (!ft_strcmp(line, "\n"))
 			ft_putstr_fd("\n", ((t_cmd *)((*lst)->content))->pfd[1]);
 	}
+	return (1);
 }
 
 // void	read_pipe(t_list *list)
@@ -101,14 +102,8 @@ void	here_doc(t_list **list)
 			{
 				if (pipe(cmd->pfd) == -1)
 					free_exit("pipe");
-				do_here_doc(&tmp, token->value);
-				if (g_exit_status == -1)
-				{
-					ft_putstr_fd("\n", 1);
-					rl_on_new_line();
-					g_exit_status = 130;
+				if (!do_here_doc(&tmp, token->value))
 					return ;
-				}
 			}
 			red = red->next;
 		}

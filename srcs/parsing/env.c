@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:24:06 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/24 16:01:08 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/28 15:42:05 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,42 +112,20 @@ static void	modifying(t_list **envp, char **env, char *arg)
 			data = (t_env *)(curr->content);
 	}
 	if (!curr || ft_strlen(data->key) != ft_strlen(key))
-	{
-		free(key);
-		return ;
-	}
+		return (free(key));
 	free(key);
 	free(data->value);
 	data->value = ft_value(arg);
 }
 
-static void	appending(t_list **envp, char **env, char *arg)
+char	*joining_value(t_env *data, char *value)
 {
-	t_list	*curr;
-	t_env	*data;
-	char	*new;
-	char	*key;
-	char	*value;
 	int		i;
 	int		j;
-	(void)env;
+	char	*new;
 
 	i = 0;
 	j = 0;
-	curr = *envp;
-	data = (t_env *)curr->content;
-	key = ft_key(arg);
-	value = ft_value(arg);
-	if (!arg || !curr)
-		return ;
-	while (curr && ft_strncmp(data->key, key, ft_strlen(key)))
-	{
-		curr = curr->next;
-		if (curr)
-			data = (t_env *)curr->content;
-	}
-	if (!curr || (ft_strlen(data->key) != ft_strlen(key)))
-		return ;
 	new = malloc(sizeof(char *) * ft_strlen(data->value) + ft_strlen(value) + 1);
 	if (data->value)
 	{
@@ -163,10 +141,33 @@ static void	appending(t_list **envp, char **env, char *arg)
 			new[i++] = value[j++];
 	}
 	new[i] = '\0';
-	free(key);
-	free(value);
 	free(data->value);
-	data->value = new;
+	free(value);
+	return (new);
+}
+
+static void	appending(t_list **envp, char **env, char *arg)
+{
+	t_list	*curr;
+	t_env	*data;
+	char	*key;
+	(void)env;
+
+	curr = *envp;
+	data = (t_env *)curr->content;
+	key = ft_key(arg);
+	if (!arg || !curr)
+		return ;
+	while (curr && ft_strncmp(data->key, key, ft_strlen(key)))
+	{
+		curr = curr->next;
+		if (curr)
+			data = (t_env *)curr->content;
+	}
+	if (!curr || (ft_strlen(data->key) != ft_strlen(key)))
+		return ;
+	free(key);
+	data->value = joining_value(data, ft_value(arg));
 }
 
 static t_env	*create_env(char *str)
