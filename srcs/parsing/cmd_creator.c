@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_creator.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:51:42 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/27 14:06:14 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/03/28 13:16:42 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,6 @@ void    cmd_generator(t_list **token)
     flag = 1;
     i = -1;
     head = *token;
-    // printf("1\n");
 	while (flag)
 	{
         data = data_cmd(*token, &flag);
@@ -141,7 +140,6 @@ void    cmd_generator(t_list **token)
         i = -1;
 	}
     ft_lstclear(&head, token_cleaner);
-    // printf("CMD_GENERATOR\n");
     t_cmd *cmd = (t_cmd *)list_cmd->content;
     reverse_magic_space(&cmd->arg);
     // print_lst(list_cmd, print_cmd);
