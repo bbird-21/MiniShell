@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 16:04:12 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/27 16:01:19 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/03/28 13:11:01 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ char	**get_path(char **env);
 char	*get_bin_path(char *cmd, char **path);
 
 /*	Extra functions required for norminette  */
-void	loop_job(t_storage_cmd *st_cmd);
-void	cmd_not_found(t_storage_cmd *node);
+void	loop_job(t_storage_cmd *st_cmd, t_list *cmd);
+void	cmd_not_found(t_storage_cmd *node, t_list *cmd);
 
 
 /*	Init and launch pipex	*/
 void	pipex(t_list **cmd);
-void	dup_and_exe(t_storage_cmd *st_cmd);
+void	dup_and_exe(t_storage_cmd *st_cmd, t_list *cmd);
 void	fill_data_bin(t_storage_cmd *st_cmd, t_cmd *cmd);
 
 void	close_fds(t_storage_cmd *st_cmd);
@@ -76,8 +76,8 @@ void	clean_data(t_storage_cmd *cmd);
 void	empty_data(t_storage_cmd *cmd);
 
 /*	Required by <dup.>  */
-void	dup_and_exe(t_storage_cmd *st_cmd);
+void	dup_and_exe(t_storage_cmd *st_cmd, t_list *cmd);
 void	dupping(t_storage_cmd *st_cmd);
-void	protecting(t_storage_cmd *st_cmd);
+void	protecting(t_storage_cmd *st_cmd, t_list *cmd);
 
 #endif

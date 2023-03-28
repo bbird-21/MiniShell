@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:47:51 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/28 11:43:53 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/28 13:02:33 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static void	fill_bin(t_list	*list, t_storage_cmd *st_cmd)
 				return ;
 			}
 		}
-		loop_job(st_cmd);
+		loop_job(st_cmd, lst);
 		st_cmd->pos++;
 		lst = lst->next;
 		empty_data(st_cmd);

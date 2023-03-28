@@ -6,15 +6,15 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:36:05 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/28 12:00:32 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/28 13:14:37 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	dup_and_exe(t_storage_cmd *st_cmd)
+void	dup_and_exe(t_storage_cmd *st_cmd, t_list *cmd)
 {
-	protecting(st_cmd);
+	protecting(st_cmd, cmd);
 	dupping(st_cmd);
 	close(st_cmd->pfd[0]);
 	close(st_cmd->pfd[1]);
@@ -22,12 +22,13 @@ void	dup_and_exe(t_storage_cmd *st_cmd)
 		close(st_cmd->toclose);
 	if (st_cmd->fd_tmp)
 		close(st_cmd->fd_tmp);
+	closing_cmd(cmd);
 	if (is_builtin(st_cmd->bin_args[0], 1) != -1)
 		execve_builtin(is_builtin(st_cmd->bin_args[0], 1), st_cmd->bin_args);
 	else if (!st_cmd->bin_args || !st_cmd->bin_path)
-		cmd_not_found(st_cmd);
+		cmd_not_found(st_cmd, cmd);
 	else if (execve(st_cmd->bin_path, st_cmd->bin_args, st_cmd->env) == -1)
-		cmd_not_found(st_cmd);
+		cmd_not_found(st_cmd, cmd);
 }
 
 void	dupping(t_storage_cmd *st_cmd)
@@ -50,7 +51,7 @@ void	dupping(t_storage_cmd *st_cmd)
 		dup2(st_cmd->pfd[1], STDOUT_FILENO);
 }
 
-void	protecting(t_storage_cmd *st_cmd)
+void	protecting(t_storage_cmd *st_cmd, t_list *cmd)
 {
 	if (st_cmd->ok == 0 || st_cmd->fd_in == -1) /* if not any command or fdin or fdout invalid*/
 	{
@@ -64,6 +65,7 @@ void	protecting(t_storage_cmd *st_cmd)
 			close(st_cmd->fd_tmp);
 		if (st_cmd->toclose)
 			close(st_cmd->toclose);
+		closing_cmd(cmd);
 		mini_gc(NULL, NULL);
 		handler(CLEANING, NULL, NULL);
 		if (st_cmd->fd_in == -1)
@@ -72,7 +74,7 @@ void	protecting(t_storage_cmd *st_cmd)
 	}
 }
 
-void	loop_job(t_storage_cmd *st_cmd)
+void	loop_job(t_storage_cmd *st_cmd, t_list *cmd)
 {
 	if (pipe(st_cmd->pfd) == -1)
 		free_exit("pipe");
@@ -82,7 +84,7 @@ void	loop_job(t_storage_cmd *st_cmd)
 	else if (st_cmd->pid[st_cmd->pos] == 0)
 	{
 		ft_state(2);
-		dup_and_exe(st_cmd);
+		dup_and_exe(st_cmd, cmd);
 	}
 	else
 	{

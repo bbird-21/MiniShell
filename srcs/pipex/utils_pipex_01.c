@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 02:38:56 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/28 11:11:56 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/28 13:09:03 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,24 @@ char	*ft_strjoin_path(char *line, char *buffer)
 	return (p);
 }
 
-void	cmd_not_found(t_storage_cmd *node)
+void	closing_cmd(t_list *cmd)
+{
+	t_list *tmp;
+	t_cmd *data;
+
+	tmp = cmd;
+	while (tmp)
+	{
+		data = (t_cmd *)tmp->content;
+		if (data->infile > 2)
+			close(data->infile);
+		if (data->outfile > 2)
+			close(data->outfile);
+		tmp = tmp->next;
+	}
+}
+
+void	cmd_not_found(t_storage_cmd *node, t_list *cmd)
 {
 	ft_putstr_fd("command not found: ", STDERR_FILENO);
 	ft_putstr_fd(node->bin_args[0], STDERR_FILENO);
