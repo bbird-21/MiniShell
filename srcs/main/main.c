@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 19:49:16 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/28 19:38:03 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/03/29 20:16:55 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,33 @@
 
 int		g_exit_status;
 
+int	get_nb_cmd(t_list *lst)
+{
+	int	i;
+
+	i = 0;
+	while (lst)
+	{
+		i++;
+		lst = lst->next;
+	}
+	return (i);
+}
+
 void	sig_int(int state)
 {
+	int fd;
+	int	*pfd;
+
+	pfd = get_pfd(NULL);
+	printf("pfd : %d\n", pfd[0]);
 	if (state == 4)
+	{
+		printf("\n");
 		return ;
+	}
 	if (state == 0)
 	{
-		printf("state = 0\n");
 		ft_putstr_fd("\n", 2);
 		rl_on_new_line();
 		rl_redisplay();
@@ -35,9 +55,9 @@ void	sig_int(int state)
 	}
 	else if (state == 3)
 	{
-		printf("\n");
-		exit(21);
-		g_exit_status = -1;
+		fd = open("/dev/null", O_RDONLY);
+		dup2(fd, STDIN_FILENO);
+		close(fd);
 	}
 	else
 		exit(130);
@@ -58,7 +78,6 @@ void	sig_handler(int signum)
 {
 	int	state;
 
-	// printf("Test\n");
 	state = ft_state(-1);
 	if (signum == 2)
 		sig_int(state);
@@ -85,12 +104,15 @@ int	main(int ac, char **av, char **env)
 	g_exit_status = 0;
 	handler(0, env, NULL);
 	rl_outstream = stderr;
+	ft_state(4);
 	while (21)
 	{
+			printf("ganja\n");
 		ft_state(0);
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, &sig_handler);
 		str = readline("femtoshell > ");
+		printf("\r");
 		if (!str)
 		{
 			ft_putstr_fd("exit\n", 2);

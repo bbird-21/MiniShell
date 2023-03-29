@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 08:15:57 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/09 09:32:51 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/29 20:17:09 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,13 @@ t_list	*ft_lstadd_back(t_list **lst, t_list *new)
 		}
 	}
     return (*lst);
+}
+
+int	*get_pfd(int src_pfd[][2])
+{
+	static int	*pfd;
+	
+	if (src_pfd)
+		pfd = *src_pfd;
+	return (pfd);
 }

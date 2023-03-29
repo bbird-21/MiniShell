@@ -1,0 +1,13 @@
+{
+	"files.associations": {
+		"signal.h": "c",
+		"minishell.h": "c",
+		"parsing.h": "c",
+		"utils.h": "c",
+		"clean.h": "c",
+		"expansion.h": "c",
+		"builtins.h": "c",
+		"here_doc.h": "c",
+		"exec.h": "c"
+	}
+}
