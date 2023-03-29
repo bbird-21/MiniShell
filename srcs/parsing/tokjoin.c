@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokjoin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 21:18:56 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/24 18:48:38 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/29 10:04:39 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,10 @@ void	join_token(t_list **list, char *new)
 	{
 		data = create_token(split[i]);
 		if (!data)
-		{
-			free_tab(split, -1);
-			ft_lstclear(&new_list, token_cleaner);
-			handler(4, NULL, NULL);
-			exit(0);
-		}
+			cleaning_tkn(split,new_list);
 		new_node = ft_lstnew(data);
 		if (!new_node)
-		{
-			free_tab(split, -1);
-			ft_lstclear(&new_list, token_cleaner);
-			handler(4, NULL, NULL);
-			exit(0);
-		}
+			cleaning_tkn(split,new_list);
         new_list = ft_lstadd_back(&new_list, new_node);
 		i++;
 	}

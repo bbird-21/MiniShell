@@ -6,12 +6,11 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:44:41 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/21 14:38:04 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/29 09:28:47 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 int	error_msg(char *value)
 {
@@ -54,7 +53,7 @@ int	parse_red(t_token *curr_data, t_list *next)
 int	parse_quote(char *str)
 {
 	int	i;
-	int state;
+	int	state;
 
 	i = 0;
 	state = changing_state((char)-1);
@@ -67,6 +66,23 @@ int	parse_quote(char *str)
 	{
 		ft_putendl_fd("nanoshell: syntax error : quote unclosed", 2);
 		return (0);
+	}
+	return (1);
+}
+
+int	parse_other_than_pipe(t_list *lst, t_token *lst_data)
+{
+	if (lst_data->type == RIN || lst_data->type == DRIN
+			|| lst_data->type == ROUT || lst_data->type == DROUT)
+	{
+		if (!parse_red(lst_data, lst->next))
+			return (0);
+	}
+	else if (lst_data->type == WORD || lst_data->type == FD
+			|| lst_data->type == LIM)
+	{
+		if (!parse_quote(lst_data->value))
+			return (0);
 	}
 	return (1);
 }
@@ -87,17 +103,8 @@ int	parse_error(t_list *lst)
 			if (!parse_pipe(previous, lst_data, lst->next))
 				return (0);
 		}
-		else if (lst_data->type == RIN || lst_data->type == DRIN
-			|| lst_data->type == ROUT || lst_data->type == DROUT)
-		{
-			if (!parse_red(lst_data, lst->next))
-				return (0);
-		}
-		else if (lst_data->type == WORD || lst_data->type == FD || lst_data->type == LIM)
-		{
-			if (!parse_quote(lst_data->value))
-				return (0);
-		}
+		else if (!parse_other_than_pipe(lst, lst_data))
+			return (0);
 		previous = lst;
 		lst = lst->next;
 	}

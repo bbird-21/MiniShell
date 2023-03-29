@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenisation.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 18:33:36 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/11 18:52:42 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/29 10:02:20 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,16 @@ int	what_red(char *str)
 	else
 		return (ROUT);
 }
-
+static void	type_red(t_token *c_data, t_list *previous)
+{
+	if (is_red(((t_token*)(previous->content))->value) && !is_separator(c_data->value))
+	{
+		if (c_data->type == 5)
+			c_data->type = LIM;
+		else
+			c_data->type = FD;
+	}
+}
 void	tokenisation(t_list **lst)
 {
 	t_list *previous;
@@ -40,15 +49,7 @@ void	tokenisation(t_list **lst)
 		else if (is_red(c_data->value))
 			c_data->type = what_red(c_data->value);
 		else if (previous)
-		{
-			if (is_red(((t_token*)(previous->content))->value) && !is_separator(c_data->value))
-			{
-				if (c_data->type == 5)
-					c_data->type = LIM;
-				else
-					c_data->type = FD;
-			}
-		}
+			type_red(c_data, previous);
 		else
 			c_data->type = WORD;
 		previous = curr;

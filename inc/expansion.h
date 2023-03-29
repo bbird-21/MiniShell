@@ -3,15 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 20:40:11 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/24 17:08:10 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/29 11:00:07 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXPANSION_H
 # define EXPANSION_H
+
+char 	*remove_quotes(char *str);
+char	*do_job(char *str);
+void	split_state(t_list	**list);
+char	*get_token(char *str, int *k);
+char	**ft_split(char const *s, char c);
+void	magic_space(char *str);
 
 int		get_exp_size(char *env_var);
 int		get_var_size(char *str);

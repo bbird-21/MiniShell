@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 11:31:58 by alvina            #+#    #+#             */
-/*   Updated: 2023/02/28 20:47:12 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/29 09:33:29 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,17 +96,15 @@ int is_separator(char *str)
 	return (is_pipe(str) + is_red(str) + is_space(str));
 }
 
-int	count_words(char *str)
+int	count_words(char *str, int i)
 {
-	int	i;
 	int	nb;
 	int	trigger;
 	int state;
 
-	i = 0;
 	trigger = 0;
 	nb = 0;
-	while (str[i])
+	while (str[++i])
 	{
 		state = changing_state(str[i]);
 		if (state == 0 && is_separator(&str[i]))
@@ -121,8 +119,6 @@ int	count_words(char *str)
 			trigger = 1;
 			nb++;
 		}
-		i++;
 	}
-	state = changing_state((char)-1);
-	return (nb);
+	return (changing_state((char)-1), nb);
 }

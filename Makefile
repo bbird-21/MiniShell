@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+         #
+#    By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/17 17:30:47 by mmeguedm          #+#    #+#              #
-#    Updated: 2023/03/28 20:13:14 by mmeguedm         ###   ########.fr        #
+#    Updated: 2023/03/29 11:12:21 by ale-sain         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ INC			= $(addprefix $(INC_PATH),		\
 					exec.h					\
 					expansion.h				\
 					here_doc.h				\
+					env.h					\
 					parsing.h				\
 				)
 
@@ -67,7 +68,6 @@ SRC			=	$(addprefix $(SRC_PATH),					\
 						trash.c								\
 						utils.c								\
 						split_state.c						\
-						get_next_line.c						\
 						error.c								\
 						tokjoin.c							\
 						lst.c								\

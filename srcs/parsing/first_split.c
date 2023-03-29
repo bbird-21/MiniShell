@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 09:55:05 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/28 13:20:00 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/29 09:57:46 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,13 +123,13 @@ void	first_split(char *str)
 {
 	char	**tab;
 
-	if (!str || str[0] == 0 || count_words(str) == 0)
+	if (!str || str[0] == 0 || count_words(str, -1) == 0)
 	{
 		free(str);
 		handler(4, NULL, NULL);
 		return ;
 	}
-	tab = (char **) malloc(sizeof(char *) * (count_words(str) + 1));
+	tab = (char **) malloc(sizeof(char *) * (count_words(str, -1) + 1));
 	if (!tab)
 	{
 		free(str);
@@ -143,5 +143,5 @@ void	first_split(char *str)
 		handler(4, NULL, NULL);
 		exit(0);
 	}
-	return (token_generator(tab));
+	return (token_generator(tab, -1));
 }
