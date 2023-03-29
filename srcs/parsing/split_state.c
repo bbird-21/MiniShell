@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_state.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 22:02:38 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/27 14:06:31 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/03/29 12:33:39 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,28 +107,34 @@ char	*get_token(char *str, int *k)
 	return (do_job(dup));
 }
 
+void	dividing(t_list **subdivide_token, t_list *tmp, int *index)
+{
+	int		j;
+	t_token	*data;
+
+	data = (t_token *)(tmp->content);
+	j = 0;
+	while (j < countwords(data->value))
+	{
+		add_node_back_token(subdivide_token, data->value, index, data->type);
+		j++;
+	}
+	tokjoin(subdivide_token, j);
+}
+
 void	split_state(t_list	**l)
 {
 	static int	index = 0;
 	t_list		*new_list;
 	t_list		*subdivide_token;
 	t_list		*tmp;
-	t_token 	*data;
-	int			j;
 
 	subdivide_token = NULL;
 	new_list = NULL;
 	tmp = (*l);
 	while (tmp)
 	{
-		data = (t_token *)(tmp->content);
-		j = 0;
-		while (j < countwords(data->value))
-		{
-			add_node_back_token(&subdivide_token, data->value, &index, data->type);
-			j++;
-		}
-		tokjoin(&subdivide_token, j);
+		dividing(&subdivide_token, tmp, &index);
 		ft_lstadd_back(&new_list, subdivide_token);
 		subdivide_token = NULL;
 		tmp = tmp->next;
