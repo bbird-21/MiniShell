@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:21:25 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/28 10:50:13 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/30 13:53:27 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,5 @@ void    opening(t_list **cmd)
 	}
 	// print_files(*cmd);
 	// ft_lstclear(cmd, cmd_cleaner);
-	return (pipex(cmd));
+	return (pre_pipex(cmd));
 }

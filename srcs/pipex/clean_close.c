@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_pipex_02.c                                   :+:      :+:    :+:   */
+/*   clean_close.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:56:40 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/28 10:04:54 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:05:25 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	clean_data(t_storage_cmd *cmd)
 
 void	mini_gc(t_list *cmd, t_storage_cmd *st)
 {
-	static t_list *c;
-	static t_storage_cmd *s;
+	static t_list			*c;
+	static t_storage_cmd	*s;
 
 	if (!cmd && !st)
 	{
@@ -59,4 +59,3 @@ void	mini_gc(t_list *cmd, t_storage_cmd *st)
 	if (st)
 		s = st;
 }
-

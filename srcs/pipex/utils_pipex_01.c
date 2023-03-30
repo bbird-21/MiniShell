@@ -6,11 +6,29 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 02:38:56 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/28 13:09:03 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:06:53 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	counter(t_list *cmd)
+{
+	int		i;
+	t_list	*tmp;
+	t_cmd	*content;
+
+	i = 0;
+	tmp = cmd;
+	if (!tmp)
+		return (0);
+	while (tmp)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	return (i);
+}
 
 char	*ft_strnchr(char *s1, char *s2, size_t len)
 {
@@ -54,8 +72,8 @@ char	*ft_strjoin_path(char *line, char *buffer)
 
 void	closing_cmd(t_list *cmd)
 {
-	t_list *tmp;
-	t_cmd *data;
+	t_list	*tmp;
+	t_cmd	*data;
 
 	tmp = cmd;
 	while (tmp)
@@ -82,4 +100,3 @@ void	cmd_not_found(t_storage_cmd *node, t_list *cmd)
 	handler(CLEANING, NULL, NULL);
 	exit(127);
 }
-

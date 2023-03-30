@@ -6,18 +6,18 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 18:45:11 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/30 13:42:49 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:06:01 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int check_arg(char **arg, int max, char *fct)
+int	check_arg(char **arg, int max, char *fct)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	if (!arg || !*arg) 
+	if (!arg || !*arg)
 		return (1);
 	while (arg[i])
 		i++;
@@ -28,7 +28,7 @@ int check_arg(char **arg, int max, char *fct)
 		ft_putstr_fd(": too many arguments\n", 2);
 		return (0);
 	}
-	return(1);
+	return (1);
 }
 
 ptr_fun	funct(int flag)
@@ -40,20 +40,21 @@ ptr_fun	funct(int flag)
 		ft_exit,
 		export,
 		pwd,
-		unset
-	};
+		unset};
+
 	return (tableau[flag]);
 }
 
-void    execve_builtin(int flag, char **arg)
+void	execve_builtin(int flag, char **arg)
 {
-	ptr_fun  exec;
+	ptr_fun	exec;
 
 	if (flag == -2)
 		exit(0);
 	exec = funct(flag);
 	exec(&arg[1]);
 }
+
 int	in_pipe_or_not(int code, int pipe)
 {
 	if (code == 2 || code == 1 || code == 5)
@@ -69,7 +70,8 @@ int	in_pipe_or_not(int code, int pipe)
 		return (-2);
 	}
 }
-int is_builtin(char *str, int pipe)
+
+int	is_builtin(char *str, int pipe)
 {
 	if (ft_strnstr(str, "env", 3) && ft_strlen(str) == 3)
 		return (in_pipe_or_not(2, pipe));

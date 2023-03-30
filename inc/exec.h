@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 16:04:12 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/28 13:11:01 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:07:16 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	cmd_not_found(t_storage_cmd *node, t_list *cmd);
 
 
 /*	Init and launch pipex	*/
-void	pipex(t_list **cmd);
+void	pre_pipex(t_list **cmd);
 void	dup_and_exe(t_storage_cmd *st_cmd, t_list *cmd);
 void	fill_data_bin(t_storage_cmd *st_cmd, t_cmd *cmd);
 
@@ -79,5 +79,6 @@ void	empty_data(t_storage_cmd *cmd);
 void	dup_and_exe(t_storage_cmd *st_cmd, t_list *cmd);
 void	dupping(t_storage_cmd *st_cmd);
 void	protecting(t_storage_cmd *st_cmd, t_list *cmd);
+int		counter(t_list *cmd);
 
 #endif
