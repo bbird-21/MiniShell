@@ -3,34 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:10:40 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/24 14:50:15 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/30 16:21:51 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <limits.h>
+#include <linux/limits.h>
 
-void    pwd(char **arg)
+void	pwd(char **arg)
 {
-    char    *pwd;
-    
-    if (!check_arg(arg, 0, "pwd"))
-    {
-        g_exit_status = 1;
-        handler(CLEANING, NULL, NULL);
-        mini_gc(NULL, NULL);
-        exit(1);
-    }
-    (void)arg;
-    pwd = malloc(sizeof(char) * PATH_MAX);
-    getcwd(pwd, PATH_MAX);
-    ft_putendl_fd(pwd, 1);
-    g_exit_status = 0;
-    free(pwd);
-    mini_gc(NULL, NULL);
-    handler(CLEANING, NULL, NULL);
-    exit(0);
+	char	*pwd;
+
+	if (!check_arg(arg, 0, "pwd"))
+	{
+		g_exit_status = 1;
+		handler(CLEANING, NULL, NULL);
+		mini_gc(NULL, NULL);
+		exit(1);
+	}
+	(void)arg;
+	pwd = malloc(sizeof(char) * PATH_MAX);
+	getcwd(pwd, PATH_MAX);
+	ft_putendl_fd(pwd, 1);
+	g_exit_status = 0;
+	free(pwd);
+	mini_gc(NULL, NULL);
+	handler(CLEANING, NULL, NULL);
+	exit(0);
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alvina <alvina@student.42.fr>              +#+  +:+       +#+         #
+#    By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/17 17:30:47 by mmeguedm          #+#    #+#              #
-#    Updated: 2023/03/30 11:41:50 by alvina           ###   ########.fr        #
+#    Updated: 2023/03/30 16:29:36 by ale-sain         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,8 +39,8 @@ MN_OBJ_PATH = $(OBJ_PATH)main/
 # --------- Header files -----------------------------------------------------------
 
 INC			= $(addprefix $(INC_PATH),		\
-					minishell.h				\
 					tools.h					\
+					minishell.h				\
 					utils.h					\
 					lst.h					\
 					builtins.h				\

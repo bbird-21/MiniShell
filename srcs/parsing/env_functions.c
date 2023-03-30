@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_functions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 09:41:32 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/30 11:38:19 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/30 17:29:27 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	appending(t_list **envp, char **env, char *arg)
 	key = ft_key(arg);
 	if (!arg || !curr)
 		return ;
-	while (curr && ft_strncmp(data->key, key, ft_strlen(key)))
+	while (curr && (ft_strncmp(data->key, key, ft_strlen(key))
+			|| (ft_strlen(data->key) != ft_strlen(key))))
 	{
 		curr = curr->next;
 		if (curr)
@@ -67,8 +68,9 @@ void	deleting(t_list **envp, char **env, char *arg)
 	(void)env;
 	curr = (*envp);
 	prev = NULL;
-	while ((curr) && ft_strncmp(((t_env *)(curr->content))->key, arg,
-		ft_strlen(arg)))
+	while (curr && (ft_strncmp(((t_env *)(curr->content))->key, arg,
+			ft_strlen(arg)) || ft_strlen(((t_env *)(curr->content))->key)
+			!= ft_strlen(arg)))
 	{
 		prev = curr;
 		curr = curr->next;
@@ -100,7 +102,8 @@ void	modifying(t_list **envp, char **env, char *arg)
 	key = ft_key(arg);
 	if (!key)
 		return ;
-	while ((curr) && ft_strncmp(data->key, key, ft_strlen(key)))
+	while ((curr) && (ft_strncmp(data->key, key, ft_strlen(key))
+			|| (ft_strlen(data->key) != ft_strlen(key))))
 	{
 		curr = curr->next;
 		if (curr)

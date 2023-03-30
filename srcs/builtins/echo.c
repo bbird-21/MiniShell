@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:55:39 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/24 11:19:32 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/30 16:10:17 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-# define NO_ENDL 0
-# define ENDL 1
+#define NO_ENDL 0
+#define ENDL 1
 
 static int	slash_n(char *str)
 {
@@ -28,16 +28,11 @@ static int	slash_n(char *str)
 		{
 			if (str[i] != 'n')
 				return (0);
-			i++;	
+			i++;
 		}
 		return (1);
 	}
 	return (0);
-}
-
-static void	ft_putchar_fd(char c, int fd)
-{
-	write(fd, &c, 1);
 }
 
 static void	ft_putnbr_fd(int n, int fd)
@@ -59,13 +54,8 @@ static void	ft_putnbr_fd(int n, int fd)
 		ft_putchar_fd(nb + 48, fd);
 }
 
-static void	print_tab(char **tab)
+static void	print_tab(char **tab, int i, int j)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
 	if (!*tab)
 		return ;
 	while (tab[i])
@@ -90,10 +80,28 @@ static void	print_tab(char **tab)
 	}
 }
 
+void	result_echo(int n, int to_print, char **arg)
+{
+	if (n == NO_ENDL)
+	{
+		if (to_print)
+			print_tab(&arg[to_print], 0, 0);
+	}
+	else
+	{
+		if (arg)
+			print_tab(arg, 0, 0);
+		write(1, "\n", 1);
+	}
+	mini_gc(NULL, NULL);
+	handler(CLEANING, NULL, NULL);
+	exit(0);
+}
+
 void	echo(char **arg)
 {
 	int	i;
-	int n;
+	int	n;
 	int	to_print;
 
 	i = 0;
@@ -110,23 +118,10 @@ void	echo(char **arg)
 		if (!slash_n(arg[i]))
 		{
 			to_print = i;
-			break;
+			break ;
 		}
 		n = NO_ENDL;
 		i++;
 	}
-	if (n == NO_ENDL)
-	{
-		if (to_print)
-			print_tab(&arg[to_print]);
-	}
-	else
-	{
-		if (arg)
-			print_tab(arg);
-		write(1, "\n", 1);
-	}
-	mini_gc(NULL, NULL);
-	handler(CLEANING, NULL, NULL);
-	exit(0);
+	result_echo(n, to_print, arg);
 }

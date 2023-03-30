@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:21:25 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/30 14:17:32 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:36:55 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,21 +64,9 @@ static int	outfiling(t_cmd *cmd, t_token *token)
 	return (1);
 }
 
-// static void	print_files(t_list *cmd)
-// {
-// 	while (cmd)
-// 	{
-// 		printf("\n-------------------\n");
-// 		printf("infile : %d, outfile : %d\n", ((t_cmd *)(cmd->content))->infile,
-				// ((t_cmd *)(cmd->content))->outfile);
-// 		cmd = cmd->next;
-// 	}
-// }
-
 void	opening(t_list **cmd)
 {
 	t_cmd	*content;
-	t_list	*red;
 	t_token	*data;
 	t_list	*lst;
 
@@ -86,10 +74,9 @@ void	opening(t_list **cmd)
 	while (lst)
 	{
 		content = (t_cmd *)lst->content;
-		red = content->red;
-		while (red)
+		while (content->red)
 		{
-			data = (t_token *)red->content;
+			data = (t_token *)content->red->content;
 			if (data->type == RIN || data->type == DRIN)
 			{
 				if (!infiling(content, data))
@@ -100,7 +87,7 @@ void	opening(t_list **cmd)
 				if (!outfiling(content, data))
 					break ;
 			}
-			red = red->next;
+			content->red = content->red->next;
 		}
 		lst = lst->next;
 	}

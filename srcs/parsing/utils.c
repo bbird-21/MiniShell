@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:29:15 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/30 11:06:51 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/30 17:28:33 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
+}
 
 char	*ft_strnstr(char *big, char *little, int len)
 {
@@ -76,4 +81,10 @@ char	*ft_strdup(char *s)
 	}
 	str[i] = '\0';
 	return (str);
+}
+
+void	return_code(int code)
+{
+	g_exit_status = code;
+	return ;
 }

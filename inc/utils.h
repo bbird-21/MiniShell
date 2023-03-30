@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:09:54 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/28 17:23:53 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/03/30 16:35:51 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "exec.h"
 
+void    ft_putchar_fd(char c, int fd);
 int		ft_strlen(char *str);
 void	ft_putstr_fd(char *s, int fd);
 char	*ft_strnstr(char *big, char *little, int len);
