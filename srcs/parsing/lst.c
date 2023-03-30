@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:32:27 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/30 11:03:26 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/30 15:43:46 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	add_node_back_token(t_list **l, char *str, int *index, int type)
 	new = malloc(sizeof(*new));
 	if (!data || !new)
 		return (ft_lstclear(l, token_cleaner), free_exit(NULL));
-	data->value = get_token(str, index);
+	data->value = get_token(str, index, type);
 	data->type = type;
 	new->content = data;
 	new->next = NULL;

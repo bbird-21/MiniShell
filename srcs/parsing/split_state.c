@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_state.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 22:02:38 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/30 11:43:22 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/30 15:44:52 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void	making_token(char *str, int *k, int state, char **dup)
 	(*dup)[j] = 0;
 }
 
-char	*get_token(char *str, int *k)
+char	*get_token(char *str, int *k, int type)
 {
 	char	*dup;
 	int		state;
@@ -78,7 +78,7 @@ char	*get_token(char *str, int *k)
 	making_token(str, k, state, &dup);
 	if (ft_strlen(dup) == 1 && dup[0] == '$' && countwords(str) != 1)
 		return (free(dup), NULL);
-	return (do_job(dup));
+	return (do_job(dup, type));
 }
 
 void	dividing(t_list **subdivide_token, t_list *tmp, int *index)

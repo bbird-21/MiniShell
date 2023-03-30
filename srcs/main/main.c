@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 19:49:16 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/29 20:16:55 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/03/30 15:24:29 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,7 @@ int	get_nb_cmd(t_list *lst)
 void	sig_int(int state)
 {
 	int fd;
-	int	*pfd;
 
-	pfd = get_pfd(NULL);
-	printf("pfd : %d\n", pfd[0]);
 	if (state == 4)
 	{
 		printf("\n");
@@ -107,7 +104,6 @@ int	main(int ac, char **av, char **env)
 	ft_state(4);
 	while (21)
 	{
-			printf("ganja\n");
 		ft_state(0);
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, &sig_handler);
