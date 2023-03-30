@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 17:32:12 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/28 20:15:53 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:10:02 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	nul_character(char *limiter)
 
 void	sigint(int signum)
 {
-		g_exit_status = -1;
+	g_exit_status = -1;
 }
 
-static int do_here_doc(t_list **lst, char *limiter)
+static int	do_here_doc(t_list **lst, char *limiter)
 {
 	char	*line;
 
@@ -82,7 +82,7 @@ static int do_here_doc(t_list **lst, char *limiter)
 // 	}
 // }
 
-void	here_doc(t_list **list) 
+void	here_doc(t_list **list)
 {
 	t_list	*tmp;
 	t_cmd	*cmd;
@@ -126,7 +126,7 @@ void	here_doc(t_list **list)
 	else
 	{
 		ft_state(4);
-	}	
+	}
 	waitpid(pid, NULL, 0);
 	return (opening(list));
 }

@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 19:49:16 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/29 09:27:11 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:09:16 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	main(int ac, char **av, char **env)
 			exit(0);
 		}
 		if (!str[0])
-			continue;
+			continue ;
 		first_split(str);
 	}
 }
