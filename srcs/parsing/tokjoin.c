@@ -6,7 +6,7 @@
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 21:18:56 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/24 18:48:38 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/30 11:37:35 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	getsize(t_list *list)
 {
 	int		size;
 	t_token	*data;
-	
+
 	data = (t_token *)(list->content);
 	size = 0;
 	while (list)
@@ -28,14 +28,14 @@ static int	getsize(t_list *list)
 	return (size);
 }
 
-void	join_token(t_list **list, char *new)
+void	split_token(t_list **list, char *new)
 {
-	t_list		*new_list;
-	t_list		*new_node;
-	t_token		*data;
-	char		**split;
-	int			i;
-	
+	t_list	*new_list;
+	t_list	*new_node;
+	t_token	*data;
+	char	**split;
+	int		i;
+
 	i = 0;
 	new_list = NULL;
 	split = ft_split(new, ' ');
@@ -44,21 +44,11 @@ void	join_token(t_list **list, char *new)
 	{
 		data = create_token(split[i]);
 		if (!data)
-		{
-			free_tab(split, -1);
-			ft_lstclear(&new_list, token_cleaner);
-			handler(4, NULL, NULL);
-			exit(0);
-		}
+			cleaning_tkn(split, new_list);
 		new_node = ft_lstnew(data);
 		if (!new_node)
-		{
-			free_tab(split, -1);
-			ft_lstclear(&new_list, token_cleaner);
-			handler(4, NULL, NULL);
-			exit(0);
-		}
-        new_list = ft_lstadd_back(&new_list, new_node);
+			cleaning_tkn(split, new_list);
+		new_list = ft_lstadd_back(&new_list, new_node);
 		i++;
 	}
 	free_tab(split, -1);
@@ -66,11 +56,25 @@ void	join_token(t_list **list, char *new)
 	(*list) = new_list;
 }
 
+void	one_token_treatment(t_list **list)
+{
+	t_token	*data;
+	char	*new;
+
+	data = (t_token *)((*list)->content);
+	if (data->type == WORD || data->type == FD)
+	{
+		new = ft_strdup(((t_token *)((*list)->content))->value);
+		if (new && new[0] != '\0')
+			split_token(list, new);
+	}
+}
+
 void	tokjoin(t_list **list, int j)
 {
-	char		*new;
-	t_list		*tmp;
-	t_token		*data;
+	char	*new;
+	t_list	*tmp;
+	t_token	*data;
 
 	if (j > 1)
 	{
@@ -85,14 +89,8 @@ void	tokjoin(t_list **list, int j)
 			new = ft_strjoin(new, data->value);
 			tmp = tmp->next;
 		}
-		join_token(list, new);
-		return ;
+		split_token(list, new);
 	}
-	data = (t_token *)((*list)->content);
-	if (data->type == WORD || data->type == FD)
-	{
-		new = ft_strdup(((t_token *)((*list)->content))->value);
-		if (new && new[0] != '\0')
-			join_token(list, new);
-	}
+	else
+		one_token_treatment(list);
 }

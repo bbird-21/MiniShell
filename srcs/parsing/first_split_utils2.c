@@ -1,54 +1,57 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_utils.c                                      :+:      :+:    :+:   */
+/*   first_split_utils2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/30 11:21:04 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/30 11:37:46 by alvina           ###   ########.fr       */
+/*   Created: 2023/03/30 10:46:22 by alvina            #+#    #+#             */
+/*   Updated: 2023/03/30 11:36:02 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	new_state(char c, int state)
+int	changing_state(char c)
 {
-	if (state == NONE)
-	{
-		if (c == '\'' || c == '"')
-			return (true);
-	}
-	if (state == SP_QUOTES)
-	{
-		if (c == '\'')
-			return (true);
-	}
-	if (state == DB_QUOTES)
-	{
-		if (c == '"')
-			return (true);
-	}
-	return (false);
-}
+	static int	state;
 
-int	get_state(char c)
-{
-	if (c == '\'')
-		return (SP_QUOTES);
+	if (c == (char)-1)
+		state = 0;
+	if (c == (char)-2)
+		return (state);
+	else if (c == 39)
+	{
+		if (state == 1)
+			state = 0;
+		else if (state == 0)
+			state = 1;
+	}
 	else if (c == '"')
-		return (DB_QUOTES);
-	return (NONE);
+	{
+		if (state == 2)
+			state = 0;
+		else if (state == 0)
+			state = 2;
+	}
+	return (state);
 }
 
-int	ft_strrlen(const char *str)
+int	length(char *str)
 {
 	int	i;
+	int	state;
 
 	i = 0;
 	if (!str)
 		return (0);
+	state = changing_state((char)-2);
 	while (str[i])
+	{
+		if (state == 0 && is_separator(&str[i]))
+			return (i);
 		i++;
+		state = changing_state(str[i]);
+	}
 	return (i);
 }

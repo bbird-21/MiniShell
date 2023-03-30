@@ -3,33 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   first_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 09:55:05 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/28 15:59:17 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/30 11:35:35 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	length(char *str)
-{
-	int	i;
-	int	state;
-
-	i = 0;
-	if (!str)
-		return (0);
-	state = changing_state((char)-2);
-	while (str[i])
-	{
-		if (state == 0 && is_separator(&str[i]))
-			return (i);
-		i++;
-		state = changing_state(str[i]);
-	}
-	return (i);
-}
 
 static int	red_str(char *str, char ***tab, int j, int (*f)(char *))
 {
@@ -120,15 +101,15 @@ char	**splitting(char **tab, char *str)
 
 void	first_split(char *str)
 {
-	char **tab;
+	char	**tab;
 
-	if (!str || str[0] == 0 || count_words(str) == 0)
+	if (!str || str[0] == 0 || count_words(str, -1) == 0)
 	{
 		free(str);
 		handler(4, NULL, NULL);
 		return ;
 	}
-	tab = (char **)malloc(sizeof(char *) * (count_words(str) + 1));
+	tab = (char **)malloc(sizeof(char *) * (count_words(str, -1) + 1));
 	if (!tab)
 	{
 		free(str);
@@ -142,5 +123,5 @@ void	first_split(char *str)
 		handler(4, NULL, NULL);
 		exit(0);
 	}
-	return (token_generator(tab));
+	return (token_generator(tab, -1));
 }

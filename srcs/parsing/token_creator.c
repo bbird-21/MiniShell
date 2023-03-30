@@ -6,7 +6,7 @@
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 19:53:35 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/24 18:47:10 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/30 11:34:01 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,48 +29,40 @@ t_token	*create_token(char *str)
 	return (data);
 }
 
-void	token_generator(char **tab)
+void	cleaning_tkn(char **tab, t_list *lst)
 {
-	int		i;
-	t_token *data;
+	free_tab(tab, -1);
+	if (lst)
+		ft_lstclear(&lst, token_cleaner);
+	handler(CLEANING, NULL, NULL);
+	exit(0);
+}
+
+void	token_generator(char **tab, int i)
+{
+	t_token	*data;
 	t_list	*t_new;
 	t_list	*t_lst;
 
-	i = 0;
 	t_lst = NULL;
-	while (tab[i])
+	while (tab[++i])
 	{
 		data = create_token(tab[i]);
 		if (!data)
-		{
-			free_tab(tab, -1);
-			ft_lstclear(&t_lst, token_cleaner);
-			handler(4, NULL, NULL);
-			exit(0);
-		}
-        t_new = ft_lstnew(data);
+			cleaning_tkn(tab, t_lst);
+		t_new = ft_lstnew(data);
 		if (!t_new)
-		{
-			free_tab(tab, -1);
-			ft_lstclear(&t_lst, token_cleaner);
-			handler(4, NULL, NULL);
-			exit(0);
-		}
-        t_lst = ft_lstadd_back(&t_lst, t_new);
-		i++;
+			cleaning_tkn(tab, t_lst);
+		t_lst = ft_lstadd_back(&t_lst, t_new);
 	}
 	free_tab(tab, -1);
 	if (!t_lst)
-	{
-		handler(4, NULL, NULL);
-		exit(0);
-	}
+		cleaning_tkn(tab, NULL);
 	tokenisation(&t_lst);
 	if (!parse_error(t_lst))
 	{
 		ft_lstclear(&t_lst, token_cleaner);
 		return ;
 	}
-	// print_lst(t_lst, print_token);
 	return (split_state(&t_lst));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 15:45:35 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/14 18:30:49 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:06:25 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ void	exit_error(int sig_err)
 		"An error occurred while executing pipe\n",
 		"Memory error\n",
 		"No environnement has been detected. Did you try to kill me ?\n",
-		"Path has been dectivate. Did you try to kill me ?\n"
-	};
+		"Path has been dectivate. Did you try to kill me ?\n"};
 
 	ft_putstr_fd((char *)map_error[sig_err], STDERR_FILENO);
 	exit(EXIT_FAILURE);

@@ -6,12 +6,12 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:21:25 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/28 10:50:13 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:17:32 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-	
+
 static int	infiling(t_cmd *cmd, t_token *token)
 {
 	int	fd;
@@ -29,6 +29,8 @@ static int	infiling(t_cmd *cmd, t_token *token)
 				close(cmd->outfile);
 			if (old_fd > 2)
 				close(old_fd);
+			cmd->infile = -1;
+			cmd->outfile = -1;
 			return (perror(token->value), 0);
 		}
 		cmd->infile = fd;
@@ -38,7 +40,7 @@ static int	infiling(t_cmd *cmd, t_token *token)
 	return (1);
 }
 
-static int outfiling(t_cmd *cmd, t_token *token)
+static int	outfiling(t_cmd *cmd, t_token *token)
 {
 	int	fd;
 	int	old_fd;
@@ -54,6 +56,8 @@ static int outfiling(t_cmd *cmd, t_token *token)
 	{
 		if (cmd->infile > 2)
 			close(cmd->infile);
+		cmd->infile = -1;
+		cmd->outfile = -1;
 		return (perror(token->value), 0);
 	}
 	cmd->outfile = fd;
@@ -65,17 +69,18 @@ static int outfiling(t_cmd *cmd, t_token *token)
 // 	while (cmd)
 // 	{
 // 		printf("\n-------------------\n");
-// 		printf("infile : %d, outfile : %d\n", ((t_cmd *)(cmd->content))->infile, ((t_cmd *)(cmd->content))->outfile);
+// 		printf("infile : %d, outfile : %d\n", ((t_cmd *)(cmd->content))->infile,
+				// ((t_cmd *)(cmd->content))->outfile);
 // 		cmd = cmd->next;
 // 	}
 // }
 
-void    opening(t_list **cmd)
+void	opening(t_list **cmd)
 {
-	t_cmd 	*content;
+	t_cmd	*content;
 	t_list	*red;
-	t_token *data;
-	t_list  *lst;
+	t_token	*data;
+	t_list	*lst;
 
 	lst = *cmd;
 	while (lst)
@@ -88,26 +93,16 @@ void    opening(t_list **cmd)
 			if (data->type == RIN || data->type == DRIN)
 			{
 				if (!infiling(content, data))
-				{
-					content->infile = -1;
-					content->outfile = -1;
-					break;
-				}
+					break ;
 			}
 			else
 			{
 				if (!outfiling(content, data))
-				{
-					content->infile = -1;
-					content->outfile = -1;
-					break;
-				}
+					break ;
 			}
 			red = red->next;
 		}
 		lst = lst->next;
 	}
-	// print_files(*cmd);
-	// ft_lstclear(cmd, cmd_cleaner);
-	return (pipex(cmd));
+	return (pre_pipex(cmd));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_creator.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:51:42 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/28 15:57:25 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/30 11:44:04 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,52 +90,16 @@ t_cmd	*data_cmd(t_list *token, int *flag)
 	return (data);
 }
 
-void	reverse_magic_space(t_list **arg)
+void	cmd_generator(t_list **token, int i)
 {
-	t_list	*tmp;
-	t_token	*content;
-	int		i;
-
-	tmp = *arg;
-	i = 0;
-	while (*arg)
-	{
-		content = (t_token *)(*arg)->content;
-		if (content->value)
-		{
-			while (content->value[i])
-			{
-				if (content->value[i] == -32)
-					content->value[i] = ' ';
-				i++;
-			}
-		}
-		(*arg) = (*arg)->next;
-		i = 0;
-	}
-	*arg = tmp;
-}
-
-void	cleaning_cmd(t_list **token, t_list **cmd)
-{
-	ft_lstclear(token, token_cleaner);
-	ft_lstclear(cmd, cmd_cleaner);
-	handler(4, NULL, NULL);
-	exit(1);
-}
-
-void	cmd_generator(t_list **token)
-{
-	int		i;
 	int		flag;
-	t_list 	*list_cmd;
-	t_list 	*new_cmd;
+	t_list	*list_cmd;
+	t_list	*new_cmd;
 	t_cmd	*data;
 	t_list	*head;
 
 	list_cmd = NULL;
 	flag = 1;
-	i = -1;
 	head = *token;
 	while (flag)
 	{
@@ -150,6 +114,5 @@ void	cmd_generator(t_list **token)
 	}
 	ft_lstclear(&head, token_cleaner);
 	reverse_magic_space(&((t_cmd *)(list_cmd->content))->arg);
-	// print_lst(list_cmd, print_cmd);
 	return (here_doc(&list_cmd));
 }

@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 19:49:16 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/28 15:54:20 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:09:16 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,11 @@ int		g_exit_status;
 
 void	sig_int(int state)
 {
+	if (state == 4)
+		return ;
 	if (state == 0)
 	{
+		printf("state = 0\n");
 		ft_putstr_fd("\n", 2);
 		rl_on_new_line();
 		rl_redisplay();
@@ -26,8 +29,15 @@ void	sig_int(int state)
 	}
 	else if (state == 1)
 	{
+		printf("state = 1\n");
 		ft_putstr_fd("\n", 2);
 		g_exit_status = 130;
+	}
+	else if (state == 3)
+	{
+		printf("\n");
+		exit(21);
+		g_exit_status = -1;
 	}
 	else
 		exit(130);
@@ -48,6 +58,7 @@ void	sig_handler(int signum)
 {
 	int	state;
 
+	// printf("Test\n");
 	state = ft_state(-1);
 	if (signum == 2)
 		sig_int(state);
@@ -86,6 +97,8 @@ int	main(int ac, char **av, char **env)
 			handler(CLEANING, NULL, NULL);
 			exit(0);
 		}
+		if (!str[0])
+			continue ;
 		first_split(str);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:36:05 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/28 13:14:37 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:06:12 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	dupping(t_storage_cmd *st_cmd)
 
 void	protecting(t_storage_cmd *st_cmd, t_list *cmd)
 {
-	if (st_cmd->ok == 0 || st_cmd->fd_in == -1) /* if not any command or fdin or fdout invalid*/
+	if (st_cmd->ok == 0 || st_cmd->fd_in == -1)
 	{
 		close(st_cmd->pfd[0]);
 		close(st_cmd->pfd[1]);
@@ -102,4 +102,3 @@ void	loop_job(t_storage_cmd *st_cmd, t_list *cmd)
 			close(st_cmd->toclose);
 	}
 }
-
