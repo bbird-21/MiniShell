@@ -6,7 +6,7 @@
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:32:27 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/24 17:04:49 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/30 11:03:26 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,52 +28,9 @@ void	add_node_back_token(t_list **l, char *str, int *index, int type)
 	ft_lstadd_back(l, new);
 }
 
-void	print_token(void *content)
-{
-	t_token *data;
-
-	data = (t_token *)content;
-	if (data->value)
-		printf("value = %s \n", data->value);
-	if (data->type)
-		printf("%d \n", data->type);
-}
-
-void	print_env(void *content)
-{
-	t_env *data;
-
-	data = (t_env *)content;
-	printf("%s=", data->key);
-	printf("%s \n", data->value);
-}
-
-void	print_cmd(void *content)
-{
-	t_cmd *data;
-	
-	data = (t_cmd *)content;
-	printf("\n---COMMANDE---\n");
-	printf("\nARG : ");
-	print_lst(data->arg, print_token);
-	printf("\nRED :");
-	print_lst(data->red, print_token);
-}
-
-void	print_lst(t_list *lst, void (*print)(void *))
-{
-	if (!lst)
-		return ;
-	while (lst)
-	{
-		print(lst->content);
-		lst = lst->next;
-	}
-}
-
 char	*trans_env(void *content)
 {
-	t_env *data;
+	t_env	*data;
 	char	*tmp;
 	char	*new;
 
@@ -100,7 +57,7 @@ char	*trans_token(void *content)
 				char **tab = translator(handler(5, NULL, NULL), trans_env); */
 char	**translator(t_list *lst, char *(translate)(void *))
 {
-	t_list *head;
+	t_list	*head;
 	int		i;
 	char	**tab;
 

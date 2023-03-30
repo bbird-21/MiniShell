@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+         #
+#    By: alvina <alvina@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/17 17:30:47 by mmeguedm          #+#    #+#              #
-#    Updated: 2023/03/29 11:12:21 by ale-sain         ###   ########.fr        #
+#    Updated: 2023/03/30 11:41:50 by alvina           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,20 +58,30 @@ SRC			=	$(addprefix $(SRC_PATH),					\
 					main/main.c								\
 					$(addprefix parsing/,					\
 						cmd_creator.c						\
+						cmd_utils.c 						\
+						env_utils.c 						\
+						env_functions.c 					\
 						env.c								\
 						first_split.c						\
 						lst_utils.c							\
+						lst_print.c 						\
 						parse_error.c						\
-						split_utils.c						\
+						first_split_utils.c					\
+						first_split_utils2.c 				\
 						token_creator.c						\
 						tokenisation.c						\
 						trash.c								\
 						utils.c								\
+						utils2.c 							\
+						utils3.c 							\
 						split_state.c						\
+						split_utils.c 						\
 						error.c								\
 						tokjoin.c							\
 						lst.c								\
 						expansion.c							\
+						exp_state.c 						\
+						exp_utils.c 						\
 						split.c								\
 					)										\
 					$(addprefix exec/,						\
@@ -138,16 +148,3 @@ fclean : clean
 re : fclean $(NAME)
 
 .PHONY : all clean fclean re directories test
-
-# add_token.c							\
-# error.c								\
-# expansion.c							\
-# first_split.c						\
-# lst.c 								\
-# memory_free.c						\
-# singleton.c							\
-# split.c								\
-# split_utils.c 						\
-# tokenisation.c						\
-# utils.c								\
-# utils2.c							\

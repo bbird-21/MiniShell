@@ -6,24 +6,11 @@
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 23:34:30 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/24 18:48:44 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/30 11:35:07 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
-
-static int	ft_strrlen(const char *str)
-{
-	int	i;
-
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i])
-		i++;
-	return (i);
-}
+#include "minishell.h"
 
 static int	nb_words(char const *s, char c)
 {
@@ -62,7 +49,7 @@ static char	*ft_initword(char *src, size_t endWord, size_t nbchar, char c)
 	if (!word)
 		return (NULL);
 	if (src[begin] == c || begin < 0)
-		begin ++;
+		begin++;
 	while (src[begin] && i < nbchar)
 		word[i++] = src[begin++];
 	word[i] = '\0';
@@ -76,6 +63,18 @@ static void	extra_init(int *index, int *nbchar, int *i)
 	*nbchar = 0;
 }
 
+char	**protection(char *s)
+{
+	char	**split;
+
+	if (!s)
+		return (NULL);
+	split = malloc(sizeof(char *) * 1);
+	split[0] = malloc(1);
+	split[0][0] = 0;
+	return (split);
+}
+
 char	**ft_split(char *s, char c)
 {
 	char	**split;
@@ -83,15 +82,8 @@ char	**ft_split(char *s, char c)
 	int		nbchar;
 	int		index;
 
-	if (!s)
-		return (NULL);
-	if (!s[0])
-	{
-		split = malloc(sizeof(char *) * 1);
-		split[0] = malloc(1);
-		split[0][0] = 0;
-		return (split);
-	}
+	if (!s || !s[0])
+		return (protection(s));
 	extra_init(&index, &nbchar, &i);
 	split = (char **)malloc(sizeof(char *) * (nb_words(s, c) + 1));
 	if (!split)

@@ -1,54 +1,57 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_utils.c                                      :+:      :+:    :+:   */
+/*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/30 11:21:04 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/30 11:37:46 by alvina           ###   ########.fr       */
+/*   Created: 2023/03/30 11:06:14 by alvina            #+#    #+#             */
+/*   Updated: 2023/03/30 11:36:04 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	new_state(char c, int state)
+int	ft_isalpha(int c)
 {
-	if (state == NONE)
-	{
-		if (c == '\'' || c == '"')
-			return (true);
-	}
-	if (state == SP_QUOTES)
-	{
-		if (c == '\'')
-			return (true);
-	}
-	if (state == DB_QUOTES)
-	{
-		if (c == '"')
-			return (true);
-	}
-	return (false);
+	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
+		return (1);
+	else
+		return (0);
 }
 
-int	get_state(char c)
+int	ft_isalnum(int c)
 {
-	if (c == '\'')
-		return (SP_QUOTES);
-	else if (c == '"')
-		return (DB_QUOTES);
-	return (NONE);
+	return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0'
+			&& c <= '9'));
 }
 
-int	ft_strrlen(const char *str)
+int	ft_strlen(char *str)
 {
 	int	i;
 
 	i = 0;
 	if (!str)
 		return (0);
-	while (str[i])
+	while (str[i] != 0)
 		i++;
 	return (i);
+}
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	int	i;
+
+	i = 0;
+	if (!s)
+		return ;
+	while (s[i])
+		i++;
+	write(fd, s, i);
+}
+
+void	ft_putendl_fd(char *s, int fd)
+{
+	ft_putstr_fd(s, fd);
+	write(fd, "\n", 1);
 }

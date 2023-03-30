@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_creator.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 19:53:35 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/29 13:07:57 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/30 11:34:01 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_token	*create_token(char *str)
 	data->type = 0;
 	return (data);
 }
+
 void	cleaning_tkn(char **tab, t_list *lst)
 {
 	free_tab(tab, -1);
@@ -39,7 +40,7 @@ void	cleaning_tkn(char **tab, t_list *lst)
 
 void	token_generator(char **tab, int i)
 {
-	t_token *data;
+	t_token	*data;
 	t_list	*t_new;
 	t_list	*t_lst;
 
@@ -49,10 +50,10 @@ void	token_generator(char **tab, int i)
 		data = create_token(tab[i]);
 		if (!data)
 			cleaning_tkn(tab, t_lst);
-        t_new = ft_lstnew(data);
+		t_new = ft_lstnew(data);
 		if (!t_new)
 			cleaning_tkn(tab, t_lst);
-        t_lst = ft_lstadd_back(&t_lst, t_new);
+		t_lst = ft_lstadd_back(&t_lst, t_new);
 	}
 	free_tab(tab, -1);
 	if (!t_lst)

@@ -3,42 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   first_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 09:55:05 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/29 13:08:10 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/30 11:35:35 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-int	length(char *str)
+static int	red_str(char *str, char ***tab, int j, int (*f)(char *))
 {
 	int	i;
-	int state;
 
 	i = 0;
-	if (!str)
-		return (0);
-	state = changing_state((char)-2);
-	while (str[i])
-	{
-		if (state == 0 && is_separator(&str[i]))
-			return (i);
-		i++;
-		state = changing_state(str[i]);
-	}
-	return (i);
-}
-
-static int    red_str(char *str, char ***tab, int j, int (*f)(char *))
-{
-    int i;
-    i = 0;
-
 	(*tab)[j] = malloc(sizeof(char) * (f(str) + 1));
-    if (!(*tab)[j])
+	if (!(*tab)[j])
 	{
 		free_tab(*tab, j);
 		return (0);
@@ -52,7 +32,7 @@ static int    red_str(char *str, char ***tab, int j, int (*f)(char *))
 	return (i);
 }
 
-static int		word_str(char *str, char ***tab, int j)
+static int	word_str(char *str, char ***tab, int j)
 {
 	int	i;
 	int	len;
@@ -98,21 +78,21 @@ char	**splitting(char **tab, char *str)
 {
 	int	j;
 	int	i;
-	int state;
+	int	state;
 
 	i = 0;
 	j = 0;
 	state = changing_state((char)-1);
 	while (str[i])
 	{
-        state = changing_state(str[i]);
-        if (state == 0 && is_separator(&str[i]))
+		state = changing_state(str[i]);
+		if (state == 0 && is_separator(&str[i]))
 		{
 			if (!is_space(&str[i]))
-				i += spliter(&str[i], tab, &j, str) -1;
+				i += spliter(&str[i], tab, &j, str) - 1;
 		}
 		else if (str[i] != ' ' || state != 0)
-			i += spliter(&str[i], tab, &j, str) -1;
+			i += spliter(&str[i], tab, &j, str) - 1;
 		i++;
 	}
 	tab[j] = 0;
@@ -129,7 +109,7 @@ void	first_split(char *str)
 		handler(4, NULL, NULL);
 		return ;
 	}
-	tab = (char **) malloc(sizeof(char *) * (count_words(str, -1) + 1));
+	tab = (char **)malloc(sizeof(char *) * (count_words(str, -1) + 1));
 	if (!tab)
 	{
 		free(str);

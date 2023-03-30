@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_state.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 22:02:38 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/29 12:33:39 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/30 11:43:22 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,41 +17,12 @@
 	the old_dblist point to the new_dblist .
 */
 
-static bool	new_state(char c, int state)
-{
-	if (state == NONE)
-	{
-		if (c == '\'' || c == '"')
-			return (true);
-	}
-	if (state == SP_QUOTES)
-	{
-		if (c == '\'')
-			return (true);
-	}
-	if (state == DB_QUOTES)
-	{
-		if (c == '"')
-			return (true);
-	}
-	return (false);
-}
-
-int	get_state(char c)
-{
-	if (c == '\'')
-		return (SP_QUOTES);
-	else if (c == '"')
-		return (DB_QUOTES);
-	return (NONE);
-}
-
 static int	countwords(char *str)
 {
-	int		index;
-	int		word;
-	int		state;
-	
+	int	index;
+	int	word;
+	int	state;
+
 	word = 0;
 	index = 0;
 	state = get_state(str[index]);
@@ -72,38 +43,41 @@ static int	countwords(char *str)
 	return (word);
 }
 
-char	*get_token(char *str, int *k)
+static void	making_token(char *str, int *k, int state, char **dup)
 {
-	char			*dup;
-	int				j;
-	int				state;
+	int	j;
 
-	state = get_state(str[*k]);
 	j = 0;
-	dup = malloc(sizeof(char) * ft_strlen(str) + 1);
-	if (!dup)
-		return (NULL);
 	while (str[*k])
 	{
-		dup[j] = str[*k];
+		(*dup)[j] = str[*k];
 		j++;
 		(*k)++;
 		if (new_state(str[*k], state))
 		{
 			if (!state)
 				break ;
-			dup[j] = str[*k];
+			(*dup)[j] = str[*k];
 			j++;
 			(*k)++;
 			break ;
 		}
 	}
-	dup[j] = '\0';
-	if (ft_strlen(dup) == 1 && dup[j - 1] == '$' && countwords(str) != 1)
-	{
-		free(dup);
-		return (NULL); // a voir
-	}
+	(*dup)[j] = 0;
+}
+
+char	*get_token(char *str, int *k)
+{
+	char	*dup;
+	int		state;
+
+	state = get_state(str[*k]);
+	dup = malloc(sizeof(char) * ft_strlen(str) + 1);
+	if (!dup)
+		return (NULL);
+	making_token(str, k, state, &dup);
+	if (ft_strlen(dup) == 1 && dup[0] == '$' && countwords(str) != 1)
+		return (free(dup), NULL);
 	return (do_job(dup));
 }
 
@@ -122,13 +96,14 @@ void	dividing(t_list **subdivide_token, t_list *tmp, int *index)
 	tokjoin(subdivide_token, j);
 }
 
-void	split_state(t_list	**l)
+void	split_state(t_list **l)
 {
-	static int	index = 0;
+	static int	index;
 	t_list		*new_list;
 	t_list		*subdivide_token;
 	t_list		*tmp;
 
+	index = 0;
 	subdivide_token = NULL;
 	new_list = NULL;
 	tmp = (*l);
@@ -140,9 +115,7 @@ void	split_state(t_list	**l)
 		tmp = tmp->next;
 		index = 0;
 	}
-	// print_lst(new_list, print_token);
 	ft_lstclear(&subdivide_token, token_cleaner);
 	ft_lstclear(l, token_cleaner);
-	// print_lst(new_list, print_token);
-	return (cmd_generator(&new_list));
+	return (cmd_generator(&new_list, -1));
 }

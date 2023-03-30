@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 20:40:11 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/29 11:00:07 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/30 11:24:00 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ char 	*remove_quotes(char *str);
 char	*do_job(char *str);
 void	split_state(t_list	**list);
 char	*get_token(char *str, int *k);
-char	**ft_split(char const *s, char c);
+char	**ft_split(char *s, char c);
 void	magic_space(char *str);
+int	get_var_size(char *str);
 
 int		get_exp_size(char *env_var);
 int		get_var_size(char *str);
@@ -27,5 +28,14 @@ char	*expansion(char *token);
 
 void    tokjoin(t_list **list, int j);
 void	join_token(t_list **list, char *new);
+
+char	*state_00(char *str);
+char	*state_01(char *str);
+char	*state_02(char *str);
+t_fp_exp	handling_table(unsigned char state);
+char	*do_job(char *str);
+
+int	ft_strrlen(const char *str);
+bool	new_state(char c, int state);
 
 #endif
