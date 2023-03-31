@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:11:19 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/31 09:11:14 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/31 13:15:59 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	quit_properly(int code, char *str)
 		ft_putstr_fd(str, 2);
 		ft_putendl_fd(": numeric argument required", 2);
 	}
-	g_exit_status = code;
+	g.exit_status = code;
 	exit(code);
 }
 
@@ -68,19 +68,19 @@ void	exiting(long long n)
 	rl_clear_history();
 	if (n >= 0 && n <= 255)
 	{
-		g_exit_status = n;
+		g.exit_status = n;
 		exit(n);
 	}
 	if (n <= -1 && n >= -255)
 	{
-		g_exit_status = 256 + n;
+		g.exit_status = 256 + n;
 		exit(256 + n);
 	}
 	if (n > 255 || n < -255)
 	{
 		if (n < 0)
 			n = -n;
-		g_exit_status = n % 256;
+		g.exit_status = n % 256;
 		exit(n % 256);
 	}
 }

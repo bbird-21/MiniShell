@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:41:18 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/31 11:08:58 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/31 12:46:25 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,6 @@ void	cleaning_cmd(t_cmd *data, t_list **token, t_list **cmd)
 		free(data);
 	ft_lstclear(token, token_cleaner);
 	ft_lstclear(cmd, cmd_cleaner);
-	exit_malloc();
+	handler(4, NULL, NULL);
+	exit(1);
 }

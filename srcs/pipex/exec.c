@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:36:05 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/31 09:17:54 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:06:12 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void	protecting(t_storage_cmd *st_cmd, t_list *cmd)
 			close(st_cmd->toclose);
 		closing_cmd(cmd);
 		mini_gc(NULL, NULL);
-		rl_clear_history();
 		handler(CLEANING, NULL, NULL);
 		if (st_cmd->fd_in == -1)
 			exit(1);

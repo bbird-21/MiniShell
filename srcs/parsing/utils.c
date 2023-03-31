@@ -6,16 +6,11 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:29:15 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/30 17:28:33 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/31 13:37:52 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	ft_putchar_fd(char c, int fd)
-{
-	write(fd, &c, 1);
-}
 
 char	*ft_strnstr(char *big, char *little, int len)
 {
@@ -72,7 +67,10 @@ char	*ft_strdup(char *s)
 		i++;
 	str = malloc(sizeof(char) * i + 1);
 	if (!str)
+	{
+		g.exit_malloc = 1;
 		return (0);
+	}
 	i = 0;
 	while (s[i])
 	{
@@ -82,9 +80,13 @@ char	*ft_strdup(char *s)
 	str[i] = '\0';
 	return (str);
 }
+void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
+}
 
 void	return_code(int code)
 {
-	g_exit_status = code;
+	g.exit_status = code;
 	return ;
 }

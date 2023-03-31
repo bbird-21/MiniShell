@@ -6,14 +6,14 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 19:49:16 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/31 10:13:45 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/31 13:08:12 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <signal.h>
 
-int		g_exit_status;
+t_globale g = {0};
 
 int	get_nb_cmd(t_list *lst)
 {
@@ -28,25 +28,13 @@ int	get_nb_cmd(t_list *lst)
 	return (i);
 }
 
-int	*get_pfd(int src_pfd[][2])
-{
-	static int	*pfd;
-	
-	if (src_pfd)
-		pfd = *src_pfd;
-	return (pfd);
-}
-
 void	sig_int(int state)
 {
-	int	fd;
-	int	*pfd;
+	int fd;
 
-	pfd = get_pfd(NULL);
-	// printf("pfd : %d\n", pfd[0]);
 	if (state == 4)
 	{
-		ft_putstr_fd("\n", 2);
+		printf("\n");
 		return ;
 	}
 	if (state == 0)
@@ -54,12 +42,13 @@ void	sig_int(int state)
 		ft_putstr_fd("\n", 2);
 		rl_on_new_line();
 		rl_redisplay();
-		g_exit_status = 130;
+		g.exit_status = 130;
 	}
 	else if (state == 1)
 	{
+		printf("state = 1\n");
 		ft_putstr_fd("\n", 2);
-		g_exit_status = 130;
+		g.exit_status = 130;
 	}
 	else if (state == 3)
 	{
@@ -76,7 +65,7 @@ void	sig_quit(int state)
 	if (state == 1)
 	{
 		ft_putstr_fd("Quit (core dumped zebi)\n", 2);
-		g_exit_status = 131;
+		g.exit_status = 131;
 	}
 	else
 		exit(131);
@@ -109,26 +98,23 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	(void)env;
-	g_exit_status = 0;
 	handler(0, env, NULL);
 	rl_outstream = stderr;
 	ft_state(4);
 	while (21)
 	{
+			printf("ganja\n");
 		ft_state(0);
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, &sig_handler);
 		str = readline("femtoshell > ");
+		printf("\r");
 		if (!str)
 		{
 			ft_putstr_fd("exit\n", 2);
 			handler(CLEANING, NULL, NULL);
-			rl_clear_history();
 			exit(0);
 		}
-		if (!str[0])
-			continue;
-		// add_history(str);
 		first_split(str);
 	}
 }

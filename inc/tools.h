@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:12:42 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/28 16:04:01 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/03/31 13:07:29 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,13 @@ typedef enum e_env_setting{
 	APPENDING
 }	t_env_setting;
 
-extern int g_exit_status;
+typedef struct s_globale
+{
+	int	exit_status;
+	int	exit_malloc;
+}				t_globale;
+
+extern t_globale g;
 
 typedef char * (*t_fp_exp)(char *str);
 

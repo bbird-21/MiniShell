@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:47:51 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/30 14:07:38 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/31 13:39:29 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@ void	st_fill(t_storage_cmd *st_cmd, t_cmd *cmd)
 	char	**path;
 
 	arg = translator(cmd->arg, trans_token);
+	if (!arg)
+	{
+		mini_gc(NULL, NULL);
+		clean_data(st_cmd);
+		exit_malloc();
+	}
 	st_cmd->ok = 1;
 	st_cmd->fd_in = cmd->infile;
 	st_cmd->fd_out = cmd->outfile;
@@ -33,6 +39,12 @@ void	st_fill(t_storage_cmd *st_cmd, t_cmd *cmd)
 	{
 		st_cmd->bin_path = NULL;
 		st_cmd->ok = 0;
+	}
+	if (st_cmd->bin_path == NULL && g.exit_malloc == 1)
+	{
+		mini_gc(NULL, NULL);
+		clean_data(st_cmd);
+		exit_malloc();
 	}
 }
 
@@ -96,7 +108,18 @@ void	pre_pipex(t_list **cmd)
 	t_storage_cmd	st_cmd;
 
 	st_cmd.env = translator(handler(5, NULL, NULL), trans_env);
+	if (!st_cmd.env)
+	{
+		ft_lstclear(cmd, cmd_cleaner);
+		exit_malloc();
+	}
 	st_init(*cmd, &st_cmd);
+	if (!st_cmd.pid)
+	{
+		free_tab(st_cmd.env, -1);
+		ft_lstclear(cmd, cmd_cleaner);
+		exit_malloc();
+	}
 	signal(SIGQUIT, &sig_handler);
 	mini_gc(*cmd, NULL);
 	pipex(*cmd, &st_cmd);

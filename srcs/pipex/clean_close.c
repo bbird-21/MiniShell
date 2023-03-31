@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:56:40 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/30 14:05:25 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/31 13:18:50 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_out(int *status)
 {
 	if (WIFEXITED(*status))
-		g_exit_status = WEXITSTATUS(*status);
+		g.exit_status = WEXITSTATUS(*status);
 }
 
 void	empty_data(t_storage_cmd *cmd)

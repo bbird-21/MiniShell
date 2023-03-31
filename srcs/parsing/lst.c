@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:32:27 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/31 10:30:38 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/31 12:49:19 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ char	*trans_env(void *content)
 
 	data = (t_env *)content;
 	tmp = simple_join(data->key, "=");
+	if (!tmp)
+		return (NULL);
 	new = simple_join(tmp, data->value);
 	free(tmp);
 	return (new);
@@ -79,10 +81,17 @@ char	**translator(t_list *lst, char *(translate)(void *))
 	}
 	lst = head;
 	tab = malloc(sizeof(char *) * (i + 1));
+	if (!tab)
+		return (NULL);
 	i = 0;
 	while (lst)
 	{
 		tab[i] = translate(lst->content);
+		if (!tab[i])
+		{
+			free_tab(tab, i);
+			return (NULL);
+		}
 		lst = lst->next;
 		i++;
 	}

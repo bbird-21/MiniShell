@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 02:38:56 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/31 09:11:54 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/31 13:39:19 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ char	*ft_strjoin_path(char *line, char *buffer)
 	p = malloc(sizeof(char) * (ft_strlen((char *)line)
 				+ ft_strlen((char *)buffer)) + 3);
 	if (!p)
+	{
+		g.exit_malloc = 1;
 		return (NULL);
+	}
 	if (line != NULL)
 	{
 		while (line[i])
@@ -97,7 +100,6 @@ void	cmd_not_found(t_storage_cmd *node, t_list *cmd)
 	if (node->fd_out > 2)
 		close(node->fd_out);
 	mini_gc(NULL, NULL);
-	rl_clear_history();
 	handler(CLEANING, NULL, NULL);
 	exit(127);
 }

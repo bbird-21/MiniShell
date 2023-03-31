@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:11:41 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/31 11:09:41 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/31 13:17:02 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@ void	cmd_cleaner(void *content);
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 char	**free_tab(char **tab, int j);
 void	exit_malloc(void);
-void	cleaning_cmd(t_cmd *data, t_list **token, t_list **cmd);
+void	return_code(int code);
 
 #endif
