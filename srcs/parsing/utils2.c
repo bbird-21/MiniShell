@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 10:59:50 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/30 11:33:22 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/31 10:47:40 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,10 @@ char	*ft_strjoin(char *line, char *buffer)
 	i = -1;
 	p = malloc(sizeof(char) * (ft_strlen(line) + ft_strlen(buffer)) + 1);
 	if (!p)
+	{
+		free(line);
 		return (NULL);
+	}
 	if (line != NULL)
 	{
 		while (line[++i])

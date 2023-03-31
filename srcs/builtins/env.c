@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:33:29 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/30 16:09:23 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/31 09:10:46 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ void	ft_env(char **arg)
 		print_lst(envp, print_env);
 	handler(CLEANING, NULL, NULL);
 	mini_gc(NULL, NULL);
+	rl_clear_history();
 	exit(0);
 }

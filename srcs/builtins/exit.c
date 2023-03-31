@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:11:19 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/30 16:08:19 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/31 09:11:14 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static unsigned long long	ft_atoll(const char *nptr)
 void	quit_properly(int code, char *str)
 {
 	mini_gc(NULL, NULL);
+	rl_clear_history();
 	if (code != 2)
 		handler(CLEANING, NULL, NULL);
 	if (code == 0)
@@ -64,6 +65,7 @@ void	exiting(long long n)
 	ft_putstr_fd("exit\n", 2);
 	mini_gc(NULL, NULL);
 	handler(CLEANING, NULL, NULL);
+	rl_clear_history();
 	if (n >= 0 && n <= 255)
 	{
 		g_exit_status = n;

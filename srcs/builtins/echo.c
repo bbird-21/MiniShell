@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:55:39 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/30 16:10:17 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/31 09:15:50 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void	result_echo(int n, int to_print, char **arg)
 	}
 	mini_gc(NULL, NULL);
 	handler(CLEANING, NULL, NULL);
+	rl_clear_history();
 	exit(0);
 }
 
@@ -107,9 +108,12 @@ void	echo(char **arg)
 	i = 0;
 	n = ENDL;
 	to_print = 0;
+	rl_clear_history();
 	if (!arg || !*arg)
 	{
 		write(1, "\n", 1);
+		rl_clear_history();
+		handler(CLEANING, NULL, NULL);
 		mini_gc(NULL, NULL);
 		exit(0);
 	}

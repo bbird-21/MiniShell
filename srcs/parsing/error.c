@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 00:16:17 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/30 11:32:31 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/31 10:16:43 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,11 @@ int	error_msg(char *value)
 	ft_putendl_fd(value, 2);
 	g_exit_status = 2;
 	return (0);
+}
+
+void	exit_malloc(void)
+{
+	handler(CLEANING, NULL, NULL);
+	rl_clear_history();
+	exit(0);
 }

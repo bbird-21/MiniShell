@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_creator.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:51:42 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/30 11:44:04 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/31 11:09:06 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,10 @@ void	cmd_generator(t_list **token, int i)
 	{
 		data = data_cmd(*token, &flag);
 		if (!data)
-			cleaning_cmd(&head, &list_cmd);
+			cleaning_cmd(NULL, &head, &list_cmd);
 		new_cmd = ft_lstnew(data);
+		if (!new_cmd)
+			cleaning_cmd(data, &head, &list_cmd);
 		list_cmd = ft_lstadd_back(&list_cmd, new_cmd);
 		while ((++i < flag) && (*token))
 			(*token) = (*token)->next;

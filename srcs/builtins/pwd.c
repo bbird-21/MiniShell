@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:10:40 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/30 16:21:51 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/31 09:11:24 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	pwd(char **arg)
 	g_exit_status = 0;
 	free(pwd);
 	mini_gc(NULL, NULL);
+	rl_clear_history();
 	handler(CLEANING, NULL, NULL);
 	exit(0);
 }

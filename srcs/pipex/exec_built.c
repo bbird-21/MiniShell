@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 18:45:11 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/30 14:06:01 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/31 09:20:30 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,12 @@ void	execve_builtin(int flag, char **arg)
 	ptr_fun	exec;
 
 	if (flag == -2)
+	{
+		rl_clear_history();
+		mini_gc(NULL, NULL);
+		handler(CLEANING, NULL, NULL);
 		exit(0);
+	}
 	exec = funct(flag);
 	exec(&arg[1]);
 }
