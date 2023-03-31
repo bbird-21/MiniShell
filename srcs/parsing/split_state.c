@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 22:02:38 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/31 12:51:03 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/31 13:53:01 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,13 @@ char	*get_token(char *str, int *k)
 	state = get_state(str[*k]);
 	dup = malloc(sizeof(char) * ft_strlen(str) + 1);
 	if (!dup)
+	{
+		g.exit_malloc = 1;
 		return (NULL);
+	}
 	making_token(str, k, state, &dup);
-	// if (ft_strlen(dup) == 1 && dup[0] == '$' && countwords(str) != 1)
-	// 	return (free(dup), NULL);
+	if (ft_strlen(dup) == 1 && dup[0] == '$' && countwords(str) != 1)
+		return (free(dup), NULL);
 	return (do_job(dup));
 }
 

@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:32:27 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/31 12:49:19 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/31 14:01:29 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	add_node_back_token(t_list **l, char *str, int *index, int type)
 		return (0);
 	}
 	data->value = get_token(str, index);
-	if (!data->value)
+	if (g.exit_malloc == 1)
 		return (free(data), free(new), 0);
 	data->type = type;
 	new->content = data;
