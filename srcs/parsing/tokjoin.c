@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 21:18:56 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/31 10:59:18 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/31 11:18:02 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	getsize(t_list *list)
 	return (size);
 }
 
-int	cleaning_spl_tkn(int **tab, t_list *lst)
+int	cleaning_spl_tkn(char **tab, t_list *lst)
 {
 	free_tab(tab, -1);
 	if (lst)
@@ -49,7 +49,7 @@ int	split_token(t_list **list, char *new)
 	split = ft_split(new, ' ');
 	free(new);
 	if (!split)
-		return (NULL);
+		return (0);
 	while (split[i])
 	{
 		data = create_token(split[i]);
