@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:36:05 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/06 19:53:13 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/07 00:02:55 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ void	dup_and_exe(t_storage_cmd *st_cmd, t_list *cmd)
 		close(st_cmd->fd_tmp);
 	closing_cmd(cmd);
 	if (is_builtin(st_cmd->bin_args[0], 1) != -1)
+	{
 		execve_builtin(is_builtin(st_cmd->bin_args[0], 1), st_cmd->bin_args);
+		return (mini_gc(NULL, NULL));
+	}
 	else if (!st_cmd->bin_args || !st_cmd->bin_path)
 		cmd_not_found(st_cmd, cmd);
 	else if (execve(st_cmd->bin_path, st_cmd->bin_args, st_cmd->env) == -1)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:11:19 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/24 11:14:47 by alvina           ###   ########.fr       */
+/*   Updated: 2023/04/06 23:49:25 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ static unsigned long long	ft_atoll(const char *nptr)
 
 void    ft_exit(char **arg)
 {
-    long long n;
-    char    *str;
+    long long   n;
+    char        *str;
     
     if (!check_arg(arg, 1, "exit"))
     {

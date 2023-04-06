@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:56:40 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/06 20:10:02 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/07 00:03:40 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,14 @@ void	clean_data(t_storage_cmd *cmd)
 
 void	mini_gc(t_list *cmd, t_storage_cmd *st)
 {
-	static t_list			*c;
-	static t_storage_cmd	*s;
+	static	t_list			*c;
+	static	t_storage_cmd	*s;
+
+
 
 	if (!cmd && !st)
 	{
+    	handler(CLEANING, NULL, NULL);	
 		if (c)
 		{
 			ft_lstclear(&c, cmd_cleaner);
