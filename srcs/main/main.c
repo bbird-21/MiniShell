@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 19:49:16 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/04/06 20:29:12 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/06 22:14:06 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,14 @@ int	main(int ac, char **av, char **env)
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, &sig_handler);
 		str = readline("femtoshell > ");
+		if (!str[0])
+			continue ;
 		add_history(str);
 		printf("\r");
 		if (!str)
 		{
 			ft_putstr_fd("exit\n", 2);
 			handler(CLEANING, NULL, NULL);
-			clear_history();
 			exit(0);
 		}
 		first_split(str);

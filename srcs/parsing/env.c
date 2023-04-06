@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:24:06 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/30 11:36:44 by alvina           ###   ########.fr       */
+/*   Updated: 2023/04/06 22:13:55 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	cleaning(t_list **envp, char **env, char *arg)
 {
 	(void)env;
 	(void)arg;
+	clear_history();
 	if (envp)
 		ft_lstclear(envp, env_cleaner);
 	*envp = 0;

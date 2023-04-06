@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 15:06:34 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/06 17:00:14 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/06 22:35:52 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ void	sig_int(int state)
 	if (state == READLINE)
 	{
 		ft_putstr_fd("\n", 2);
+		
 		rl_on_new_line();
+		rl_replace_line("", 1);
 		rl_redisplay();
 		g_exit_status = 130;
 	}
@@ -56,7 +58,6 @@ void	sig_handler(int signum)
 	int	state;
 
 	state = ft_state(-1);
-	open("test", O_CREAT);
 	if (signum == 2)
 		sig_int(state);
 	else
