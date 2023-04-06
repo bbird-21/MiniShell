@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:47:51 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/06 15:25:47 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/06 20:09:50 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,14 @@ static void	post_pipex(t_storage_cmd *st_cmd, t_list *list)
 	if (st_cmd->toclose)
 		close(st_cmd->toclose);
 	while (++i < st_cmd->pos)
+	{
 		waitpid(st_cmd->pid[i], &status, 0);
+		if (WTERMSIG(status) == 11)
+		{
+			printf("Segmentation fault (core dumped)\n");
+			g_exit_status = 139;
+		}
+	}
 	clean_data(st_cmd);
 	ft_out(&status);
 }

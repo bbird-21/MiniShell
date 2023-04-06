@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:12:42 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/06 15:30:17 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/06 19:56:06 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define EXPAND 36
 
 # include <aio.h>
+
 typedef enum e_env_setting{
 	CREATING,
 	DELETING,

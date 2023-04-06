@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 15:06:34 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/06 15:23:58 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/06 17:00:14 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	sig_handler(int signum)
 	int	state;
 
 	state = ft_state(-1);
+	open("test", O_CREAT);
 	if (signum == 2)
 		sig_int(state);
 	else
