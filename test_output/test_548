@@ -1,0 +1,4 @@
+cmd: The Markdown Gecho $?
+rm srcs/bonjour srcs/hello
+bash output:
+minishell output:

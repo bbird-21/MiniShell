@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 19:49:16 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/04/06 22:52:56 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/07 00:33:19 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	main(int ac, char **av, char **env)
 		if (!str[0])
 			continue ;
 		add_history(str);
-		printf("\r");
 		first_split(str);
 	}
 }

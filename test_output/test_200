@@ -1,0 +1,47 @@
+cmd: unset """" HOLA
+echo $?
+bash output:
+0
+minishell output:
+==1003597== Invalid read of size 8
+==1003597==    at 0x404C02: split_token (tokjoin.c:43)
+==1003597==    by 0x404DE8: tokjoin (tokjoin.c:94)
+==1003597==    by 0x404929: dividing (split_state.c:96)
+==1003597==    by 0x404983: split_state (split_state.c:112)
+==1003597==    by 0x4036DB: token_generator (token_creator.c:67)
+==1003597==    by 0x402782: first_split (first_split.c:126)
+==1003597==    by 0x40138B: main (main.c:44)
+==1003597==  Address 0x4b698e8 is 0 bytes after a block of size 8 alloc'd
+==1003597==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1003597==    by 0x40588D: protection (split.c:72)
+==1003597==    by 0x405902: ft_split (split.c:86)
+==1003597==    by 0x404BEC: split_token (tokjoin.c:41)
+==1003597==    by 0x404DE8: tokjoin (tokjoin.c:94)
+==1003597==    by 0x404929: dividing (split_state.c:96)
+==1003597==    by 0x404983: split_state (split_state.c:112)
+==1003597==    by 0x4036DB: token_generator (token_creator.c:67)
+==1003597==    by 0x402782: first_split (first_split.c:126)
+==1003597==    by 0x40138B: main (main.c:44)
+==1003597== 
+==1003597== Invalid read of size 8
+==1003597==    at 0x403A90: free_tab (trash.c:68)
+==1003597==    by 0x404C8B: split_token (tokjoin.c:54)
+==1003597==    by 0x404DE8: tokjoin (tokjoin.c:94)
+==1003597==    by 0x404929: dividing (split_state.c:96)
+==1003597==    by 0x404983: split_state (split_state.c:112)
+==1003597==    by 0x4036DB: token_generator (token_creator.c:67)
+==1003597==    by 0x402782: first_split (first_split.c:126)
+==1003597==    by 0x40138B: main (main.c:44)
+==1003597==  Address 0x4b698e8 is 0 bytes after a block of size 8 alloc'd
+==1003597==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1003597==    by 0x40588D: protection (split.c:72)
+==1003597==    by 0x405902: ft_split (split.c:86)
+==1003597==    by 0x404BEC: split_token (tokjoin.c:41)
+==1003597==    by 0x404DE8: tokjoin (tokjoin.c:94)
+==1003597==    by 0x404929: dividing (split_state.c:96)
+==1003597==    by 0x404983: split_state (split_state.c:112)
+==1003597==    by 0x4036DB: token_generator (token_creator.c:67)
+==1003597==    by 0x402782: first_split (first_split.c:126)
+==1003597==    by 0x40138B: main (main.c:44)
+==1003597== 
+1

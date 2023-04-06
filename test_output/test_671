@@ -1,0 +1,35 @@
+cmd: ls > inoutfile | cat inoutfile > /dev/stdout | cat inoutfile
+echo $?
+bash output:
+0
+minishell output:
+""$HOLA""
+$HOLA
+a
+cat
+expected_output
+hey
+hola
+""HOLA""
+HOLA
+hola1
+hola2
+inoutfile
+ls1
+Makefile
+minishell_output
+our_test
+pwd
+pwd)
+readline_ignore.txt
+README.md
+script_cut.sh
+test
+test_bonus
+tester.sh
+test_list
+test_list_bis
+test_list_bonus
+test_mandatory
+test_output
+0

@@ -1,0 +1,8 @@
+cmd: pwd ls
+echo $?
+bash output:
+/mnt/nfs/homes/mmeguedm/Desktop/Projects/MiniShell/Shell_Tester
+0
+minishell output:
+/mnt/nfs/homes/mmeguedm/Desktop/Projects/MiniShell/Shell_Tester
+1

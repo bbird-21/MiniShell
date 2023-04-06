@@ -1,0 +1,6 @@
+cmd: echo $?
+<bonjour cat | wc > bonjour
+bash output:
+0
+minishell output:
+0

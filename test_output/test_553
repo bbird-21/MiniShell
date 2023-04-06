@@ -1,0 +1,6 @@
+cmd: echo $?
+>../bonjour >../hello <prout
+bash output:
+0
+minishell output:
+0

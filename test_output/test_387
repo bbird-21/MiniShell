@@ -1,0 +1,8 @@
+cmd: cat hola
+echo $?
+bash output:
+hey
+0
+minishell output:
+hey
+0

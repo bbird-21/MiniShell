@@ -1,0 +1,6 @@
+cmd: whoami | cat -e | cat -e > /tmp/bonjour
+echo $?
+bash output:
+0
+minishell output:
+0

@@ -1,0 +1,162 @@
+cmd: echo $?
+exit ++++++0
+bash output:
+0
+minishell output:
+0
+==1004977== 4 bytes in 1 blocks are still reachable in loss record 1 of 80
+==1004977==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1004977==    by 0x406778: st_init (pipex.c:44)
+==1004977==    by 0x4066F2: pre_pipex (pipex.c:106)
+==1004977==    by 0x405FA5: opening (opening.c:107)
+==1004977==    by 0x405DD1: here_doc (here_doc.c:87)
+==1004977==    by 0x40179C: cmd_generator (cmd_creator.c:117)
+==1004977==    by 0x4049E8: split_state (split_state.c:120)
+==1004977==    by 0x4036DB: token_generator (token_creator.c:67)
+==1004977==    by 0x402782: first_split (first_split.c:126)
+==1004977==    by 0x40138B: main (main.c:44)
+==1004977== 
+==1004977== 13 bytes in 2 blocks are still reachable in loss record 5 of 80
+==1004977==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1004977==    by 0x403DC0: ft_strdup (utils.c:68)
+==1004977==    by 0x40352A: create_token (token_creator.c:22)
+==1004977==    by 0x4013BB: arg_red_list (cmd_creator.c:20)
+==1004977==    by 0x401507: cmd_core (cmd_creator.c:53)
+==1004977==    by 0x40163D: data_cmd (cmd_creator.c:83)
+==1004977==    by 0x4016E2: cmd_generator (cmd_creator.c:106)
+==1004977==    by 0x4049E8: split_state (split_state.c:120)
+==1004977==    by 0x4036DB: token_generator (token_creator.c:67)
+==1004977==    by 0x402782: first_split (first_split.c:126)
+==1004977==    by 0x40138B: main (main.c:44)
+==1004977== 
+==1004977== 13 bytes in 2 blocks are still reachable in loss record 6 of 80
+==1004977==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1004977==    by 0x403DC0: ft_strdup (utils.c:68)
+==1004977==    by 0x404F9F: trans_token (lst.c:49)
+==1004977==    by 0x40504D: translator (lst.c:78)
+==1004977==    by 0x4065E5: st_fill (pipex.c:21)
+==1004977==    by 0x4067D4: pipex (pipex.c:82)
+==1004977==    by 0x406726: pre_pipex (pipex.c:109)
+==1004977==    by 0x405FA5: opening (opening.c:107)
+==1004977==    by 0x405DD1: here_doc (here_doc.c:87)
+==1004977==    by 0x40179C: cmd_generator (cmd_creator.c:117)
+==1004977==    by 0x4049E8: split_state (split_state.c:120)
+==1004977==    by 0x4036DB: token_generator (token_creator.c:67)
+==1004977== 
+==1004977== 16 bytes in 1 blocks are still reachable in loss record 12 of 80
+==1004977==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1004977==    by 0x4029AD: ft_lstnew (lst_utils.c:20)
+==1004977==    by 0x401707: cmd_generator (cmd_creator.c:109)
+==1004977==    by 0x4049E8: split_state (split_state.c:120)
+==1004977==    by 0x4036DB: token_generator (token_creator.c:67)
+==1004977==    by 0x402782: first_split (first_split.c:126)
+==1004977==    by 0x40138B: main (main.c:44)
+==1004977== 
+==1004977== 24 bytes in 1 blocks are still reachable in loss record 17 of 80
+==1004977==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1004977==    by 0x40502A: translator (lst.c:74)
+==1004977==    by 0x4065E5: st_fill (pipex.c:21)
+==1004977==    by 0x4067D4: pipex (pipex.c:82)
+==1004977==    by 0x406726: pre_pipex (pipex.c:109)
+==1004977==    by 0x405FA5: opening (opening.c:107)
+==1004977==    by 0x405DD1: here_doc (here_doc.c:87)
+==1004977==    by 0x40179C: cmd_generator (cmd_creator.c:117)
+==1004977==    by 0x4049E8: split_state (split_state.c:120)
+==1004977==    by 0x4036DB: token_generator (token_creator.c:67)
+==1004977==    by 0x402782: first_split (first_split.c:126)
+==1004977==    by 0x40138B: main (main.c:44)
+==1004977== 
+==1004977== 32 bytes in 1 blocks are still reachable in loss record 19 of 80
+==1004977==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1004977==    by 0x401451: initializing_data (cmd_creator.c:37)
+==1004977==    by 0x4015DE: data_cmd (cmd_creator.c:75)
+==1004977==    by 0x4016E2: cmd_generator (cmd_creator.c:106)
+==1004977==    by 0x4049E8: split_state (split_state.c:120)
+==1004977==    by 0x4036DB: token_generator (token_creator.c:67)
+==1004977==    by 0x402782: first_split (first_split.c:126)
+==1004977==    by 0x40138B: main (main.c:44)
+==1004977== 
+==1004977== 32 bytes in 2 blocks are still reachable in loss record 20 of 80
+==1004977==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1004977==    by 0x403505: create_token (token_creator.c:19)
+==1004977==    by 0x4013BB: arg_red_list (cmd_creator.c:20)
+==1004977==    by 0x401507: cmd_core (cmd_creator.c:53)
+==1004977==    by 0x40163D: data_cmd (cmd_creator.c:83)
+==1004977==    by 0x4016E2: cmd_generator (cmd_creator.c:106)
+==1004977==    by 0x4049E8: split_state (split_state.c:120)
+==1004977==    by 0x4036DB: token_generator (token_creator.c:67)
+==1004977==    by 0x402782: first_split (first_split.c:126)
+==1004977==    by 0x40138B: main (main.c:44)
+==1004977== 
+==1004977== 32 bytes in 2 blocks are still reachable in loss record 21 of 80
+==1004977==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1004977==    by 0x4029AD: ft_lstnew (lst_utils.c:20)
+==1004977==    by 0x4013EA: arg_red_list (cmd_creator.c:24)
+==1004977==    by 0x401507: cmd_core (cmd_creator.c:53)
+==1004977==    by 0x40163D: data_cmd (cmd_creator.c:83)
+==1004977==    by 0x4016E2: cmd_generator (cmd_creator.c:106)
+==1004977==    by 0x4049E8: split_state (split_state.c:120)
+==1004977==    by 0x4036DB: token_generator (token_creator.c:67)
+==1004977==    by 0x402782: first_split (first_split.c:126)
+==1004977==    by 0x40138B: main (main.c:44)
+==1004977== 
+==1004977== 560 bytes in 1 blocks are still reachable in loss record 34 of 80
+==1004977==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1004977==    by 0x40502A: translator (lst.c:74)
+==1004977==    by 0x4066DE: pre_pipex (pipex.c:105)
+==1004977==    by 0x405FA5: opening (opening.c:107)
+==1004977==    by 0x405DD1: here_doc (here_doc.c:87)
+==1004977==    by 0x40179C: cmd_generator (cmd_creator.c:117)
+==1004977==    by 0x4049E8: split_state (split_state.c:120)
+==1004977==    by 0x4036DB: token_generator (token_creator.c:67)
+==1004977==    by 0x402782: first_split (first_split.c:126)
+==1004977==    by 0x40138B: main (main.c:44)
+==1004977== 
+==1004977== 895 bytes in 69 blocks are still reachable in loss record 38 of 80
+==1004977==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1004977==    by 0x401AB0: ft_key (env_utils.c:50)
+==1004977==    by 0x401E4A: create_env (env_utils.c:129)
+==1004977==    by 0x40200C: adding (env_functions.c:47)
+==1004977==    by 0x402389: creating (env.c:25)
+==1004977==    by 0x402466: handler (env.c:67)
+==1004977==    by 0x4012E3: main (main.c:25)
+==1004977== 
+==1004977== 1,104 bytes in 69 blocks are still reachable in loss record 48 of 80
+==1004977==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1004977==    by 0x401E25: create_env (env_utils.c:126)
+==1004977==    by 0x40200C: adding (env_functions.c:47)
+==1004977==    by 0x402389: creating (env.c:25)
+==1004977==    by 0x402466: handler (env.c:67)
+==1004977==    by 0x4012E3: main (main.c:25)
+==1004977== 
+==1004977== 1,104 bytes in 69 blocks are still reachable in loss record 49 of 80
+==1004977==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1004977==    by 0x4029AD: ft_lstnew (lst_utils.c:20)
+==1004977==    by 0x40203C: adding (env_functions.c:53)
+==1004977==    by 0x402389: creating (env.c:25)
+==1004977==    by 0x402466: handler (env.c:67)
+==1004977==    by 0x4012E3: main (main.c:25)
+==1004977== 
+==1004977== 3,205 bytes in 67 blocks are still reachable in loss record 54 of 80
+==1004977==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1004977==    by 0x401C5C: ft_value (env_utils.c:80)
+==1004977==    by 0x401E5D: create_env (env_utils.c:130)
+==1004977==    by 0x40200C: adding (env_functions.c:47)
+==1004977==    by 0x402389: creating (env.c:25)
+==1004977==    by 0x402466: handler (env.c:67)
+==1004977==    by 0x4012E3: main (main.c:25)
+==1004977== 
+==1004977== 4,102 bytes in 69 blocks are still reachable in loss record 59 of 80
+==1004977==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1004977==    by 0x404139: simple_join (utils2.c:67)
+==1004977==    by 0x404F5E: trans_env (lst.c:39)
+==1004977==    by 0x40504D: translator (lst.c:78)
+==1004977==    by 0x4066DE: pre_pipex (pipex.c:105)
+==1004977==    by 0x405FA5: opening (opening.c:107)
+==1004977==    by 0x405DD1: here_doc (here_doc.c:87)
+==1004977==    by 0x40179C: cmd_generator (cmd_creator.c:117)
+==1004977==    by 0x4049E8: split_state (split_state.c:120)
+==1004977==    by 0x4036DB: token_generator (token_creator.c:67)
+==1004977==    by 0x402782: first_split (first_split.c:126)
+==1004977==    by 0x40138B: main (main.c:44)
+==1004977== 

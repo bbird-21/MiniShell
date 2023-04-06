@@ -1,0 +1,6 @@
+cmd: echo $?
+cd $PWD
+bash output:
+0
+minishell output:
+0

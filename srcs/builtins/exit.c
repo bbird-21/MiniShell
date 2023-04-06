@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:11:19 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/04/06 23:49:25 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/07 00:42:52 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void    ft_exit(char **arg)
         ft_putstr_fd("nanoshell: exit: ", 2);
         ft_putstr_fd(str, 2);
         ft_putendl_fd(": numeric argument required", 2);
+        mini_gc(NULL, NULL);
+        handler(CLEANING, NULL, NULL);    
         exit(2);
     }
     ft_putstr_fd("exit\n", 2);

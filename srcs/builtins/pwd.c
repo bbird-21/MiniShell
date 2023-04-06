@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:10:40 by alvina            #+#    #+#             */
-/*   Updated: 2023/04/06 16:29:00 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/07 00:42:13 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ void    pwd(char **arg)
 {
     char    *pwd;
     
-    if (!check_arg(arg, 0, "pwd"))
-    {
-        g_exit_status = 1;
-        handler(CLEANING, NULL, NULL);
-        mini_gc(NULL, NULL);
-        exit(1);
-    }
+    // if (!check_arg(arg, 0, "pwd"))
+    // {
+    //     g_exit_status = 1;
+    //     handler(CLEANING, NULL, NULL);
+    //     mini_gc(NULL, NULL);
+    //     exit(1);
+    // }
     (void)arg;
     pwd = malloc(sizeof(char) * PATH_MAX);
     if (!getcwd(pwd, PATH_MAX))

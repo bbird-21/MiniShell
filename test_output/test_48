@@ -1,0 +1,6 @@
+cmd: env hola
+echo $?
+bash output:
+125
+minishell output:
+1
