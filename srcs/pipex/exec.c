@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:36:05 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/30 14:06:12 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/06 15:29:10 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,12 @@ void	loop_job(t_storage_cmd *st_cmd, t_list *cmd)
 		free_exit("fork");
 	else if (st_cmd->pid[st_cmd->pos] == 0)
 	{
-		ft_state(2);
+		ft_state(-1);
 		dup_and_exe(st_cmd, cmd);
 	}
 	else
 	{
-		ft_state(1);
+		ft_state(PIPEX);
 		if (st_cmd->pos != 0)
 			close(st_cmd->fd_tmp);
 		if (st_cmd->pos != st_cmd->nb_cmd - 1)

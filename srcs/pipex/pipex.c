@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:47:51 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/30 14:07:38 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/06 15:25:47 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void	pipex(t_list *list, t_storage_cmd *st_cmd)
 	lst = list;
 	while (lst)
 	{
-		ft_state(1);
+		ft_state(PIPEX);
 		cmd = (t_cmd *)(lst->content);
 		st_fill(st_cmd, cmd);
 		mini_gc(NULL, st_cmd);

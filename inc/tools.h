@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:12:42 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/28 16:04:01 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/06 15:30:17 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,13 @@ typedef enum e_type
 	DROUT,
 	PIPE
 }	t_type;
+
+typedef enum e_handle_sig
+{
+	READLINE,
+	PIPEX,
+	HERE_DOC
+}	t_handle_sig;
 
 typedef struct s_token
 {

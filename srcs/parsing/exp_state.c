@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 10:28:38 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/30 15:50:48 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/06 15:04:26 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ t_fp_exp	handling_table(unsigned char state)
 char	*do_job(char *str, int type)
 {
 	t_fp_exp	fp;
+
 
 	if (type == 1)
 		return (str);

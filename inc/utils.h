@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:09:54 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/28 17:23:53 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/06 15:14:00 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	ft_out(int *status);
 void	empty_data(t_storage_cmd *cmd);
 void	clean_data(t_storage_cmd *cmd);
 void	mini_gc(t_list *cmd, t_storage_cmd *st);
-int		get_nb_cmd(t_list *list);
 void	closing_cmd(t_list *cmd);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/17 17:30:47 by mmeguedm          #+#    #+#              #
-#    Updated: 2023/03/30 15:24:07 by mmeguedm         ###   ########.fr        #
+#    Updated: 2023/04/06 15:07:54 by mmeguedm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,6 +86,7 @@ SRC			=	$(addprefix $(SRC_PATH),					\
 					$(addprefix exec/,						\
 						here_doc.c							\
 						opening.c							\
+						signal.c							\
 					)										\
 					$(addprefix pipex/,						\
 						error.c								\
