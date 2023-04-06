@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 18:45:11 by alvina            #+#    #+#             */
-/*   Updated: 2023/04/06 23:51:30 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/07 00:31:15 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	execve_builtin(int flag, char **arg)
 	if (flag == -2)
 	{
 		mini_gc(NULL, NULL);
+		handler(CLEANING, NULL, NULL);
 		exit(0);
 	}
 	exec = funct(flag);
