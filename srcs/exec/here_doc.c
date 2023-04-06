@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 17:32:12 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/06 15:30:28 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/06 22:53:31 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,6 @@ void	here_doc(t_list **list)
 		tmp = tmp->next;
 	}
 	dup2(stdin_cpy, 0);
+	close(stdin_cpy);
 	return (opening(list));
 }

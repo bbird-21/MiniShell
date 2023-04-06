@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokjoin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 21:18:56 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/30 11:37:35 by alvina           ###   ########.fr       */
+/*   Updated: 2023/04/06 23:10:12 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void	one_token_treatment(t_list **list)
 		new = ft_strdup(((t_token *)((*list)->content))->value);
 		if (new && new[0] != '\0')
 			split_token(list, new);
+		else
+			free(new);
 	}
 }
 
