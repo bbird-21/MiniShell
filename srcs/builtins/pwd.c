@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:10:40 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/31 13:15:33 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/07 09:58:21 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@ void	pwd(char **arg)
 	}
 	(void)arg;
 	pwd = malloc(sizeof(char) * PATH_MAX);
+	if (!pwd)
+	{
+		mini_gc(NULL, NULL);
+		rl_clear_history();
+		handler(CLEANING, NULL, NULL);
+		exit(-21);
+	}
 	getcwd(pwd, PATH_MAX);
 	ft_putendl_fd(pwd, 1);
 	g.exit_status = 0;

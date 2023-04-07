@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 00:16:17 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/31 13:18:08 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/07 11:52:58 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,5 @@ void	exit_malloc(void)
 {
 	handler(CLEANING, NULL, NULL);
 	rl_clear_history();
-	exit(0);
+	exit(12);
 }

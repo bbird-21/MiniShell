@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:28:29 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/31 14:00:04 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/07 11:52:21 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	size_var(char **token, int *i)
 		sh_var[j++] = (*token)[(*i)++];
 	sh_var[j] = 0;
 	var_env = ft_getenv(sh_var);
-	if (!var_env && g.exit_malloc == 1)
+	if (!var_env && g.exit_malloc)
 	{
 		free(sh_var);
 		return (0);
@@ -119,7 +119,7 @@ static char	*set_expansion(char *token, char **new, int i, int k)
 		j = 0;
 		if (token[i] == EXPAND)
 		{
-			if (g.exit_malloc == 1)
+			if (g.exit_malloc)
 			{
 				free(expand_var);
 				free(*new);

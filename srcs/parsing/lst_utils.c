@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 08:15:57 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/31 12:49:02 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/07 11:12:52 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ t_list	*ft_lstnew(void *content)
 	list = NULL;
 	list = malloc(sizeof(t_list));
 	if (!list)
+	{
+		g.exit_malloc = 1;
 		return (NULL);
+	}
 	if (list)
 	{
 		list->content = content;

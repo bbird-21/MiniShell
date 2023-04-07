@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 19:53:35 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/31 12:53:44 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/07 11:56:16 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,14 @@ void	token_generator(char **tab, int i)
 	while (tab[++i])
 	{
 		data = create_token(tab[i]);
-		if (!data)
+		if (g.exit_malloc)
 			cleaning_tkn(tab, t_lst);
 		t_new = ft_lstnew(data);
-		if (!t_new)
+		if (g.exit_malloc)
+		{
+			token_cleaner(data);
 			cleaning_tkn(tab, t_lst);
+		}
 		t_lst = ft_lstadd_back(&t_lst, t_new);
 	}
 	free_tab(tab, -1);

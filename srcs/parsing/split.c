@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 23:34:30 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/31 13:32:23 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/07 09:33:06 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,11 @@ char	**protection(char *s)
 	if (!s)
 		return (NULL);
 	split = malloc(sizeof(char *) * 1);
+	if (!split)
+	{
+		g.exit_malloc = 1;
+		return (NULL);
+	}
 	split[0] = malloc(1);
 	split[0][0] = 0;
 	return (split);

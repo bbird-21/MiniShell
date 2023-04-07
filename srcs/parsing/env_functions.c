@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 09:41:32 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/31 13:10:15 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/07 11:24:31 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	appending(t_list **envp, char **env, char *arg)
 		return ;
 	free(key);
 	data->value = joining_value(data, ft_value(arg));
+	if (g.exit_malloc)
+		free(data->value);
 }
 
 void	adding(t_list **envp, char **env, char *arg)
@@ -46,15 +48,16 @@ void	adding(t_list **envp, char **env, char *arg)
 	if (!arg)
 		return ;
 	data = create_env(arg);
-	if (!data)
+	if (g.exit_malloc)
 	{
 		ft_lstclear(envp, env_cleaner);
 		return ;
 	}
 	e_new = ft_lstnew(data);
-	if (!e_new)
+	if (g.exit_malloc)
 	{
 		ft_lstclear(envp, env_cleaner);
+		env_cleaner(data);
 		return ;
 	}
 	(*envp) = ft_lstadd_back(envp, e_new);
@@ -100,7 +103,7 @@ void	modifying(t_list **envp, char **env, char *arg)
 	curr = *envp;
 	data = (t_env *)(curr->content);
 	key = ft_key(arg);
-	if (!key)
+	if (g.exit_malloc)
 		return ;
 	while ((curr) && (ft_strncmp(data->key, key, ft_strlen(key))
 			|| (ft_strlen(data->key) != ft_strlen(key))))
@@ -114,4 +117,6 @@ void	modifying(t_list **envp, char **env, char *arg)
 	free(key);
 	free(data->value);
 	data->value = ft_value(arg);
+	if (g.exit_malloc)
+		return ;
 }

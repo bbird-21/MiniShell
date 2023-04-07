@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 19:49:16 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/31 13:48:36 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/07 13:19:54 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	sig_int(int state)
 	}
 	else if (state == 1)
 	{
-		printf("state = 1\n");
 		ft_putstr_fd("\n", 2);
 		g.exit_status = 130;
 	}
@@ -103,12 +102,11 @@ int	main(int ac, char **av, char **env)
 	ft_state(4);
 	while (21)
 	{
-			printf("ganja\n");
 		ft_state(0);
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, &sig_handler);
+		signal(SIGTSTP, SIG_IGN);
 		str = readline("femtoshell > ");
-		printf("\r");
 		if (!str)
 		{
 			ft_putstr_fd("exit\n", 2);

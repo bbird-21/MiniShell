@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 09:44:10 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/30 11:38:02 by alvina           ###   ########.fr       */
+/*   Updated: 2023/04/07 11:04:29 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ char	*ft_key(char *str)
 		i--;
 	new = malloc(sizeof(char) * i + 1);
 	if (!new)
+	{
+		g.exit_malloc = 1;
 		return (NULL);
+	}
 	i = 0;
 	while (str[i] != '=' && str[i])
 	{
@@ -75,11 +78,12 @@ char	*ft_value(char *str)
 	if (!str[i])
 		return (NULL);
 	i++;
-	if (!str[i])
-		return (NULL);
 	new = malloc(sizeof(char) * (ft_strlen(&str[i]) + 1));
 	if (!new)
+	{
+		g.exit_malloc = 1;
 		return (NULL);
+	}
 	while (str[i])
 	{
 		new[j] = str[i];
@@ -125,11 +129,16 @@ t_env	*create_env(char *str)
 
 	data = malloc(sizeof(t_env));
 	if (!data)
+	{
+		g.exit_malloc = 1;
 		return (NULL);
+	}
 	data->key = ft_key(str);
 	data->value = ft_value(str);
-	if (!data->key)
+	if (g.exit_malloc == 1)
 	{
+		free(data->key);
+		free(data->value);
 		env_cleaner(data);
 		return (NULL);
 	}

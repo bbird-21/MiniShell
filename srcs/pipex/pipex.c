@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:47:51 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/31 13:39:29 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/07 11:58:16 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	st_fill(t_storage_cmd *st_cmd, t_cmd *cmd)
 	char	**path;
 
 	arg = translator(cmd->arg, trans_token);
-	if (!arg)
+	if (!arg && g.exit_malloc == 1)
 	{
 		mini_gc(NULL, NULL);
 		clean_data(st_cmd);
@@ -69,7 +69,14 @@ static void	post_pipex(t_storage_cmd *st_cmd, t_list *list)
 	if (st_cmd->toclose)
 		close(st_cmd->toclose);
 	while (++i < st_cmd->pos)
+	{
 		waitpid(st_cmd->pid[i], &status, 0);
+		if (status == -21)
+		{
+			mini_gc(NULL, NULL);
+			exit_malloc();
+		}
+	}
 	clean_data(st_cmd);
 	ft_out(&status);
 }
@@ -92,6 +99,11 @@ static void	pipex(t_list *list, t_storage_cmd *st_cmd)
 			{
 				execve_builtin(is_builtin(st_cmd->bin_args[0], 0),
 					st_cmd->bin_args);
+				if (g.exit_malloc == 1)
+				{
+					mini_gc(NULL, NULL);
+					exit_malloc();
+				}
 				return (mini_gc(NULL, NULL));
 			}
 		}

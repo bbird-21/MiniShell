@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:29:15 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/31 13:37:52 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/07 09:35:28 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*ft_strdup(char *s)
 	if (!str)
 	{
 		g.exit_malloc = 1;
-		return (0);
+		return (NULL);
 	}
 	i = 0;
 	while (s[i])
