@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 09:55:05 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/31 13:22:57 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/07 15:19:43 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,11 @@ void	first_split(char *str)
 {
 	char	**tab;
 
+	if (!parse_quote(str))
+	{
+		free(str);
+		return ;
+	}
 	tab = (char **)malloc(sizeof(char *) * (count_words(str, -1) + 1));
 	if (!tab)
 	{

@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 21:18:56 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/31 12:52:52 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/07 15:55:14 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ int	split_token(t_list **list, char *new)
 	free(new);
 	if (!split)
 		return (0);
-	while (split[i])
+	while (split && split[i] && split[i][0])
 	{
+		// printf("%s \n", split[i]);
 		data = create_token(split[i]);
 		if (!data)
 			return (cleaning_spl_tkn(split, new_list));
@@ -60,6 +61,12 @@ int	split_token(t_list **list, char *new)
 			return (cleaning_spl_tkn(split, new_list));
 		new_list = ft_lstadd_back(&new_list, new_node);
 		i++;
+	}
+	if (split && split[i] && !split[i][0])
+	{
+		new_node = ft_lstnew(create_token("\0"));
+		new_list = ft_lstadd_back(&new_list, new_node);
+		// printf("there\n");
 	}
 	free_tab(split, -1);
 	ft_lstclear(list, token_cleaner);
@@ -76,10 +83,10 @@ int	one_token_treatment(t_list **list)
 	if (data->type == WORD || data->type == FD)
 	{
 		new = ft_strdup(((t_token *)((*list)->content))->value);
-		if (!new)
-			return (0);
 		if (new && new[0] != '\0')
 			split_token(list, new);
+		else
+			free(new);
 	}
 	return (1);
 }

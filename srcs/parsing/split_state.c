@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 22:02:38 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/31 13:53:01 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/07 15:41:58 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,5 +127,6 @@ void	split_state(t_list **l)
 		tmp = tmp->next;
 		index = 0;
 	}
+	ft_lstclear(l, token_cleaner);
 	return (cmd_generator(&new_list, -1));
 }

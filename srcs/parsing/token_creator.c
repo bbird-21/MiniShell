@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 19:53:35 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/04/07 11:56:16 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/07 14:50:05 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ t_token	*create_token(char *str)
 
 	data = malloc(sizeof(t_token));
 	if (!data)
+	{
+		g.exit_malloc = 1;
 		return (NULL);
+	}
 	data->value = ft_strdup(str);
 	if (!data->value)
 	{
