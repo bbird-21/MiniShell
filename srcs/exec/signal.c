@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 15:06:34 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/06 22:35:52 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/11 19:56:29 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,18 @@ void	sig_int(int state)
 {
 	int fd;
 
-	// if (state == 4)
-	// 	printf("\n");
 	if (state == READLINE)
 	{
-		ft_putstr_fd("\n", 2);
-		
+		ft_putstr_fd("\n", 1);
 		rl_on_new_line();
-		rl_replace_line("", 1);
+		rl_replace_line("", 0);
 		rl_redisplay();
-		g_exit_status = 130;
+		g.exit_status = 130;
 	}
 	else if (state == PIPEX)
 	{
 		ft_putstr_fd("\n", 2);
-		g_exit_status = 130;
+		g.exit_status = 130;
 	}
 	else if (state == HERE_DOC)
 	{
@@ -47,7 +44,7 @@ void	sig_quit(int state)
 	if (state == 1)
 	{
 		ft_putstr_fd("Quit (core dumped)\n", 2);
-		g_exit_status = 131;
+		g.exit_status = 131;
 	}
 	else
 		exit(131);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   opening.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:21:25 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/30 14:17:32 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/11 19:56:26 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,6 @@ static int	outfiling(t_cmd *cmd, t_token *token)
 	cmd->outfile = fd;
 	return (1);
 }
-
-// static void	print_files(t_list *cmd)
-// {
-// 	while (cmd)
-// 	{
-// 		printf("\n-------------------\n");
-// 		printf("infile : %d, outfile : %d\n", ((t_cmd *)(cmd->content))->infile,
-				// ((t_cmd *)(cmd->content))->outfile);
-// 		cmd = cmd->next;
-// 	}
-// }
 
 void	opening(t_list **cmd)
 {

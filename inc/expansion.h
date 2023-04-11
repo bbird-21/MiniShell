@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 20:40:11 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/11 19:12:17 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/11 19:26:24 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int			get_var_size(char *str);
 int			set_var(char *str, char **sh_var, char **sign_var);
 char		*expansion(char *token);
 
-void    	tokjoin(t_list **list, int j);
 void		join_token(t_list **list, char *new);
 
 char		*state_00(char *str);

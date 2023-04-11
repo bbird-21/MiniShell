@@ -6,11 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:47:51 by mmeguedm          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/04/11 15:58:22 by ale-sain         ###   ########.fr       */
-=======
-/*   Updated: 2023/04/06 23:42:41 by mmeguedm         ###   ########.fr       */
->>>>>>> momo_ws
+/*   Updated: 2023/04/11 19:57:37 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +16,6 @@
 void	st_fill(t_storage_cmd *st_cmd, t_cmd *cmd)
 {
 	char	**arg;
-	char	**path;
 
 	arg = translator(cmd->arg, trans_token);
 	if (!arg && g.exit_malloc == 1)
@@ -37,9 +32,6 @@ void	st_fill(t_storage_cmd *st_cmd, t_cmd *cmd)
 	else
 		st_cmd->toclose = 0;
 	st_cmd->bin_args = arg;
-	int i = 0;
-	while (arg[i])
-		printf("%s \n", arg[i++]);
 	if (arg)
 		st_cmd->bin_path = get_bin_path(arg[0], get_path(st_cmd->env));
 	else
@@ -82,10 +74,11 @@ static void	post_pipex(t_storage_cmd *st_cmd, t_list *list)
 		{
 			mini_gc(NULL, NULL);
 			exit_malloc();
+		}
 		if (WTERMSIG(status) == 11)
 		{
-			printf("Segmentation fault (core dumped)\n");
-			g_exit_status = 139;
+			ft_putstr_fd("Segmentation fault (core dumped)\n", STDERR_FILENO);
+			g.exit_status = 139;
 		}
 	}
 	clean_data(st_cmd);

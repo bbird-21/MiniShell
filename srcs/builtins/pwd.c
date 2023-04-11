@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:10:40 by alvina            #+#    #+#             */
-/*   Updated: 2023/04/11 19:15:11 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/11 19:29:31 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	pwd(char **arg)
     
     // if (!check_arg(arg, 0, "pwd"))
     // {
-    //     g_exit_status = 1;
+    //     g.exit_status = 1;
     //     handler(CLEANING, NULL, NULL);
     //     mini_gc(NULL, NULL);
     //     exit(1);
@@ -36,7 +36,7 @@ void	pwd(char **arg)
 	if (!getcwd(pwd, PATH_MAX))
         perror("getcwd");
     ft_putendl_fd(pwd, 1);
-    g_exit_status = 0;
+    g.exit_status = 0;
     free(pwd);
     mini_gc(NULL, NULL);
     handler(CLEANING, NULL, NULL);

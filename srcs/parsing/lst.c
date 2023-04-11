@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:32:27 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/11 19:18:55 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/11 19:27:01 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	add_node_back_token(t_list **l, char *str, int *index, int type)
 			free(data);
 		return (0);
 	}
-	data->value = get_token(str, index);
+	data->value = get_token(str, index, type);
 	if (g.exit_malloc == 1)
 		return (free(data), free(new), 0);
 	data->type = type;

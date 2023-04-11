@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:36:05 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/11 19:20:22 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/11 19:57:02 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ void	dup_and_exe(t_storage_cmd *st_cmd, t_list *cmd)
 		return (handler(CLEANING, NULL, NULL), mini_gc(NULL, NULL));
 	}
 	else if (!st_cmd->bin_args || !st_cmd->bin_path)
-		cmd_not_found(st_cmd, cmd);
+		cmd_not_found(st_cmd);
 	else if (execve(st_cmd->bin_path, st_cmd->bin_args, st_cmd->env) == -1)
-		cmd_not_found(st_cmd, cmd);
-	// g_exit_status = execve(st_cmd->bin_path, st_cmd->bin_args, st_cmd->env);
-	// 	cmd_not_found(st_cmd, cmd);
+		cmd_not_found(st_cmd);
+	// g.exit_status = execve(st_cmd->bin_path, st_cmd->bin_args, st_cmd->env);
+	// 	cmd_not_found(st_cmd);
 }
 
 void	dupping(t_storage_cmd *st_cmd)
@@ -111,5 +111,4 @@ void	loop_job(t_storage_cmd *st_cmd, t_list *cmd)
 			exit_malloc();
 		}
 	}
-	// printf("fork : %d\n", st_cmd->pid[st_cmd->pos] = fork());
 }

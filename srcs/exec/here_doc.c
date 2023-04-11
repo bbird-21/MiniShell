@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 17:32:12 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/11 19:16:57 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/11 19:30:26 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,6 @@ void	nul_character(char *limiter)
 	ft_putstr_fd("delimited by end-of-file (wanted ", STDOUT_FILENO);
 	ft_putstr_fd(limiter, STDOUT_FILENO);
 	ft_putstr_fd(")\n", STDOUT_FILENO);
-}
-
-void	sigint(int signum)
-{
-		g.exit_status = -1;
 }
 
 static int do_here_doc(t_list **lst, char *limiter)
