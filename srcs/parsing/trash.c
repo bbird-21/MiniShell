@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:43:34 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/04/07 15:54:18 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/11 16:55:35 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,14 @@ char	**free_tab(char **tab, int j)
 			{
 				free(tab[i]);
 				i++;
+				if (tab[i] && !tab[i][0])
+				{
+					free(tab[i]);
+					i++;
+				}	
 			}
+			if (tab[i] && !tab[i][0])
+				free(tab[i]);
 		}
 	}
 	else

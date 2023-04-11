@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:47:51 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/07 11:58:16 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/11 15:58:22 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ void	st_fill(t_storage_cmd *st_cmd, t_cmd *cmd)
 	else
 		st_cmd->toclose = 0;
 	st_cmd->bin_args = arg;
+	int i = 0;
+	while (arg[i])
+		printf("%s \n", arg[i++]);
 	if (arg)
 		st_cmd->bin_path = get_bin_path(arg[0], get_path(st_cmd->env));
 	else
