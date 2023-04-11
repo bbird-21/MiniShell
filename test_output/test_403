@@ -1,0 +1,6 @@
+cmd: echo $?
+whereis grep > Docs/bonjour
+bash output:
+0
+minishell output:
+0

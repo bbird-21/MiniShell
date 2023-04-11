@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 00:16:17 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/07 11:52:58 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/11 19:17:53 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	free_exit(char *error)
 {
 	perror(error);
 	exit(g.exit_status);
+	clear_history();
 }
 
 int	error_msg(char *value)

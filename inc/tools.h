@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:12:42 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/31 13:07:29 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/11 19:12:17 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define EXPAND 36
 
 # include <aio.h>
+
 typedef enum e_env_setting{
 	CREATING,
 	DELETING,
@@ -47,6 +48,13 @@ typedef enum e_type
 	DROUT,
 	PIPE
 }	t_type;
+
+typedef enum e_handle_sig
+{
+	READLINE,
+	PIPEX,
+	HERE_DOC
+}	t_handle_sig;
 
 typedef struct s_token
 {

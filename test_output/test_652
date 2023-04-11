@@ -1,0 +1,6 @@
+cmd: ./minishell
+echo $?
+bash output:
+127
+minishell output:
+127

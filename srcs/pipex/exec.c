@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:36:05 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/07 11:57:44 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/11 19:20:22 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,16 @@ void	dup_and_exe(t_storage_cmd *st_cmd, t_list *cmd)
 		close(st_cmd->fd_tmp);
 	closing_cmd(cmd);
 	if (is_builtin(st_cmd->bin_args[0], 1) != -1)
-		execve_builtin(is_builtin(st_cmd->bin_args[0], 1), st_cmd->bin_args);
+	{
+		execve_builtin(is_builtin(st_cmd->bin_args[0], 1), st_cmd->bin_args);	
+		return (handler(CLEANING, NULL, NULL), mini_gc(NULL, NULL));
+	}
 	else if (!st_cmd->bin_args || !st_cmd->bin_path)
 		cmd_not_found(st_cmd, cmd);
 	else if (execve(st_cmd->bin_path, st_cmd->bin_args, st_cmd->env) == -1)
 		cmd_not_found(st_cmd, cmd);
+	// g_exit_status = execve(st_cmd->bin_path, st_cmd->bin_args, st_cmd->env);
+	// 	cmd_not_found(st_cmd, cmd);
 }
 
 void	dupping(t_storage_cmd *st_cmd)
@@ -83,12 +88,12 @@ void	loop_job(t_storage_cmd *st_cmd, t_list *cmd)
 		free_exit("fork");
 	else if (st_cmd->pid[st_cmd->pos] == 0)
 	{
-		ft_state(2);
+		ft_state(-1);
 		dup_and_exe(st_cmd, cmd);
 	}
 	else
 	{
-		ft_state(1);
+		ft_state(PIPEX);
 		if (st_cmd->pos != 0)
 			close(st_cmd->fd_tmp);
 		if (st_cmd->pos != st_cmd->nb_cmd - 1)
@@ -106,4 +111,5 @@ void	loop_job(t_storage_cmd *st_cmd, t_list *cmd)
 			exit_malloc();
 		}
 	}
+	// printf("fork : %d\n", st_cmd->pid[st_cmd->pos] = fork());
 }

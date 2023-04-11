@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:47:51 by mmeguedm          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/04/11 15:58:22 by ale-sain         ###   ########.fr       */
+=======
+/*   Updated: 2023/04/06 23:42:41 by mmeguedm         ###   ########.fr       */
+>>>>>>> momo_ws
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +82,10 @@ static void	post_pipex(t_storage_cmd *st_cmd, t_list *list)
 		{
 			mini_gc(NULL, NULL);
 			exit_malloc();
+		if (WTERMSIG(status) == 11)
+		{
+			printf("Segmentation fault (core dumped)\n");
+			g_exit_status = 139;
 		}
 	}
 	clean_data(st_cmd);
@@ -92,7 +100,7 @@ static void	pipex(t_list *list, t_storage_cmd *st_cmd)
 	lst = list;
 	while (lst)
 	{
-		ft_state(1);
+		ft_state(PIPEX);
 		cmd = (t_cmd *)(lst->content);
 		st_fill(st_cmd, cmd);
 		mini_gc(NULL, st_cmd);

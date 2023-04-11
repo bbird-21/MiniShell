@@ -1,0 +1,6 @@
+cmd: ./Makefile
+echo $?
+bash output:
+126
+minishell output:
+127

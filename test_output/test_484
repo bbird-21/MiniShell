@@ -1,0 +1,6 @@
+cmd: echo $?
+>bonjour echo > hola>bonjour>hola>>bonjour>hola hey >bonjour hola >hola
+bash output:
+0
+minishell output:
+0

@@ -1,0 +1,6 @@
+cmd: export ?=2
+echo $?
+bash output:
+1
+minishell output:
+1

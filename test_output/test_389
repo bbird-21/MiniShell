@@ -1,0 +1,6 @@
+cmd: echo $?
+shtest.c
+bash output:
+0
+minishell output:
+0

@@ -1,0 +1,8 @@
+cmd: echo $?
+whoami | grep $USER
+bash output:
+0
+mmeguedm
+minishell output:
+0
+mmeguedm

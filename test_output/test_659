@@ -1,0 +1,6 @@
+cmd: usr/bin/env
+echo $?
+bash output:
+127
+minishell output:
+127

@@ -1,0 +1,7 @@
+cmd: echo $?
+cd a/b
+bash output:
+0
+/mnt/nfs/homes/mmeguedm/Desktop/Projects/MiniShell/Shell_Tester/a/b
+minishell output:
+0

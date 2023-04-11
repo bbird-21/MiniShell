@@ -1,0 +1,6 @@
+cmd: echo $?
+cat <../pwd
+bash output:
+0
+minishell output:
+0

@@ -1,0 +1,6 @@
+cmd: export HOLA=bonjour | cat -e | cat -e
+echo $?
+bash output:
+0
+minishell output:
+0

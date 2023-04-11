@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 17:32:12 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/07 13:10:08 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/11 19:16:57 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	here_doc(t_list **list)
 	
 	stdin_cpy = dup(0);
 	tmp = (*list);
-	ft_state(3);
+	ft_state(HERE_DOC);
 	signal(SIGINT, &sig_handler);
 	while (tmp)
 	{
@@ -83,5 +83,6 @@ void	here_doc(t_list **list)
 		tmp = tmp->next;
 	}
 	dup2(stdin_cpy, 0);
+	close(stdin_cpy);
 	return (opening(list));
 }

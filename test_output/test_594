@@ -1,0 +1,6 @@
+cmd: echo $?
+<prout >>srcs/bonjour >>srcs/hello
+bash output:
+0
+minishell output:
+0
