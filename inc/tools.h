@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:12:42 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/11 19:12:17 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/11 20:06:20 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef enum e_env_setting{
 	CREATING,
 	DELETING,
 	ADDING,
-	MODIFYING, 
+	MODIFYING,
 	CLEANING,
 	GETTING,
 	APPENDING
@@ -33,9 +33,9 @@ typedef struct s_globale
 	int	exit_malloc;
 }				t_globale;
 
-extern t_globale g;
+extern t_globale	g;
 
-typedef char * (*t_fp_exp)(char *str);
+typedef char *	(*t_fp_exp)(char *str);
 
 typedef enum e_type
 {
@@ -62,14 +62,7 @@ typedef struct s_token
 	int		type;
 }					t_token;
 
-// typedef struct s_args
-// {
-// 	int		argc;
-// 	char	**argv;
-// 	char	**env;
-// }			t_args;
-
-typedef	struct	s_env
+typedef struct	s_env
 {
 	char			*key;
 	char			*value;
@@ -81,13 +74,13 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
-typedef void (*pf)(t_list **, char **, char *);
-typedef void (*ptr_fun)(char **);
+typedef void	(*pf)(t_list **, char **, char *);
+typedef void	(*ptr_fun)(char **);
 
 typedef struct s_cmd
 {
-	t_list 		*arg;
-	t_list 		*red;
+	t_list		*arg;
+	t_list		*red;
 	int			pfd[2];
 	int			infile;
 	int			outfile;

@@ -6,7 +6,7 @@
 #    By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/17 17:30:47 by mmeguedm          #+#    #+#              #
-#    Updated: 2023/04/06 15:07:54 by mmeguedm         ###   ########.fr        #
+#    Updated: 2023/04/11 21:33:55 by mmeguedm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,6 @@ SRC			=	$(addprefix $(SRC_PATH),					\
 						env.c								\
 						first_split.c						\
 						lst_utils.c							\
-						lst_print.c 						\
 						parse_error.c						\
 						first_split_utils.c					\
 						first_split_utils2.c 				\
@@ -78,10 +77,12 @@ SRC			=	$(addprefix $(SRC_PATH),					\
 						error.c								\
 						tokjoin.c							\
 						lst.c								\
+						lst_print.c							\
 						expansion.c							\
 						exp_state.c 						\
 						exp_utils.c 						\
 						split.c								\
+						extra.c								\
 					)										\
 					$(addprefix exec/,						\
 						here_doc.c							\

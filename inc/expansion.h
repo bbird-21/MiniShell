@@ -6,19 +6,21 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 20:40:11 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/11 19:26:24 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/11 20:42:21 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXPANSION_H
 # define EXPANSION_H
 
-char 		*remove_quotes(char *str);
+char		*remove_quotes(char *str);
 void		split_state(t_list	**list);
 char		*get_token(char *str, int *k, int type);
 char		**ft_split(char *s, char c);
 void		magic_space(char *str);
 int			get_var_size(char *str);
+
+int			tokjoin(t_list **, int j);
 
 int			get_exp_size(char *env_var);
 int			get_var_size(char *str);

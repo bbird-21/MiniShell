@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:32:27 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/11 19:27:01 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/11 21:06:59 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,21 @@ char	*trans_token(void *content)
 				t_cmd *cont = (t_cmd *)list_cmd->content;
 				char **tab = translator(cont->arg, trans_token);
 		To generate double tab of ENV :
-				char **tab = translator(handler(5, NULL, NULL), trans_env); */
+				char **tab = translator(handler(5, NULL, NULL), trans_env);
+*/
+static int	get_size(t_list *l)
+{
+	int	i;
+
+	i = 0;
+	while (l)
+	{
+		l = l->next;
+		i++;
+	}
+	return (i);
+}
+
 char	**translator(t_list *lst, char *(translate)(void *))
 {
 	t_list	*head;
@@ -74,13 +88,8 @@ char	**translator(t_list *lst, char *(translate)(void *))
 	head = lst;
 	if (!lst)
 		return (NULL);
-	while (lst)
-	{
-		lst = lst->next;
-		i++;
-	}
 	lst = head;
-	tab = malloc(sizeof(char *) * (i + 1));
+	tab = malloc(sizeof(char *) * (get_size(lst) + 1));
 	if (!tab)
 		return (NULL);
 	i = 0;
@@ -88,10 +97,7 @@ char	**translator(t_list *lst, char *(translate)(void *))
 	{
 		tab[i] = translate(lst->content);
 		if (!tab[i])
-		{
-			free_tab(tab, i);
-			return (NULL);
-		}
+			return (free_tab(tab, i), NULL);
 		lst = lst->next;
 		i++;
 	}

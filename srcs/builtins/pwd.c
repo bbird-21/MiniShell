@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:10:40 by alvina            #+#    #+#             */
-/*   Updated: 2023/04/11 19:29:31 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/11 20:49:40 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,16 @@
 
 void	pwd(char **arg)
 {
-    char    *pwd;
-    
-    // if (!check_arg(arg, 0, "pwd"))
-    // {
-    //     g.exit_status = 1;
-    //     handler(CLEANING, NULL, NULL);
-    //     mini_gc(NULL, NULL);
-    //     exit(1);
-    // }
-    (void)arg;
-    pwd = malloc(sizeof(char) * PATH_MAX);
-    if (!pwd)
+	char	*pwd;
+
+	if (!check_arg(arg, 0, "pwd"))
+	{
+		g.exit_status = 1;
+		return (mini_gc(NULL, NULL), handler(CLEANING, NULL, NULL), exit(1));
+	}
+	(void)arg;
+	pwd = malloc(sizeof(char) * PATH_MAX);
+	if (!pwd)
 	{
 		mini_gc(NULL, NULL);
 		rl_clear_history();
@@ -34,11 +32,11 @@ void	pwd(char **arg)
 		exit(-21);
 	}
 	if (!getcwd(pwd, PATH_MAX))
-        perror("getcwd");
-    ft_putendl_fd(pwd, 1);
-    g.exit_status = 0;
-    free(pwd);
-    mini_gc(NULL, NULL);
-    handler(CLEANING, NULL, NULL);
-    exit(0);
+		perror("getcwd");
+	ft_putendl_fd(pwd, 1);
+	g.exit_status = 0;
+	free(pwd);
+	mini_gc(NULL, NULL);
+	handler(CLEANING, NULL, NULL);
+	exit(0);
 }

@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 16:04:12 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/11 19:31:57 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/11 20:07:53 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ char	*get_bin_path(char *cmd, char **path);
 void	loop_job(t_storage_cmd *st_cmd, t_list *cmd);
 void	cmd_not_found(t_storage_cmd *node);
 
-
 /*	Init and launch pipex						*/
 void	pre_pipex(t_list **cmd);
 void	dup_and_exe(t_storage_cmd *st_cmd, t_list *cmd);
@@ -64,9 +63,9 @@ char	*ft_strnchr(char *s1, char *s2, size_t len);
 
 /*	Exec of the built-ins						*/
 ptr_fun	funct(int flag);
-void    execve_builtin(int flag, char **arg);
-int 	is_builtin(char *str, int pipe);
-int 	check_arg(char **arg, int max, char *fct);
+void	execve_builtin(int flag, char **arg);
+int		is_builtin(char *str, int pipe);
+int		check_arg(char **arg, int max, char *fct);
 
 /*	Signal management							*/
 int		ft_state(int state);

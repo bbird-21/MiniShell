@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 19:37:19 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/31 13:39:03 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/11 20:58:31 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,6 @@ char	*get_bin_path(char *cmd, char **path)
 		bin_path = NULL;
 		i++;
 	}
-	return (free_tab(path, -1), bin_path);
+	free_tab(path, -1);
+	return (bin_path);
 }
