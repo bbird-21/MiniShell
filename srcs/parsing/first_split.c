@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   first_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 09:55:05 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/30 11:35:35 by alvina           ###   ########.fr       */
+/*   Updated: 2023/04/07 15:19:43 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,25 +103,20 @@ void	first_split(char *str)
 {
 	char	**tab;
 
-	if (!str || str[0] == 0 || count_words(str, -1) == 0)
+	if (!parse_quote(str))
 	{
 		free(str);
-		handler(4, NULL, NULL);
 		return ;
 	}
 	tab = (char **)malloc(sizeof(char *) * (count_words(str, -1) + 1));
 	if (!tab)
 	{
 		free(str);
-		handler(4, NULL, NULL);
-		return ;
+		exit_malloc();
 	}
 	tab = splitting(tab, str);
 	free(str);
 	if (!tab)
-	{
-		handler(4, NULL, NULL);
-		exit(0);
-	}
+		exit_malloc();
 	return (token_generator(tab, -1));
 }

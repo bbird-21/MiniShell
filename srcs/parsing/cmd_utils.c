@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 11:41:18 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/30 11:41:39 by alvina           ###   ########.fr       */
+/*   Updated: 2023/04/07 11:54:02 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,12 @@ void	reverse_magic_space(t_list **arg)
 	*arg = tmp;
 }
 
-void	cleaning_cmd(t_list **token, t_list **cmd)
+void	cleaning_cmd(t_cmd *data, t_list **token, t_list **cmd)
 {
+	if (data)
+		free(data);
 	ft_lstclear(token, token_cleaner);
 	ft_lstclear(cmd, cmd_cleaner);
 	handler(4, NULL, NULL);
-	exit(1);
+	exit_malloc();
 }

@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:47:51 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/30 14:07:38 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/11 15:58:22 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@ void	st_fill(t_storage_cmd *st_cmd, t_cmd *cmd)
 	char	**path;
 
 	arg = translator(cmd->arg, trans_token);
+	if (!arg && g.exit_malloc == 1)
+	{
+		mini_gc(NULL, NULL);
+		clean_data(st_cmd);
+		exit_malloc();
+	}
 	st_cmd->ok = 1;
 	st_cmd->fd_in = cmd->infile;
 	st_cmd->fd_out = cmd->outfile;
@@ -27,12 +33,21 @@ void	st_fill(t_storage_cmd *st_cmd, t_cmd *cmd)
 	else
 		st_cmd->toclose = 0;
 	st_cmd->bin_args = arg;
+	int i = 0;
+	while (arg[i])
+		printf("%s \n", arg[i++]);
 	if (arg)
 		st_cmd->bin_path = get_bin_path(arg[0], get_path(st_cmd->env));
 	else
 	{
 		st_cmd->bin_path = NULL;
 		st_cmd->ok = 0;
+	}
+	if (st_cmd->bin_path == NULL && g.exit_malloc == 1)
+	{
+		mini_gc(NULL, NULL);
+		clean_data(st_cmd);
+		exit_malloc();
 	}
 }
 
@@ -57,7 +72,14 @@ static void	post_pipex(t_storage_cmd *st_cmd, t_list *list)
 	if (st_cmd->toclose)
 		close(st_cmd->toclose);
 	while (++i < st_cmd->pos)
+	{
 		waitpid(st_cmd->pid[i], &status, 0);
+		if (status == -21)
+		{
+			mini_gc(NULL, NULL);
+			exit_malloc();
+		}
+	}
 	clean_data(st_cmd);
 	ft_out(&status);
 }
@@ -80,6 +102,11 @@ static void	pipex(t_list *list, t_storage_cmd *st_cmd)
 			{
 				execve_builtin(is_builtin(st_cmd->bin_args[0], 0),
 					st_cmd->bin_args);
+				if (g.exit_malloc == 1)
+				{
+					mini_gc(NULL, NULL);
+					exit_malloc();
+				}
 				return (mini_gc(NULL, NULL));
 			}
 		}
@@ -96,7 +123,18 @@ void	pre_pipex(t_list **cmd)
 	t_storage_cmd	st_cmd;
 
 	st_cmd.env = translator(handler(5, NULL, NULL), trans_env);
+	if (!st_cmd.env)
+	{
+		ft_lstclear(cmd, cmd_cleaner);
+		exit_malloc();
+	}
 	st_init(*cmd, &st_cmd);
+	if (!st_cmd.pid)
+	{
+		free_tab(st_cmd.env, -1);
+		ft_lstclear(cmd, cmd_cleaner);
+		exit_malloc();
+	}
 	signal(SIGQUIT, &sig_handler);
 	mini_gc(*cmd, NULL);
 	pipex(*cmd, &st_cmd);

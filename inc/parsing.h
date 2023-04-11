@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 11:03:38 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/30 11:43:09 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/31 12:45:45 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,6 @@ t_list		*arg_red_list(t_list **arg_red, int type, char *str);
 t_cmd		*data_cmd(t_list *token, int *flag);
 void	    cmd_generator(t_list **token, int i);
 void	    reverse_magic_space(t_list **arg);
-void	    cleaning_cmd(t_list **token, t_list **cmd);
+void	    cleaning_cmd(t_cmd *data, t_list **token, t_list **cmd);
 
 #endif

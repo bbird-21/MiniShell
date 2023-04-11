@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:28:29 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/30 10:36:01 by alvina           ###   ########.fr       */
+/*   Updated: 2023/04/07 11:52:21 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,20 @@ static int	size_var(char **token, int *i)
 	nb = 0;
 	j = 0;
 	sh_var = malloc(sizeof(char) * (get_var_size(&(*token)[*i]) + 2));
+	if (!sh_var)
+	{
+		g.exit_malloc = 1;
+		return (0);
+	}
 	while ((*token)[*i] && ft_isalnum((*token)[*i]))
 		sh_var[j++] = (*token)[(*i)++];
 	sh_var[j] = 0;
 	var_env = ft_getenv(sh_var);
+	if (!var_env && g.exit_malloc)
+	{
+		free(sh_var);
+		return (0);
+	}
 	nb = ft_strlen(var_env);
 	free(var_env);
 	free(sh_var);
@@ -59,6 +69,8 @@ int	get_exp_size(char *token)
 				continue ;
 			}
 			size += size_var(&token, &i);
+			if (g.exit_malloc == 1)
+				return (0);
 		}
 		else
 		{
@@ -75,6 +87,13 @@ static int	get_expand_var(char *token, char **expand_var, int *i, int *j)
 
 	(*i)++;
 	sh_var = malloc(sizeof(char) * (get_var_size(&token[(*i)]) + 1));
+	if (!sh_var || g.exit_malloc == 1)
+	{
+		if (sh_var)
+			free(sh_var);
+		g.exit_malloc = 1;
+		return (0);
+	}
 	while (token[(*i)] && ft_isalnum(token[(*i)]))
 		sh_var[(*j)++] = token[(*i)++];
 	if (token[(*i)] == '_')
@@ -100,6 +119,13 @@ static char	*set_expansion(char *token, char **new, int i, int k)
 		j = 0;
 		if (token[i] == EXPAND)
 		{
+			if (g.exit_malloc)
+			{
+				free(expand_var);
+				free(*new);
+				free(token);
+				return (NULL);
+			}
 			if (get_expand_var(token, &expand_var, &i, &j))
 				continue ;
 			if (!expand_var)
@@ -124,5 +150,7 @@ char	*expansion(char *token)
 	char	*new;
 
 	new = malloc(sizeof(char) * (get_exp_size(token) + 1));
+	if (!new)
+		return (NULL);
 	return (set_expansion(token, &new, 0, 0));
 }

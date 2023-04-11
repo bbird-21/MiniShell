@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 19:37:19 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/30 13:52:25 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/03/31 13:39:03 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,12 @@ char	*get_bin_path(char *cmd, char **path)
 
 	i = 0;
 	bin_path = NULL;
+	if (g.exit_malloc == 1)
+	{
+		if (path)
+			free_tab(path, -1);
+		return (NULL);
+	}
 	if (!access(cmd, X_OK))
 	{
 		if (path)
@@ -48,7 +54,11 @@ char	*get_bin_path(char *cmd, char **path)
 	{
 		bin_path = ft_strjoin_path(path[i], cmd);
 		if (!bin_path)
-			return (free_exit("memory_error"), NULL);
+		{
+			free_tab(path, -1);
+			g.exit_malloc = 1;
+			return (NULL);
+		}
 		if (!access(bin_path, X_OK))
 			break ;
 		free(bin_path);

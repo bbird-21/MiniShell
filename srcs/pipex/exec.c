@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:36:05 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/30 14:06:12 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/07 11:57:44 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,10 @@ void	loop_job(t_storage_cmd *st_cmd, t_list *cmd)
 			close(st_cmd->fd_out);
 		if (st_cmd->toclose > 2)
 			close(st_cmd->toclose);
+		if (g.exit_malloc == 1)
+		{
+			mini_gc(NULL, NULL);
+			exit_malloc();
+		}
 	}
 }

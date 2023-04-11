@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 08:15:57 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/30 11:32:54 by alvina           ###   ########.fr       */
+/*   Updated: 2023/04/07 11:12:52 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ t_list	*ft_lstnew(void *content)
 
 	list = NULL;
 	list = malloc(sizeof(t_list));
+	if (!list)
+	{
+		g.exit_malloc = 1;
+		return (NULL);
+	}
 	if (list)
 	{
 		list->content = content;

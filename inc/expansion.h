@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 20:40:11 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/30 11:24:00 by alvina           ###   ########.fr       */
+/*   Updated: 2023/03/31 12:51:40 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int		get_var_size(char *str);
 int		set_var(char *str, char **sh_var, char **sign_var);
 char	*expansion(char *token);
 
-void    tokjoin(t_list **list, int j);
-void	join_token(t_list **list, char *new);
+int    tokjoin(t_list **list, int j);
+int	join_token(t_list **list, char *new);
 
 char	*state_00(char *str);
 char	*state_01(char *str);

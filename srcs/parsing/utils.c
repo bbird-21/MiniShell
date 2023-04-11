@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:29:15 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/30 11:06:51 by alvina           ###   ########.fr       */
+/*   Updated: 2023/04/07 09:35:28 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ char	*ft_strdup(char *s)
 		i++;
 	str = malloc(sizeof(char) * i + 1);
 	if (!str)
-		return (0);
+	{
+		g.exit_malloc = 1;
+		return (NULL);
+	}
 	i = 0;
 	while (s[i])
 	{
@@ -76,4 +79,14 @@ char	*ft_strdup(char *s)
 	}
 	str[i] = '\0';
 	return (str);
+}
+void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
+}
+
+void	return_code(int code)
+{
+	g.exit_status = code;
+	return ;
 }

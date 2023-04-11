@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_creator.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:51:42 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/30 11:44:04 by alvina           ###   ########.fr       */
+/*   Updated: 2023/04/07 11:57:11 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,16 @@ t_list	*arg_red_list(t_list **arg_red, int type, char *str)
 
 	data = create_token(str);
 	if (!data)
+	{
+		g.exit_malloc = 1;
 		return (NULL);
+	}
 	data->type = type;
 	new = ft_lstnew(data);
 	if (!new)
 	{
 		ft_lstclear(arg_red, token_cleaner);
+		g.exit_malloc = 1;
 		return (NULL);
 	}
 	return (ft_lstadd_back(arg_red, new));
@@ -104,9 +108,11 @@ void	cmd_generator(t_list **token, int i)
 	while (flag)
 	{
 		data = data_cmd(*token, &flag);
-		if (!data)
-			cleaning_cmd(&head, &list_cmd);
+		if (g.exit_malloc)
+			cleaning_cmd(NULL, &head, &list_cmd);
 		new_cmd = ft_lstnew(data);
+		if (g.exit_malloc)
+			cleaning_cmd(data, &head, &list_cmd);
 		list_cmd = ft_lstadd_back(&list_cmd, new_cmd);
 		while ((++i < flag) && (*token))
 			(*token) = (*token)->next;

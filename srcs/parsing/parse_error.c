@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:44:41 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/30 11:34:57 by alvina           ###   ########.fr       */
+/*   Updated: 2023/04/07 15:19:29 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,6 @@ int	parse_other_than_pipe(t_list *lst, t_token *lst_data)
 		|| lst_data->type == ROUT || lst_data->type == DROUT)
 	{
 		if (!parse_red(lst_data, lst->next))
-			return (0);
-	}
-	else if (lst_data->type == WORD || lst_data->type == FD
-		|| lst_data->type == LIM)
-	{
-		if (!parse_quote(lst_data->value))
 			return (0);
 	}
 	return (1);

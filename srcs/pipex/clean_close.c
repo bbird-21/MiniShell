@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:56:40 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/30 14:05:25 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/11 16:03:43 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_out(int *status)
 {
 	if (WIFEXITED(*status))
-		g_exit_status = WEXITSTATUS(*status);
+		g.exit_status = WEXITSTATUS(*status);
 }
 
 void	empty_data(t_storage_cmd *cmd)
@@ -54,8 +54,11 @@ void	mini_gc(t_list *cmd, t_storage_cmd *st)
 		}
 		return ;
 	}
-	if (cmd)
-		c = cmd;
-	if (st)
-		s = st;
+	else
+	{
+		if (cmd)
+			c = cmd;
+		if (st)
+			s = st;
+	}
 }
