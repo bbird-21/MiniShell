@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_state.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 22:02:38 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/07 15:41:58 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/12 17:10:33 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void	making_token(char *str, int *k, int state, char **dup)
 	(*dup)[j] = 0;
 }
 
-char	*get_token(char *str, int *k)
+char	*get_token(char *str, int *k, int type)
 {
 	char	*dup;
 	int		state;
@@ -81,7 +81,7 @@ char	*get_token(char *str, int *k)
 	making_token(str, k, state, &dup);
 	if (ft_strlen(dup) == 1 && dup[0] == '$' && countwords(str) != 1)
 		return (free(dup), NULL);
-	return (do_job(dup));
+	return (do_job(dup, type));
 }
 
 int	dividing(t_list **subdivide_token, t_list *tmp, int *index)
@@ -93,7 +93,8 @@ int	dividing(t_list **subdivide_token, t_list *tmp, int *index)
 	j = 0;
 	while (j < countwords(data->value))
 	{
-		if (!add_node_back_token(subdivide_token, data->value, index, data->type))
+		if (!add_node_back_token(subdivide_token, data->value, index,
+				data->type))
 			return (0);
 		j++;
 	}

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alvina <alvina@student.42.fr>              +#+  +:+       +#+         #
+#    By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/17 17:30:47 by mmeguedm          #+#    #+#              #
-#    Updated: 2023/03/30 11:41:50 by alvina           ###   ########.fr        #
+#    Updated: 2023/04/11 21:33:55 by mmeguedm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,6 @@ LIBS		= -L/usr/local/lib -I/usr/local/include -lreadline
 
 # --------- Include files path ------------------------------------------------------
 
-SIZE = 21
 INC_PATH	= inc/
 
 # --------- Sources files path ------------------------------------------------------
@@ -64,7 +63,6 @@ SRC			=	$(addprefix $(SRC_PATH),					\
 						env.c								\
 						first_split.c						\
 						lst_utils.c							\
-						lst_print.c 						\
 						parse_error.c						\
 						first_split_utils.c					\
 						first_split_utils2.c 				\
@@ -79,14 +77,17 @@ SRC			=	$(addprefix $(SRC_PATH),					\
 						error.c								\
 						tokjoin.c							\
 						lst.c								\
+						lst_print.c							\
 						expansion.c							\
 						exp_state.c 						\
 						exp_utils.c 						\
 						split.c								\
+						extra.c								\
 					)										\
 					$(addprefix exec/,						\
 						here_doc.c							\
 						opening.c							\
+						signal.c							\
 					)										\
 					$(addprefix pipex/,						\
 						error.c								\
@@ -122,7 +123,6 @@ obj/%.o: srcs/%.c $(INC)
 # --------- Linking -----------------------------------------------------------------
 
 $(NAME) : $(OBJ) $(INC)
-	echo $(SIZE)
 	@mkdir -p $(OBJ_PATH)
 	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBS)
 	@printf "\n\n"

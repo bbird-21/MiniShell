@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 17:44:41 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/04/07 15:19:29 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/12 17:13:44 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,10 @@ int	parse_error(t_list *lst)
 		if (lst_data->type == PIPE)
 		{
 			if (!parse_pipe(previous, lst_data, lst->next))
-				return (0);
+				return (ft_lstclear(&lst, token_cleaner), 0);
 		}
 		else if (!parse_other_than_pipe(lst, lst_data))
-			return (0);
+			return (ft_lstclear(&lst, token_cleaner), 0);
 		previous = lst;
 		lst = lst->next;
 	}

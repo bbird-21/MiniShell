@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:03:03 by alvina            #+#    #+#             */
-/*   Updated: 2023/04/07 09:24:29 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/11 20:01:09 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,9 @@ void	export_doing(char *name)
 
 	key = ft_key(name);
 	var = ft_getenv(key);
-	printf("name = %s\n", name);
 	if (var)
 	{
 		free(var);
-		printf("la\n");
 		if (ft_strnstr(name, "+=", ft_strlen(name)))
 			handler(6, NULL, name);
 		else

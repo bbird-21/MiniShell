@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_built.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 18:45:11 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/30 14:06:01 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/07 00:41:09 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,11 @@ void	execve_builtin(int flag, char **arg)
 	ptr_fun	exec;
 
 	if (flag == -2)
+	{
+		mini_gc(NULL, NULL);
+		handler(CLEANING, NULL, NULL);
 		exit(0);
+	}
 	exec = funct(flag);
 	exec(&arg[1]);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:36:05 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/07 11:57:44 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/12 18:48:11 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,14 @@ void	dup_and_exe(t_storage_cmd *st_cmd, t_list *cmd)
 		close(st_cmd->fd_tmp);
 	closing_cmd(cmd);
 	if (is_builtin(st_cmd->bin_args[0], 1) != -1)
+	{
 		execve_builtin(is_builtin(st_cmd->bin_args[0], 1), st_cmd->bin_args);
+		return (handler(CLEANING, NULL, NULL), mini_gc(NULL, NULL));
+	}
 	else if (!st_cmd->bin_args || !st_cmd->bin_path)
-		cmd_not_found(st_cmd, cmd);
+		cmd_not_found(st_cmd);
 	else if (execve(st_cmd->bin_path, st_cmd->bin_args, st_cmd->env) == -1)
-		cmd_not_found(st_cmd, cmd);
+		cmd_not_found(st_cmd);
 }
 
 void	dupping(t_storage_cmd *st_cmd)
@@ -74,6 +77,21 @@ void	protecting(t_storage_cmd *st_cmd, t_list *cmd)
 	}
 }
 
+static void	closing_job(t_storage_cmd *st_cmd)
+{
+	if (st_cmd->pos != 0)
+		close(st_cmd->fd_tmp);
+	if (st_cmd->pos != st_cmd->nb_cmd - 1)
+		st_cmd->fd_tmp = st_cmd->pfd[0];
+	close(st_cmd->pfd[1]);
+	if (st_cmd->fd_in > 2)
+		close(st_cmd->fd_in);
+	if (st_cmd->fd_out > 2)
+		close(st_cmd->fd_out);
+	if (st_cmd->toclose > 2)
+		close(st_cmd->toclose);
+}
+
 void	loop_job(t_storage_cmd *st_cmd, t_list *cmd)
 {
 	if (pipe(st_cmd->pfd) == -1)
@@ -83,24 +101,14 @@ void	loop_job(t_storage_cmd *st_cmd, t_list *cmd)
 		free_exit("fork");
 	else if (st_cmd->pid[st_cmd->pos] == 0)
 	{
-		ft_state(2);
+		ft_state(-1);
 		dup_and_exe(st_cmd, cmd);
 	}
 	else
 	{
-		ft_state(1);
-		if (st_cmd->pos != 0)
-			close(st_cmd->fd_tmp);
-		if (st_cmd->pos != st_cmd->nb_cmd - 1)
-			st_cmd->fd_tmp = st_cmd->pfd[0];
-		close(st_cmd->pfd[1]);
-		if (st_cmd->fd_in > 2)
-			close(st_cmd->fd_in);
-		if (st_cmd->fd_out > 2)
-			close(st_cmd->fd_out);
-		if (st_cmd->toclose > 2)
-			close(st_cmd->toclose);
-		if (g.exit_malloc == 1)
+		ft_state(PIPEX);
+		closing_job(st_cmd);
+		if (g.exit_malloc)
 		{
 			mini_gc(NULL, NULL);
 			exit_malloc();

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 09:53:47 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/29 13:06:44 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/11 20:10:06 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,7 @@
 # include "exec.h"
 # include "parsing.h"
 
-/*	Declaration of the global variable required to manage the
-	exit_status code  */
-extern int g_exit_status;
-
 /*	The main program  */
 void		minishell(char *str, char **env);
-
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:10:40 by alvina            #+#    #+#             */
-/*   Updated: 2023/04/07 09:58:21 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/11 20:49:40 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ void	pwd(char **arg)
 	if (!check_arg(arg, 0, "pwd"))
 	{
 		g.exit_status = 1;
-		handler(CLEANING, NULL, NULL);
-		mini_gc(NULL, NULL);
-		exit(1);
+		return (mini_gc(NULL, NULL), handler(CLEANING, NULL, NULL), exit(1));
 	}
 	(void)arg;
 	pwd = malloc(sizeof(char) * PATH_MAX);
@@ -33,12 +31,12 @@ void	pwd(char **arg)
 		handler(CLEANING, NULL, NULL);
 		exit(-21);
 	}
-	getcwd(pwd, PATH_MAX);
+	if (!getcwd(pwd, PATH_MAX))
+		perror("getcwd");
 	ft_putendl_fd(pwd, 1);
 	g.exit_status = 0;
 	free(pwd);
 	mini_gc(NULL, NULL);
-	rl_clear_history();
 	handler(CLEANING, NULL, NULL);
 	exit(0);
 }

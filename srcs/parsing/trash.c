@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trash.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:43:34 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/04/11 16:55:35 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/12 18:12:18 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,29 +56,13 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 	(*lst) = NULL;
 }
 
-char	**free_tab(char **tab, int j)
+void	free_tab(char **tab, int j)
 {
 	int	i;
 
 	i = 0;
 	if (j == -1)
-	{
-		if (tab)
-		{
-			while (tab[i] && tab[i][0])
-			{
-				free(tab[i]);
-				i++;
-				if (tab[i] && !tab[i][0])
-				{
-					free(tab[i]);
-					i++;
-				}	
-			}
-			if (tab[i] && !tab[i][0])
-				free(tab[i]);
-		}
-	}
+		extra_free_tab(&tab);
 	else
 	{
 		while (i < j)
@@ -87,6 +71,6 @@ char	**free_tab(char **tab, int j)
 			i++;
 		}
 	}
-	free(tab);
-	return (NULL);
+	if (tab)
+		free(tab);
 }

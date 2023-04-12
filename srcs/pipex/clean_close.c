@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   clean_close.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:56:40 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/11 16:03:43 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/12 18:23:09 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	exit_pipex_malloc(t_storage_cmd *st_cmd)
+{
+	mini_gc(NULL, NULL);
+	clean_data(st_cmd);
+	exit_malloc();
+}
 
 void	ft_out(int *status)
 {

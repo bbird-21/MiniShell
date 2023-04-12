@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pipex_01.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 02:38:56 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/31 13:39:19 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/12 18:17:06 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	counter(t_list *cmd)
 {
 	int		i;
 	t_list	*tmp;
-	t_cmd	*content;
 
 	i = 0;
 	tmp = cmd;
@@ -65,12 +64,10 @@ char	*ft_strjoin_path(char *line, char *buffer)
 			i++;
 		}
 	}
-	p[i] = '/';
-	i++;
+	p[i++] = '/';
 	while (buffer[j])
 		p[i++] = buffer[j++];
-	p[i] = '\0';
-	return (p);
+	return (p[i] = '\0', p);
 }
 
 void	closing_cmd(t_list *cmd)
@@ -90,7 +87,7 @@ void	closing_cmd(t_list *cmd)
 	}
 }
 
-void	cmd_not_found(t_storage_cmd *node, t_list *cmd)
+void	cmd_not_found(t_storage_cmd *node)
 {
 	ft_putstr_fd("command not found: ", STDERR_FILENO);
 	ft_putstr_fd(node->bin_args[0], STDERR_FILENO);

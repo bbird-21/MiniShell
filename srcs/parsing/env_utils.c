@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 09:44:10 by alvina            #+#    #+#             */
-/*   Updated: 2023/04/07 11:04:29 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/12 19:30:31 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,7 @@ char	*ft_key(char *str)
 		new[i] = str[i];
 		i++;
 	}
-	new[i] = '\0';
-	return (new);
+	return (new[i] = '\0', new);
 }
 
 char	*ft_value(char *str)

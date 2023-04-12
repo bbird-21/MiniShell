@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   opening.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:21:25 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/30 14:17:32 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/12 17:05:09 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,22 +64,31 @@ static int	outfiling(t_cmd *cmd, t_token *token)
 	return (1);
 }
 
-// static void	print_files(t_list *cmd)
-// {
-// 	while (cmd)
-// 	{
-// 		printf("\n-------------------\n");
-// 		printf("infile : %d, outfile : %d\n", ((t_cmd *)(cmd->content))->infile,
-				// ((t_cmd *)(cmd->content))->outfile);
-// 		cmd = cmd->next;
-// 	}
-// }
+static void	exploring_red(t_list *red, t_cmd *content)
+{
+	t_token	*data;
+
+	while (red)
+	{
+		data = (t_token *)red->content;
+		if (data->type == RIN || data->type == DRIN)
+		{
+			if (!infiling(content, data))
+				break ;
+		}
+		else
+		{
+			if (!outfiling(content, data))
+				break ;
+		}
+		red = red->next;
+	}
+}
 
 void	opening(t_list **cmd)
 {
 	t_cmd	*content;
 	t_list	*red;
-	t_token	*data;
 	t_list	*lst;
 
 	lst = *cmd;
@@ -87,21 +96,7 @@ void	opening(t_list **cmd)
 	{
 		content = (t_cmd *)lst->content;
 		red = content->red;
-		while (red)
-		{
-			data = (t_token *)red->content;
-			if (data->type == RIN || data->type == DRIN)
-			{
-				if (!infiling(content, data))
-					break ;
-			}
-			else
-			{
-				if (!outfiling(content, data))
-					break ;
-			}
-			red = red->next;
-		}
+		exploring_red(red, content);
 		lst = lst->next;
 	}
 	return (pre_pipex(cmd));

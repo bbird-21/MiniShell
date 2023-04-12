@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exp_state.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 10:28:38 by alvina            #+#    #+#             */
-/*   Updated: 2023/03/31 13:53:37 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/12 17:10:25 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,18 @@ t_fp_exp	handling_table(unsigned char state)
 	static t_fp_exp	table[3] = {
 		state_00,
 		state_01,
-		state_02};
+		state_02
+	};
 
 	return (table[state]);
 }
 
-char	*do_job(char *str)
+char	*do_job(char *str, int type)
 {
 	t_fp_exp	fp;
 
+	if (type == 1)
+		return (str);
 	if (str)
 		fp = handling_table(get_state(str[0]));
 	else

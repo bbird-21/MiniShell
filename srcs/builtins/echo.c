@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:55:39 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/04/07 13:14:16 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/11 20:19:39 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,10 +112,8 @@ void	echo(char **arg)
 	if (!arg || !*arg)
 	{
 		write(1, "\n", 1);
-		rl_clear_history();
 		handler(CLEANING, NULL, NULL);
-		mini_gc(NULL, NULL);
-		exit(0);
+		return (rl_clear_history(), mini_gc(NULL, NULL), exit(0));
 	}
 	while (arg[i])
 	{

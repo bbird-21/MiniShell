@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:11:41 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/03/31 13:17:02 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/12 17:32:09 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ void	token_cleaner(void *content);
 void	env_cleaner(void *content);
 void	cmd_cleaner(void *content);
 void	ft_lstclear(t_list **lst, void (*del)(void *));
-char	**free_tab(char **tab, int j);
+void	free_tab(char **tab, int j);
 void	exit_malloc(void);
 void	return_code(int code);
+void	extra_free_tab(char ***tab);
 
 #endif

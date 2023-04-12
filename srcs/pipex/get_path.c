@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 19:37:19 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/03/31 13:39:03 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/12 18:14:13 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,29 +36,17 @@ char	*get_bin_path(char *cmd, char **path)
 
 	i = 0;
 	bin_path = NULL;
-	if (g.exit_malloc == 1)
-	{
-		if (path)
-			free_tab(path, -1);
-		return (NULL);
-	}
+	if (g.exit_malloc)
+		return (free_tab(path, -1), NULL);
 	if (!access(cmd, X_OK))
-	{
-		if (path)
-			free_tab(path, -1);
-		return (ft_strdup(cmd));
-	}
+		return (free_tab(path, -1), ft_strdup(cmd));
 	else if (access(cmd, X_OK) == -1 && (!path || !*path))
 		return (NULL);
 	while (path[i])
 	{
 		bin_path = ft_strjoin_path(path[i], cmd);
 		if (!bin_path)
-		{
-			free_tab(path, -1);
-			g.exit_malloc = 1;
-			return (NULL);
-		}
+			return (free_tab(path, -1), g.exit_malloc = 1, NULL);
 		if (!access(bin_path, X_OK))
 			break ;
 		free(bin_path);

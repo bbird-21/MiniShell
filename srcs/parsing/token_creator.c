@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_creator.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 19:53:35 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/04/07 14:50:05 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/12 17:14:01 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,6 @@ void	token_generator(char **tab, int i)
 		cleaning_tkn(tab, NULL);
 	tokenisation(&t_lst);
 	if (!parse_error(t_lst))
-	{
-		ft_lstclear(&t_lst, token_cleaner);
 		return ;
-	}
 	return (split_state(&t_lst));
 }

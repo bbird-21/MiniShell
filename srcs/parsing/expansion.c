@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:28:29 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/07 11:52:21 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/12 18:02:42 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,7 @@ static int	size_var(char **token, int *i)
 		return (0);
 	}
 	nb = ft_strlen(var_env);
-	free(var_env);
-	free(sh_var);
-	return (nb);
+	return (free(var_env), free(sh_var), nb);
 }
 
 int	get_exp_size(char *token)
@@ -62,8 +60,7 @@ int	get_exp_size(char *token)
 	{
 		if (token[i] == EXPAND)
 		{
-			i++;
-			if (!ft_isalnum(token[i]))
+			if (!ft_isalnum(token[++i]))
 			{
 				size++;
 				continue ;
@@ -120,12 +117,7 @@ static char	*set_expansion(char *token, char **new, int i, int k)
 		if (token[i] == EXPAND)
 		{
 			if (g.exit_malloc)
-			{
-				free(expand_var);
-				free(*new);
-				free(token);
-				return (NULL);
-			}
+				return (free(expand_var), free(*new), free(token), NULL);
 			if (get_expand_var(token, &expand_var, &i, &j))
 				continue ;
 			if (!expand_var)
@@ -134,10 +126,7 @@ static char	*set_expansion(char *token, char **new, int i, int k)
 					(*new)[k++] = token[i - 1];
 				continue ;
 			}
-			while (expand_var[j])
-				(*new)[k++] = expand_var[j++];
-			free(expand_var);
-			expand_var = NULL;
+			extra_creating_new(&new, &expand_var, &j, &k);
 		}
 		else
 			(*new)[k++] = token[i++];
