@@ -6,14 +6,14 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 17:32:12 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/12 18:24:20 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/12 19:50:31 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <signal.h>
 
-void	nul_character(char *limiter)
+static void	nul_character(char *limiter)
 {
 	ft_putstr_fd("warning: here-document ", STDOUT_FILENO);
 	ft_putstr_fd("delimited by end-of-file (wanted ", STDOUT_FILENO);
@@ -49,7 +49,7 @@ static int do_here_doc(t_list **lst, char *limiter)
 
 static void	exit_here_doc()
 {
-	g.exit_status = 0;
+	g.exit_here_doc = 0;
 }
 
 void	here_doc(t_list **list) 
@@ -83,7 +83,7 @@ void	here_doc(t_list **list)
 	}
 	dup2(stdin_cpy, 0);
 	close(stdin_cpy);
-	if (g.exit_malloc == 1)
+	if (g.exit_here_doc == 1)
 		return (exit_here_doc());
 	return (opening(list));
 }

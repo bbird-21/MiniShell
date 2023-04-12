@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 15:06:34 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/12 18:22:47 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/12 19:50:15 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,22 @@ void	sig_int(int state)
 {
 	int fd;
 
+	g.exit_status = 130;
 	if (state == READLINE)
 	{
 		ft_putstr_fd("\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		g.exit_status = 130;
 	}
 	else if (state == PIPEX)
-	{
 		ft_putstr_fd("\n", 2);
-		g.exit_status = 130;
-	}
 	else if (state == HERE_DOC)
 	{
 		fd = open("/dev/null", O_RDONLY);
 		dup2(fd, STDIN_FILENO);
-		close(fd);
-		g.exit_malloc = 1;
+		close(fd);	
+		g.exit_here_doc = 1;
 	}
 	else
 		exit(130);

@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:12:42 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/11 20:06:20 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/12 19:49:20 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_globale
 {
 	int	exit_status;
 	int	exit_malloc;
+	int	exit_here_doc;
 }				t_globale;
 
 extern t_globale	g;

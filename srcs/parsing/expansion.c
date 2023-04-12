@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:28:29 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/11 21:38:55 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/12 19:04:42 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,7 @@ static int	size_var(char **token, int *i)
 	sh_var[j] = 0;
 	var_env = ft_getenv(sh_var);
 	if (!var_env && g.exit_malloc)
-	{
-		free(sh_var);
-		return (0);
-	}
+		return (free(sh_var), 0);
 	nb = ft_strlen(var_env);
 	free(var_env);
 	free(sh_var);
@@ -60,9 +57,9 @@ int	get_exp_size(char *token)
 	i = 0;
 	while (token[i])
 	{
-		if (token[i] == EXPAND)
+		i++;
+		if (token[i - 1] == EXPAND)
 		{
-			i++;
 			if (!ft_isalnum(token[i]))
 			{
 				size++;
@@ -73,10 +70,7 @@ int	get_exp_size(char *token)
 				return (0);
 		}
 		else
-		{
-			i++;
 			size++;
-		}
 	}
 	return (size);
 }
@@ -120,12 +114,7 @@ static char	*set_expansion(char *token, char **new, int i, int k)
 		if (token[i] == EXPAND)
 		{
 			if (g.exit_malloc)
-			{
-				free(expand_var);
-				free(*new);
-				free(token);
-				return (NULL);
-			}
+				return (free(expand_var), free(token), free(*new), NULL);
 			if (get_expand_var(token, &expand_var, &i, &j))
 				continue ;
 			if (!expand_var)
