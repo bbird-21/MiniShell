@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 17:32:12 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/12 20:47:32 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/12 21:05:52 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,9 @@ void	here_doc(t_list **list)
 	t_list	*red;
 	int		stdin_cpy;
 
+	stdin_cpy = 0;
 	tmp = (*list);
+	init(&stdin_cpy);
 	while (tmp)
 	{
 		cmd = (t_cmd *)(tmp->content);
