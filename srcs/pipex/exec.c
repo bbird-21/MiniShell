@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:36:05 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/11 19:57:02 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/12 13:51:46 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ void	dup_and_exe(t_storage_cmd *st_cmd, t_list *cmd)
 		cmd_not_found(st_cmd);
 	else if (execve(st_cmd->bin_path, st_cmd->bin_args, st_cmd->env) == -1)
 		cmd_not_found(st_cmd);
-	// g.exit_status = execve(st_cmd->bin_path, st_cmd->bin_args, st_cmd->env);
-	// 	cmd_not_found(st_cmd);
 }
 
 void	dupping(t_storage_cmd *st_cmd)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:47:51 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/11 19:57:37 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/12 15:36:13 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,17 @@ static void	post_pipex(t_storage_cmd *st_cmd, t_list *list)
 			mini_gc(NULL, NULL);
 			exit_malloc();
 		}
-		if (WTERMSIG(status) == 11)
+		else if (status == 2 && i == (st_cmd->pos -1))
+		{
+			g.exit_status = 130;
+			ft_putstr_fd("\n", 2);
+		}
+		else if (status == 131 && i == (st_cmd->pos -1))
+		{
+			g.exit_status = 131;
+			ft_putstr_fd("Quit (core dumped) zebbbbi\n", 2);
+		}
+		else if (WTERMSIG(status) == 11)
 		{
 			ft_putstr_fd("Segmentation fault (core dumped)\n", STDERR_FILENO);
 			g.exit_status = 139;
