@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 15:06:34 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/11 19:56:29 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/12 18:22:47 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	sig_int(int state)
 		fd = open("/dev/null", O_RDONLY);
 		dup2(fd, STDIN_FILENO);
 		close(fd);
+		g.exit_malloc = 1;
 	}
 	else
 		exit(130);

@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 17:32:12 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/11 19:30:26 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/12 18:24:20 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@ static int do_here_doc(t_list **lst, char *limiter)
 	return (1);
 }
 
+static void	exit_here_doc()
+{
+	g.exit_status = 0;
+}
 
 void	here_doc(t_list **list) 
 {
@@ -79,5 +83,7 @@ void	here_doc(t_list **list)
 	}
 	dup2(stdin_cpy, 0);
 	close(stdin_cpy);
+	if (g.exit_malloc == 1)
+		return (exit_here_doc());
 	return (opening(list));
 }
