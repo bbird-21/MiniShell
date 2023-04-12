@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 17:32:12 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/12 19:50:31 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/12 20:47:32 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	nul_character(char *limiter)
 	ft_putstr_fd(")\n", STDOUT_FILENO);
 }
 
-static int do_here_doc(t_list **lst, char *limiter)
+static int	do_here_doc(t_list **lst, char *limiter)
 {
 	char	*line;
 
@@ -47,23 +47,34 @@ static int do_here_doc(t_list **lst, char *limiter)
 	return (1);
 }
 
-static void	exit_here_doc()
+static void	end_here_doc(int stdin_cpy, t_list **list)
 {
-	g.exit_here_doc = 0;
+	dup2(stdin_cpy, 0);
+	close(stdin_cpy);
+	if (g.exit_here_doc == 1)
+	{
+		g.exit_here_doc = 0;
+		return ;
+	}
+	return (opening(list));
 }
 
-void	here_doc(t_list **list) 
+static void	init(int *stdin_cpy)
+{
+	*stdin_cpy = dup(0);
+	ft_state(HERE_DOC);
+	signal(SIGINT, &sig_handler);
+}
+
+void	here_doc(t_list **list)
 {
 	t_list	*tmp;
 	t_cmd	*cmd;
 	t_token	*token;
 	t_list	*red;
-	int 	stdin_cpy;
-	
-	stdin_cpy = dup(0);
+	int		stdin_cpy;
+
 	tmp = (*list);
-	ft_state(HERE_DOC);
-	signal(SIGINT, &sig_handler);
 	while (tmp)
 	{
 		cmd = (t_cmd *)(tmp->content);
@@ -81,9 +92,5 @@ void	here_doc(t_list **list)
 		}
 		tmp = tmp->next;
 	}
-	dup2(stdin_cpy, 0);
-	close(stdin_cpy);
-	if (g.exit_here_doc == 1)
-		return (exit_here_doc());
-	return (opening(list));
+	end_here_doc(stdin_cpy, list);
 }

@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:28:29 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/12 19:04:42 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/12 20:29:15 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,16 +86,10 @@ static int	get_expand_var(char *token, char **expand_var, int *i, int *j)
 		if (sh_var)
 			free(sh_var);
 		g.exit_malloc = 1;
-		return (0);
+		exit(12);
 	}
-	while (token[(*i)] && ft_isalnum(token[(*i)]))
+	while (token[(*i)] && (ft_isalnum(token[(*i)]) || token[(*i)]))
 		sh_var[(*j)++] = token[(*i)++];
-	if (token[(*i)] == '_')
-	{
-		free(sh_var);
-		(*i)++;
-		return (1);
-	}
 	sh_var[(*j)] = 0;
 	(*j) = 0;
 	(*expand_var) = ft_getenv(sh_var);
@@ -116,7 +110,7 @@ static char	*set_expansion(char *token, char **new, int i, int k)
 			if (g.exit_malloc)
 				return (free(expand_var), free(token), free(*new), NULL);
 			if (get_expand_var(token, &expand_var, &i, &j))
-				continue ;
+				break ;
 			if (!expand_var)
 			{
 				if (token[i - 1] == EXPAND)

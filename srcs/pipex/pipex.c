@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:47:51 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/11 19:57:37 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/12 20:37:00 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,7 @@ static void	pipex(t_list *list, t_storage_cmd *st_cmd)
 				execve_builtin(is_builtin(st_cmd->bin_args[0], 0),
 					st_cmd->bin_args);
 				if (g.exit_malloc == 1)
-				{
-					mini_gc(NULL, NULL);
-					exit_malloc();
-				}
+					return (exit_malloc(), mini_gc(NULL, NULL));
 				return (mini_gc(NULL, NULL));
 			}
 		}
