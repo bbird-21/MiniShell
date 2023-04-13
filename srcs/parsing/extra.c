@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 21:14:27 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/13 14:02:18 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/13 15:40:09 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,11 @@ void	extra_free_tab(char ***tab)
 	i = 0;
 	if (*tab)
 	{
-		while ((*tab)[i] && (*tab)[i][0])
+		while (*(tab) && (*tab)[i])
 		{
 			free((*tab)[i]);
 			i++;
-			if ((*tab)[i] && !(*tab)[i][0])
-			{
-				free((*tab)[i]);
-				i++;
-			}
 		}
-		if ((*tab)[i] && !(*tab)[i][0])
-			free((*tab)[i]);
 	}
 }
 

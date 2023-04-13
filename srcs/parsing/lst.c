@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:32:27 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/13 14:04:05 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/13 15:36:29 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ char	**translator(t_list *lst, char *(translate)(void *))
 	while (lst)
 	{
 		tab[i] = translate(lst->content);
-		if (!tab[i])
+		if (g_g.exit_malloc)
 			return (free_tab(tab, i), NULL);
 		lst = lst->next;
 		i++;

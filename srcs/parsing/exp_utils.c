@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 10:29:39 by alvina            #+#    #+#             */
-/*   Updated: 2023/04/13 14:02:04 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/13 15:46:15 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	get_var_size(char *str)
 
 	vr_size = 0;
 	i = 0;
-	while (str[i] && ft_isalnum(str[i]))
+	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
 	{
 		i++;
 		vr_size++;

@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:28:29 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/13 14:11:02 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/13 15:44:28 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static int	get_expand_var(char *token, char **expand_var, int *i, int *j)
 		g_g.exit_malloc = 1;
 		exit(12);
 	}
-	while (token[(*i)] && (ft_isalnum(token[(*i)]) || token[(*i)]))
+	while (token[(*i)] && (ft_isalnum(token[(*i)]) || token[(*i)] == '_'))
 		sh_var[(*j)++] = token[(*i)++];
 	sh_var[(*j)] = 0;
 	(*j) = 0;

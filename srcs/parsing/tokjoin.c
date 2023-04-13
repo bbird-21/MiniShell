@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokjoin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 21:18:56 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/12 18:10:56 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/13 15:38:29 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,12 @@ int	split_token(t_list **list, char *new)
 		i++;
 	}
 	if (split && split[i] && !split[i][0])
+	{
 		new_list = ft_lstadd_back(&new_list, ft_lstnew(create_token("\0")));
+		free(split[i]);
+		free(split);
+		split = NULL;
+	}
 	ft_lstclear(list, token_cleaner);
 	(*list) = new_list;
 	return (free(new), free_tab(split, -1), 1);
