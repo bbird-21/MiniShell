@@ -1,6 +1,0 @@
-cmd: cat Makefile | grep pr | head -n 5 | hello
-echo $?
-bash output:
-127
-minishell output:
-127

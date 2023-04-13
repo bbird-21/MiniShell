@@ -1,6 +1,0 @@
-cmd: <> cat
-echo $?
-bash output:
-0
-minishell output:
-2

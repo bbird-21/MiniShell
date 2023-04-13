@@ -1,6 +1,0 @@
-cmd: echo oui | echo non | echo hola | grep oui
-echo $?
-bash output:
-1
-minishell output:
-1

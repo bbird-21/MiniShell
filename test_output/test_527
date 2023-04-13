@@ -1,6 +1,0 @@
-cmd: echo $?
-e'c'""h""o hola > bonjour
-bash output:
-0
-minishell output:
-0

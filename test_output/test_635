@@ -1,6 +1,0 @@
-cmd: echo $?
->hey>$HOLA
-bash output:
-0
-minishell output:
-0

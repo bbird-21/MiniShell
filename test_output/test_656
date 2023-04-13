@@ -1,5 +1,0 @@
-cmd: env|""wc ""-l"
-echo $?
-bash output:
-minishell output:
-0

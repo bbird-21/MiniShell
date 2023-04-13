@@ -1,6 +1,0 @@
-cmd: echo $?
-whoami | grep $USER > /tmp/bonjour
-bash output:
-0
-minishell output:
-0

@@ -1,6 +1,0 @@
-cmd: export HOL.A=bonjour
-echo $?
-bash output:
-1
-minishell output:
-1

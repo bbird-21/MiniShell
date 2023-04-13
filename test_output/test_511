@@ -1,6 +1,0 @@
-cmd: echo $?
-cat > ls1 < ls2
-bash output:
-0
-minishell output:
-0

@@ -1,6 +1,0 @@
-cmd: cd minishell Docs crashtest.c
-echo $?
-bash output:
-1
-minishell output:
-1

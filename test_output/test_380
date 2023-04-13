@@ -1,7 +1,0 @@
-cmd: (pwd | wc) < hola
-echo $?
-bash output:
-      1       1      64
-0
-minishell output:
-127

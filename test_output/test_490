@@ -1,6 +1,0 @@
-cmd: echo $?
-echo 2 >hola1 >> hola2
-bash output:
-0
-minishell output:
-0

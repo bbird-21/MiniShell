@@ -1,8 +1,0 @@
-cmd: echo oui | echo non | echo hola | grep hola
-echo $?
-bash output:
-hola
-0
-minishell output:
-hola
-0
