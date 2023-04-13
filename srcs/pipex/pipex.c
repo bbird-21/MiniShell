@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:47:51 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/12 20:58:38 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/13 14:08:45 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,8 @@ void	st_fill(t_storage_cmd *st_cmd, t_cmd *cmd)
 	char	**arg;
 
 	arg = translator(cmd->arg, trans_token);
-	if (!arg && g.exit_malloc == 1)
-	{
-		mini_gc(NULL, NULL);
-		clean_data(st_cmd);
-		exit_malloc();
-	}
+	if (!arg && g_g.exit_malloc)
+		exit_pipex_malloc(st_cmd);
 	st_cmd->ok = 1;
 	st_cmd->fd_in = cmd->infile;
 	st_cmd->fd_out = cmd->outfile;
@@ -39,12 +35,8 @@ void	st_fill(t_storage_cmd *st_cmd, t_cmd *cmd)
 		st_cmd->bin_path = NULL;
 		st_cmd->ok = 0;
 	}
-	if (st_cmd->bin_path == NULL && g.exit_malloc == 1)
-	{
-		mini_gc(NULL, NULL);
-		clean_data(st_cmd);
-		exit_malloc();
-	}
+	if (!st_cmd->bin_path && g_g.exit_malloc)
+		exit_pipex_malloc(st_cmd);
 }
 
 static void	st_init(t_list *list, t_storage_cmd *st_cmd)
@@ -70,26 +62,7 @@ static void	post_pipex(t_storage_cmd *st_cmd, t_list *list)
 	while (++i < st_cmd->pos)
 	{
 		waitpid(st_cmd->pid[i], &status, 0);
-		if (status == -21)
-		{
-			mini_gc(NULL, NULL);
-			exit_malloc();
-		}
-		else if (status == 2 && i == (st_cmd->pos -1))
-		{
-			g.exit_status = 130;
-			ft_putstr_fd("\n", 2);
-		}
-		else if (status == 131 && i == (st_cmd->pos -1))
-		{
-			g.exit_status = 131;
-			ft_putstr_fd("Quit (core dumped) zebbbbi\n", 2);
-		}
-		else if (WTERMSIG(status) == 11)
-		{
-			ft_putstr_fd("Segmentation fault (core dumped)\n", STDERR_FILENO);
-			g.exit_status = 139;
-		}
+		signal_check(status, i, st_cmd->pos - 1);
 	}
 	clean_data(st_cmd);
 	ft_out(&status);
@@ -110,13 +83,7 @@ static void	pipex(t_list *list, t_storage_cmd *st_cmd)
 		if (st_cmd->nb_cmd == 1 && st_cmd->bin_args)
 		{
 			if (is_builtin(st_cmd->bin_args[0], 0) != -1 && st_cmd->fd_in != -1)
-			{
-				execve_builtin(is_builtin(st_cmd->bin_args[0], 0),
-					st_cmd->bin_args);
-				if (g.exit_malloc == 1)
-					return (exit_malloc(), mini_gc(NULL, NULL));
-				return (mini_gc(NULL, NULL));
-			}
+				return (builtin_no_child(st_cmd));
 		}
 		loop_job(st_cmd, lst);
 		st_cmd->pos++;

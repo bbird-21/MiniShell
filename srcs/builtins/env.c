@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:33:29 by alvina            #+#    #+#             */
-/*   Updated: 2023/04/11 20:37:49 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/13 13:57:03 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_env(char **arg)
 	(void)arg;
 	if (!check_arg(arg, 0, "env"))
 	{
-		g.exit_status = 1;
+		g_g.exit_status = 1;
 		handler(CLEANING, NULL, NULL);
 		mini_gc(NULL, NULL);
 		exit(1);

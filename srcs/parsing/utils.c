@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 16:29:15 by alvina            #+#    #+#             */
-/*   Updated: 2023/04/07 09:35:28 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/13 14:05:42 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*ft_strdup(char *s)
 	str = malloc(sizeof(char) * i + 1);
 	if (!str)
 	{
-		g.exit_malloc = 1;
+		g_g.exit_malloc = 1;
 		return (NULL);
 	}
 	i = 0;
@@ -80,6 +80,7 @@ char	*ft_strdup(char *s)
 	str[i] = '\0';
 	return (str);
 }
+
 void	ft_putchar_fd(char c, int fd)
 {
 	write(fd, &c, 1);
@@ -87,6 +88,6 @@ void	ft_putchar_fd(char c, int fd)
 
 void	return_code(int code)
 {
-	g.exit_status = code;
+	g_g.exit_status = code;
 	return ;
 }

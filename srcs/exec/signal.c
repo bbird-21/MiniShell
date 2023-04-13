@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 15:06:34 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/12 21:12:53 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/13 14:19:15 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	sig_int(int state)
 {
 	int fd;
 
-	g.exit_status = 130;
+	g_g.exit_status = 130;
 	if (state == READLINE)
 	{
 		ft_putstr_fd("\n", 1);
@@ -25,7 +25,7 @@ void	sig_int(int state)
 		rl_redisplay();
 	}
 	else if (state == PIPEX)
-		g.exit_status = 130;
+		g_g.exit_status = 130;
 	else if (state == HERE_DOC)
 	{
 		fd = open("/dev/null", O_RDONLY);
@@ -35,7 +35,7 @@ void	sig_int(int state)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		g.exit_here_doc = 1;
+		g_g.exit_here_doc = 1;
 	}
 	else
 		exit(130);
@@ -44,7 +44,7 @@ void	sig_int(int state)
 void	sig_quit(int state)
 {
 	if (state == 1)
-		g.exit_status = 131;
+		g_g.exit_status = 131;
 	else
 		exit(131);
 }

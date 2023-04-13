@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pipex_01.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 02:38:56 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/11 19:31:29 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/13 14:08:57 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*ft_strjoin_path(char *line, char *buffer)
 				+ ft_strlen((char *)buffer)) + 3);
 	if (!p)
 	{
-		g.exit_malloc = 1;
+		g_g.exit_malloc = 1;
 		return (NULL);
 	}
 	if (line != NULL)
@@ -64,12 +64,10 @@ char	*ft_strjoin_path(char *line, char *buffer)
 			i++;
 		}
 	}
-	p[i] = '/';
-	i++;
+	p[i++] = '/';
 	while (buffer[j])
 		p[i++] = buffer[j++];
-	p[i] = '\0';
-	return (p);
+	return (p[i] = '\0', p);
 }
 
 void	closing_cmd(t_list *cmd)

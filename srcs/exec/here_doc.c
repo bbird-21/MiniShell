@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 17:32:12 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/12 21:05:52 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/13 14:41:58 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ static void	end_here_doc(int stdin_cpy, t_list **list)
 {
 	dup2(stdin_cpy, 0);
 	close(stdin_cpy);
-	if (g.exit_here_doc == 1)
+	if (g_g.exit_here_doc == 1)
 	{
-		g.exit_here_doc = 0;
+		g_g.exit_here_doc = 0;
 		return ;
 	}
 	return (opening(list));
@@ -66,10 +66,10 @@ static void	init(int *stdin_cpy)
 	signal(SIGINT, &sig_handler);
 }
 
-void	here_doc(t_list **list)
+void	here_doc(t_list **list, t_list *tmp, t_cmd *cmd)
 {
-	t_list	*tmp;
-	t_cmd	*cmd;
+	// t_list	*tmp;
+	// t_cmd	*cmd;
 	t_token	*token;
 	t_list	*red;
 	int		stdin_cpy;

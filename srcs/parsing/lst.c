@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:32:27 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/11 21:06:59 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/13 14:04:05 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	add_node_back_token(t_list **l, char *str, int *index, int type)
 		return (0);
 	}
 	data->value = get_token(str, index, type);
-	if (g.exit_malloc == 1)
+	if (g_g.exit_malloc == 1)
 		return (free(data), free(new), 0);
 	data->type = type;
 	new->content = data;
@@ -91,7 +91,7 @@ char	**translator(t_list *lst, char *(translate)(void *))
 	lst = head;
 	tab = malloc(sizeof(char *) * (get_size(lst) + 1));
 	if (!tab)
-		return (NULL);
+		return (g_g.exit_malloc = 1, NULL);
 	i = 0;
 	while (lst)
 	{

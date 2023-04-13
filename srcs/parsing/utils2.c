@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 10:59:50 by alvina            #+#    #+#             */
-/*   Updated: 2023/04/07 09:37:31 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/13 14:05:53 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*simple_join(char *s1, char *s2)
 	str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2)) + 1);
 	if (!str)
 	{
-		g.exit_malloc = 1;
+		g_g.exit_malloc = 1;
 		return (NULL);
 	}
 	if (s1)
@@ -95,7 +95,7 @@ char	*ft_strjoin(char *line, char *buffer)
 	i = -1;
 	p = malloc(sizeof(char) * (ft_strlen(line) + ft_strlen(buffer)) + 1);
 	if (!p)
-		return (NULL);
+		return (g_g.exit_malloc = 1, NULL);
 	if (line != NULL)
 	{
 		while (line[++i])

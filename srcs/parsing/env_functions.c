@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 09:41:32 by alvina            #+#    #+#             */
-/*   Updated: 2023/04/07 11:24:31 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/13 14:01:01 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	appending(t_list **envp, char **env, char *arg)
 		return ;
 	free(key);
 	data->value = joining_value(data, ft_value(arg));
-	if (g.exit_malloc)
+	if (g_g.exit_malloc)
 		free(data->value);
 }
 
@@ -48,13 +48,13 @@ void	adding(t_list **envp, char **env, char *arg)
 	if (!arg)
 		return ;
 	data = create_env(arg);
-	if (g.exit_malloc)
+	if (g_g.exit_malloc)
 	{
 		ft_lstclear(envp, env_cleaner);
 		return ;
 	}
 	e_new = ft_lstnew(data);
-	if (g.exit_malloc)
+	if (g_g.exit_malloc)
 	{
 		ft_lstclear(envp, env_cleaner);
 		env_cleaner(data);
@@ -94,29 +94,24 @@ void	deleting(t_list **envp, char **env, char *arg)
 void	modifying(t_list **envp, char **env, char *arg)
 {
 	t_list	*curr;
-	t_env	*data;
 	char	*key;
 
 	(void)env;
 	if (!(*envp) || !arg)
 		return ;
 	curr = *envp;
-	data = (t_env *)(curr->content);
 	key = ft_key(arg);
-	if (g.exit_malloc)
+	if (g_g.exit_malloc)
 		return ;
-	while ((curr) && (ft_strncmp(data->key, key, ft_strlen(key))
-			|| (ft_strlen(data->key) != ft_strlen(key))))
-	{
+	while ((curr) && (ft_strncmp(((t_env *)(curr->content))->key, key,
+			ft_strlen(key)) || (ft_strlen(((t_env *)(curr->content))->key)
+		!= ft_strlen(key))))
 		curr = curr->next;
-		if (curr)
-			data = (t_env *)(curr->content);
-	}
-	if (!curr || ft_strlen(data->key) != ft_strlen(key))
+	if (!curr || ft_strlen(((t_env *)(curr->content))->key) != ft_strlen(key))
 		return (free(key));
 	free(key);
-	free(data->value);
-	data->value = ft_value(arg);
-	if (g.exit_malloc)
+	free(((t_env *)(curr->content))->value);
+	((t_env *)(curr->content))->value = ft_value(arg);
+	if (g_g.exit_malloc)
 		return ;
 }

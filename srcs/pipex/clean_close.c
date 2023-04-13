@@ -3,19 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   clean_close.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:56:40 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/11 19:19:33 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/13 14:07:50 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	exit_pipex_malloc(t_storage_cmd *st_cmd)
+{
+	mini_gc(NULL, NULL);
+	clean_data(st_cmd);
+	exit_malloc();
+}
+
 void	ft_out(int *status)
 {
 	if (WIFEXITED(*status))
-		g.exit_status = WEXITSTATUS(*status);
+		g_g.exit_status = WEXITSTATUS(*status);
 }
 
 void	empty_data(t_storage_cmd *cmd)
@@ -36,10 +43,8 @@ void	clean_data(t_storage_cmd *cmd)
 
 void	mini_gc(t_list *cmd, t_storage_cmd *st)
 {
-	static	t_list			*c;
-	static	t_storage_cmd	*s;
-
-
+	static t_list			*c;
+	static t_storage_cmd	*s;
 
 	if (!cmd && !st)
 	{

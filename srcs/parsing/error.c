@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 00:16:17 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/11 19:17:53 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/13 14:01:28 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	free_exit(char *error)
 {
 	perror(error);
-	exit(g.exit_status);
+	exit(g_g.exit_status);
 	clear_history();
 }
 
@@ -23,7 +23,7 @@ int	error_msg(char *value)
 {
 	ft_putstr_fd("nanoshell: syntax error near unexpected token : ", 2);
 	ft_putendl_fd(value, 2);
-	g.exit_status = 2;
+	g_g.exit_status = 2;
 	return (0);
 }
 

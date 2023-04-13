@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:11:41 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/04/11 21:51:33 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/13 14:09:48 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	free_tab(char **tab, int j);
 void	exit_malloc(void);
 void	return_code(int code);
-void	extra_free_tab(char **tab);
+void	extra_free_tab(char ***tab);
 
 #endif

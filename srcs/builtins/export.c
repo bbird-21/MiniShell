@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 18:03:03 by alvina            #+#    #+#             */
-/*   Updated: 2023/04/11 20:01:09 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/13 13:57:27 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	export_doing(char *name)
 	else
 		handler(2, NULL, name);
 	free(key);
-	g.exit_status = 0;
+	g_g.exit_status = 0;
 }
 
 void	export(char **arg)
@@ -58,19 +58,19 @@ void	export(char **arg)
 
 	if (!check_arg(arg, 1, "export"))
 	{
-		g.exit_status = 1;
+		g_g.exit_status = 1;
 		return ;
 	}
 	name = arg[0];
 	envp = handler(5, NULL, NULL);
-	g.exit_status = 0;
+	g_g.exit_status = 0;
 	if (!name)
 		return (print_lst(envp, print_env));
 	if (!ft_strchr(name, '='))
 		return ;
 	if (!is_correct(name) || (ft_strlen(name) == 1 && name[0] == 0))
 	{
-		g.exit_status = 1;
+		g_g.exit_status = 1;
 		ft_putendl_fd("export : not a valid identifier", 2);
 		return ;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:55:39 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/04/11 20:19:39 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/13 13:56:48 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	print_tab(char **tab, int i, int j)
 		{
 			if (!ft_strncmp(&tab[i][j], "$?", 2))
 			{
-				ft_putnbr_fd(g.exit_status, 1);
+				ft_putnbr_fd(g_g.exit_status, 1);
 				j += 2;
 			}
 			else

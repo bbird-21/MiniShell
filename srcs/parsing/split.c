@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 23:34:30 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/07 09:33:06 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/13 14:04:39 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ static char	*ft_initword(char *src, size_t endWord, size_t nbchar, char c)
 	i = 0;
 	word = malloc(sizeof(char) * (nbchar + 1));
 	if (!word)
+	{
+		g_g.exit_malloc = 1;
 		return (NULL);
+	}
 	if (src[begin] == c || begin < 0)
 		begin++;
 	while (src[begin] && i < nbchar)
@@ -72,7 +75,7 @@ char	**protection(char *s)
 	split = malloc(sizeof(char *) * 1);
 	if (!split)
 	{
-		g.exit_malloc = 1;
+		g_g.exit_malloc = 1;
 		return (NULL);
 	}
 	split[0] = malloc(1);
@@ -92,10 +95,7 @@ char	**ft_split(char *s, char c)
 	extra_init(&index, &nbchar, &i);
 	split = (char **)malloc(sizeof(char *) * (nb_words(s, c) + 1));
 	if (!split)
-	{
-		g.exit_malloc = 1;
-		return (NULL);
-	}
+		return (g_g.exit_malloc = 1, NULL);
 	while (i < ft_strrlen((char *)s))
 	{
 		if (s[i] != c)
@@ -103,16 +103,11 @@ char	**ft_split(char *s, char c)
 		if ((s[i] == c || i == ft_strrlen((char *)s) - 1) && nbchar > 0)
 		{
 			split[index++] = ft_initword((char *)s, i, nbchar, c);
-			if (!split[index - 1])
-			{
-				free_tab(split, index -1);
-				g.exit_malloc = 1;
-				return (NULL);
-			}
+			if (!split[index - 1] && g_g.exit_malloc)
+				return (free_tab(split, index -1), NULL);
 			nbchar = 0;
 		}
 		i++;
 	}
-	split[index] = NULL;
-	return (split);
+	return (split[index] = NULL, split);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trash.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 14:43:34 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/04/11 21:51:39 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/13 14:05:30 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	free_tab(char **tab, int j)
 
 	i = 0;
 	if (j == -1)
-		extra_free_tab(tab);
+		extra_free_tab(&tab);
 	else
 	{
 		while (i < j)
@@ -71,5 +71,6 @@ void	free_tab(char **tab, int j)
 			i++;
 		}
 	}
-	free(tab);
+	if (tab)
+		free(tab);
 }

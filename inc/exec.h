@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 16:04:12 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/11 20:07:53 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/13 14:12:22 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ ptr_fun	funct(int flag);
 void	execve_builtin(int flag, char **arg);
 int		is_builtin(char *str, int pipe);
 int		check_arg(char **arg, int max, char *fct);
+void	builtin_no_child(t_storage_cmd *st_cmd);
 
 /*	Signal management							*/
 int		ft_state(int state);
@@ -73,10 +74,12 @@ void	sig_handler(int signum);
 void	sig_int(int state);
 void	sig_quit(int state);
 void	sig_handler(int signum);
+void	signal_check(int status, int i, int last_cmd);
 
 void	mini_gc(t_list *cmd, t_storage_cmd *st);
 void	clean_data(t_storage_cmd *cmd);
 void	empty_data(t_storage_cmd *cmd);
+void	exit_pipex_malloc(t_storage_cmd *st_cmd);
 
 /*	Required by <dup.>							*/
 void	dup_and_exe(t_storage_cmd *st_cmd, t_list *cmd);

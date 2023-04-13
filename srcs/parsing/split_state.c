@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_state.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 22:02:38 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/11 19:47:04 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/13 14:14:42 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	*get_token(char *str, int *k, int type)
 	dup = malloc(sizeof(char) * ft_strlen(str) + 1);
 	if (!dup)
 	{
-		g.exit_malloc = 1;
+		g_g.exit_malloc = 1;
 		return (NULL);
 	}
 	making_token(str, k, state, &dup);
@@ -93,7 +93,8 @@ int	dividing(t_list **subdivide_token, t_list *tmp, int *index)
 	j = 0;
 	while (j < countwords(data->value))
 	{
-		if (!add_node_back_token(subdivide_token, data->value, index, data->type))
+		if (!add_node_back_token(subdivide_token, data->value,
+				index, data->type))
 			return (0);
 		j++;
 	}

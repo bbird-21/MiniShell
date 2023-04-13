@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exp_state.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 10:28:38 by alvina            #+#    #+#             */
-/*   Updated: 2023/04/11 19:18:26 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/13 14:01:38 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ char	*state_01(char *str)
 	char	*new;
 
 	new = remove_quotes(str);
+	if (g_g.exit_malloc)
+		return (NULL);
 	magic_space(new);
 	free(str);
 	return (new);
@@ -33,6 +35,8 @@ char	*state_02(char *str)
 	char	*new2;
 
 	new = remove_quotes(str);
+	if (g_g.exit_malloc)
+		return (NULL);
 	new2 = expansion(new);
 	magic_space(new2);
 	free(str);
@@ -53,7 +57,6 @@ t_fp_exp	handling_table(unsigned char state)
 char	*do_job(char *str, int type)
 {
 	t_fp_exp	fp;
-
 
 	if (type == 1)
 		return (str);

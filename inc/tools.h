@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:12:42 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/12 19:49:20 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/13 13:57:56 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_globale
 	int	exit_here_doc;
 }				t_globale;
 
-extern t_globale	g;
+extern t_globale	g_g;
 
 typedef char *	(*t_fp_exp)(char *str);
 
