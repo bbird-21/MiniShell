@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_built.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 18:45:11 by alvina            #+#    #+#             */
-/*   Updated: 2023/04/13 14:08:09 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/13 15:55:28 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int	check_arg(char **arg, int max, char *fct)
 	return (1);
 }
 
-ptr_fun	funct(int flag)
+t_ptr_fun	funct(int flag)
 {
-	static ptr_fun	tableau[7] = {
+	static t_ptr_fun	tableau[7] = {
 		cd,
 		echo,
 		ft_env,
@@ -47,7 +47,7 @@ ptr_fun	funct(int flag)
 
 void	execve_builtin(int flag, char **arg)
 {
-	ptr_fun	exec;
+	t_ptr_fun	exec;
 
 	if (flag == -2)
 	{
