@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 17:32:12 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/13 14:41:58 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/13 15:00:55 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static int	do_here_doc(t_list **lst, char *limiter)
 	{
 		free(line);
 		line = readline("heredoc> ");
+		if (g_g.exit_here_doc)
+			return (0);
 		if (!line)
 		{
 			nul_character(limiter);
