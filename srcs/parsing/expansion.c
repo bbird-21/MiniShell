@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:28:29 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/13 15:44:28 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/13 15:57:31 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ static int	get_expand_var(char *token, char **expand_var, int *i, int *j)
 	{
 		if (sh_var)
 			free(sh_var);
+		free(token);
+		free(*expand_var);
 		g_g.exit_malloc = 1;
 		exit(12);
 	}
@@ -107,8 +109,6 @@ static char	*set_expansion(char *token, char **new, int i, int k)
 		j = 0;
 		if (token[i] == EXPAND)
 		{
-			if (g_g.exit_malloc)
-				return (free(expand_var), free(token), free(*new), NULL);
 			if (get_expand_var(token, &expand_var, &i, &j))
 				break ;
 			if (!expand_var)
@@ -134,6 +134,10 @@ char	*expansion(char *token)
 
 	new = malloc(sizeof(char) * (get_exp_size(token) + 1));
 	if (!new)
+	{
+		g_g.exit_malloc = 1;
+		free(token);
 		return (NULL);
+	}
 	return (set_expansion(token, &new, 0, 0));
 }

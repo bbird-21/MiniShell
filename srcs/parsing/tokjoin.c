@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 21:18:56 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/13 15:38:29 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/13 16:02:58 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,12 @@ int	cleaning_spl_tkn(char **tab, t_list *lst)
 	return (0);
 }
 
-int	split_token(t_list **list, char *new)
+int	split_token(t_list **list, char *new, t_list *new_list, int i)
 {
-	t_list	*new_list;
 	t_list	*new_node;
 	t_token	*data;
 	char	**split;
-	int		i;
 
-	i = 0;
-	new_list = NULL;
 	split = ft_split(new, ' ');
 	if (!split)
 		return (0);
@@ -66,8 +62,7 @@ int	split_token(t_list **list, char *new)
 		split = NULL;
 	}
 	ft_lstclear(list, token_cleaner);
-	(*list) = new_list;
-	return (free(new), free_tab(split, -1), 1);
+	return ((*list) = new_list, free(new), free_tab(split, -1), 1);
 }
 
 int	one_token_treatment(t_list **list)
@@ -80,7 +75,7 @@ int	one_token_treatment(t_list **list)
 	{
 		new = ft_strdup(((t_token *)((*list)->content))->value);
 		if (new && new[0] != '\0')
-			split_token(list, new);
+			split_token(list, new, NULL, 0);
 		else
 			free(new);
 	}
@@ -110,7 +105,7 @@ int	tokjoin(t_list **list, int j)
 				return (0);
 			tmp = tmp->next;
 		}
-		return (split_token(list, new));
+		return (split_token(list, new, NULL, 0));
 	}
 	else
 		return (one_token_treatment(list));

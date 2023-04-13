@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 17:32:12 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/13 15:00:55 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/13 16:05:13 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ static void	init(int *stdin_cpy)
 
 void	here_doc(t_list **list, t_list *tmp, t_cmd *cmd)
 {
-	// t_list	*tmp;
-	// t_cmd	*cmd;
 	t_token	*token;
 	t_list	*red;
 	int		stdin_cpy;

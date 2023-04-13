@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 15:06:34 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/13 14:59:53 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/13 15:52:54 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
 void	sig_int(int state)
 {
-	int fd;
+	int	fd;
 
 	g_g.exit_status = 130;
 	if (state == READLINE)
@@ -30,11 +30,8 @@ void	sig_int(int state)
 	{
 		fd = open("/dev/null", O_RDONLY);
 		dup2(fd, STDIN_FILENO);
-		close(fd);	
+		close(fd);
 		ft_putstr_fd("\n", 1);
-		// rl_on_new_line();
-		// rl_replace_line("", 0);
-		// rl_redisplay();
 		g_g.exit_here_doc = 1;
 	}
 	else
