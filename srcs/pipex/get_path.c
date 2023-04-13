@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 19:37:19 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/13 14:08:33 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/13 17:20:11 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ char	*get_bin_path(char *cmd, char **path)
 	if (g_g.exit_malloc)
 		return (free_tab(path, -1), NULL);
 	if (!access(cmd, X_OK))
-		return (free_tab(path, -1), ft_strdup(cmd));
+	{
+		if (!opendir(cmd))
+			return (free_tab(path, -1), ft_strdup(cmd));
+	}
 	else if (access(cmd, X_OK) == -1 && (!path || !*path))
 		return (NULL);
 	while (path[i])

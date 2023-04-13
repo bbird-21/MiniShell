@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 09:53:47 by alvina            #+#    #+#             */
-/*   Updated: 2023/04/11 20:10:06 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/13 17:21:03 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <string.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+# include <dirent.h>
 
 /*	Personal Library  */
 # include "utils.h"
