@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 19:37:19 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/13 17:20:11 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/13 19:25:02 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	**get_path(char **env)
 {
-	char	*path;
+	char		*path;
 
 	if (!env || !*env)
 		return (NULL);
@@ -33,28 +33,27 @@ char	*get_bin_path(char *cmd, char **path)
 {
 	char	*bin_path;
 	int		i;
+	DIR		*dir;
 
+	dir = opendir(cmd);
 	i = 0;
 	bin_path = NULL;
-	if (g_g.exit_malloc)
-		return (free_tab(path, -1), NULL);
-	if (!access(cmd, X_OK))
-	{
-		if (!opendir(cmd))
-			return (free_tab(path, -1), ft_strdup(cmd));
-	}
-	else if (access(cmd, X_OK) == -1 && (!path || !*path))
-		return (NULL);
+	if (!access(cmd, X_OK) && !dir)
+		return (free_tab(path, -1), free(dir), ft_strdup(cmd));
+	else if (!dir && access(cmd, X_OK) == -1 && (!path || !*path))
+		return (free_tab(path, -1), free(dir), NULL);
+	if (!path)
+		return (free_tab(path, -1), free(dir), NULL);
 	while (path[i])
 	{
 		bin_path = ft_strjoin_path(path[i], cmd);
 		if (!bin_path)
-			return (free_tab(path, -1), g_g.exit_malloc = 1, NULL);
+			return (free_tab(path, -1), g_g.exit_malloc = 1, free(dir), NULL);
 		if (!access(bin_path, X_OK))
 			break ;
 		free(bin_path);
 		bin_path = NULL;
 		i++;
 	}
-	return (free_tab(path, -1), bin_path);
+	return (free_tab(path, -1), free(dir), bin_path);
 }

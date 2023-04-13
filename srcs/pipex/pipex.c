@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 11:47:51 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/13 14:08:45 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/13 19:45:56 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,13 +98,13 @@ void	pre_pipex(t_list **cmd)
 	t_storage_cmd	st_cmd;
 
 	st_cmd.env = translator(handler(5, NULL, NULL), trans_env);
-	if (!st_cmd.env)
+	if (g_g.exit_malloc)
 	{
 		ft_lstclear(cmd, cmd_cleaner);
 		exit_malloc();
 	}
 	st_init(*cmd, &st_cmd);
-	if (!st_cmd.pid)
+	if (g_g.exit_malloc)
 	{
 		free_tab(st_cmd.env, -1);
 		ft_lstclear(cmd, cmd_cleaner);
