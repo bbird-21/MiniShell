@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 17:32:12 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/13 16:05:13 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/13 16:25:29 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	end_here_doc(int stdin_cpy, t_list **list)
 	if (g_g.exit_here_doc == 1)
 	{
 		g_g.exit_here_doc = 0;
-		return ;
+		return (ft_lstclear(list, cmd_cleaner));
 	}
 	return (opening(list));
 }
