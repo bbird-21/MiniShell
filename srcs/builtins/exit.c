@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:11:19 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/04/13 13:57:16 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/13 16:56:45 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,18 @@ static unsigned long long	ft_atoll(const char *nptr)
 
 void	quit_properly(int code, char *str)
 {
-	mini_gc(NULL, NULL);
-	rl_clear_history();
-	if (code != 2)
-		handler(CLEANING, NULL, NULL);
 	if (code == 0)
 		ft_putstr_fd("exit\n", 2);
 	if (code == 2)
 	{
-		ft_putstr_fd("nanoshell: exit: ", 2);
+		ft_putstr_fd("femtoshell: exit: ", 2);
 		ft_putstr_fd(str, 2);
 		ft_putendl_fd(": numeric argument required", 2);
 	}
 	g_g.exit_status = code;
+	handler(CLEANING, NULL, NULL);
+	mini_gc(NULL, NULL);
+	rl_clear_history();
 	exit(code);
 }
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+         #
+#    By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/17 17:30:47 by mmeguedm          #+#    #+#              #
-#    Updated: 2023/04/13 16:09:50 by ale-sain         ###   ########.fr        #
+#    Updated: 2023/04/13 16:53:22 by mmeguedm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 NAME		= minishell
 
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -I $(INC_PATH)
+CFLAGS		= -Wall -Wextra -Werror -I $(INC_PATH) -g3
 
 LIBS		= -L/usr/local/lib -I/usr/local/include -lreadline
 
