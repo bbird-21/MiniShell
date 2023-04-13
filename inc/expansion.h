@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 20:40:11 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/11 20:42:21 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/13 16:00:45 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char		**ft_split(char *s, char c);
 void		magic_space(char *str);
 int			get_var_size(char *str);
 
-int			tokjoin(t_list **, int j);
+int			tokjoin(t_list **list, int j);
 
 int			get_exp_size(char *env_var);
 int			get_var_size(char *str);

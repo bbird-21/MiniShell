@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:24:06 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/04/06 22:13:55 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/13 15:55:19 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void	getting(t_list **envp, char **env, char *arg)
 	(void)envp;
 }
 
-pf	fct(int swtch)
+t_pf	fct(int swtch)
 {
-	static pf	tableau[7] = {
+	static t_pf	tableau[7] = {
 		creating,
 		deleting,
 		adding,
@@ -61,7 +61,7 @@ pf	fct(int swtch)
 t_list	*handler(int swtch, char **env, char *arg)
 {
 	static t_list	*envp;
-	pf				hand;
+	t_pf				hand;
 
 	hand = fct(swtch);
 	hand(&envp, env, arg);

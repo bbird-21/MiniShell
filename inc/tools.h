@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:12:42 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/13 13:57:56 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/13 15:56:40 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_globale
 
 extern t_globale	g_g;
 
-typedef char *	(*t_fp_exp)(char *str);
+typedef char *		(*t_fp_exp)(char *str);
 
 typedef enum e_type
 {
@@ -63,7 +63,7 @@ typedef struct s_token
 	int		type;
 }					t_token;
 
-typedef struct	s_env
+typedef struct s_env
 {
 	char			*key;
 	char			*value;
@@ -75,8 +75,8 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
-typedef void	(*pf)(t_list **, char **, char *);
-typedef void	(*ptr_fun)(char **);
+typedef void		(*t_pf)(t_list **, char **, char *);
+typedef void		(*t_ptr_fun)(char **);
 
 typedef struct s_cmd
 {
