@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 17:32:27 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/13 15:36:29 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/14 23:33:02 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	add_node_back_token(t_list **l, char *str, int *index, int type)
 	}
 	data->value = get_token(str, index, type);
 	if (g_g.exit_malloc == 1)
-		return (free(data), free(new), 0);
+		return (free(data), free(new), exit(12), 0);
 	data->type = type;
 	new->content = data;
 	new->next = NULL;
@@ -91,13 +91,13 @@ char	**translator(t_list *lst, char *(translate)(void *))
 	lst = head;
 	tab = malloc(sizeof(char *) * (get_size(lst) + 1));
 	if (!tab)
-		return (g_g.exit_malloc = 1, NULL);
+		return (g_g.exit_malloc = 1, exit(12), NULL);
 	i = 0;
 	while (lst)
 	{
 		tab[i] = translate(lst->content);
 		if (g_g.exit_malloc)
-			return (free_tab(tab, i), NULL);
+			return (free_tab(tab, i), exit(12), NULL);
 		lst = lst->next;
 		i++;
 	}

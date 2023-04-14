@@ -6,7 +6,7 @@
 #    By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/17 17:30:47 by mmeguedm          #+#    #+#              #
-#    Updated: 2023/04/13 19:52:29 by mmeguedm         ###   ########.fr        #
+#    Updated: 2023/04/14 22:50:59 by mmeguedm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 NAME		= minishell
 
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -I $(INC_PATH)
+CFLAGS		= -Wall -Wextra -Werror -I $(INC_PATH) -g3
 
 LIBS		= -L/usr/local/lib -I/usr/local/include -lreadline
 
@@ -122,7 +122,7 @@ obj/%.o: srcs/%.c $(INC)
 
 # --------- Linking -----------------------------------------------------------------
 
-$(NAME) : $(OBJ) $(INC)
+$(NAME) : $(OBJ) $(INC) Makefile
 	@mkdir -p $(OBJ_PATH)
 	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBS)
 	@printf "\n\n"

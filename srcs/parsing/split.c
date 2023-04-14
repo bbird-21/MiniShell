@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 23:34:30 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/13 15:25:43 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/14 23:34:01 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static char	*ft_initword(char *src, size_t endWord, size_t nbchar, char c)
 	if (!word)
 	{
 		g_g.exit_malloc = 1;
-		return (NULL);
+		exit(12);
 	}
 	if (src[begin] == c || begin < 0)
 		begin++;
@@ -76,7 +76,7 @@ char	**protection(char *s)
 	if (!split)
 	{
 		g_g.exit_malloc = 1;
-		return (NULL);
+		exit(12);
 	}
 	split[0] = malloc(1);
 	split[0][0] = 0;
@@ -95,7 +95,7 @@ char	**ft_split(char *s, char c)
 	extra_init(&index, &nbchar, &i);
 	split = (char **)malloc(sizeof(char *) * (nb_words(s, c) + 1));
 	if (!split)
-		return (g_g.exit_malloc = 1, NULL);
+		return (g_g.exit_malloc = 1, exit(12), NULL);
 	while (i < ft_strrlen((char *)s))
 	{
 		if (s[i] != c)
@@ -104,7 +104,7 @@ char	**ft_split(char *s, char c)
 		{
 			split[index++] = ft_initword((char *)s, i, nbchar, c);
 			if (!split[index - 1] && g_g.exit_malloc)
-				return (free_tab(split, index -1), NULL);
+				return (free_tab(split, index -1), exit(12), NULL);
 			nbchar = 0;
 		}
 		i++;

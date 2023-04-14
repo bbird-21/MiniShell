@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 19:53:35 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/04/13 19:44:01 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/14 23:34:11 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_token	*create_token(char *str)
 	if (!data)
 	{
 		g_g.exit_malloc = 1;
-		return (NULL);
+		exit(12);
 	}
 	data->value = ft_strdup(str);
 	if (!data->value)

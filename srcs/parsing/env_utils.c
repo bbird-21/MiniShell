@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 09:44:10 by alvina            #+#    #+#             */
-/*   Updated: 2023/04/13 14:01:13 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/14 23:29:22 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*ft_key(char *str)
 	if (!new)
 	{
 		g_g.exit_malloc = 1;
-		return (NULL);
+		exit(12);
 	}
 	i = 0;
 	while (str[i] != '=' && str[i])
@@ -81,7 +81,7 @@ char	*ft_value(char *str)
 	if (!new)
 	{
 		g_g.exit_malloc = 1;
-		return (NULL);
+		exit(12);
 	}
 	while (str[i])
 	{
@@ -130,7 +130,7 @@ t_env	*create_env(char *str)
 	if (!data)
 	{
 		g_g.exit_malloc = 1;
-		return (NULL);
+		exit(12);
 	}
 	data->key = ft_key(str);
 	data->value = ft_value(str);
@@ -139,7 +139,7 @@ t_env	*create_env(char *str)
 		free(data->key);
 		free(data->value);
 		env_cleaner(data);
-		return (NULL);
+		exit(12);
 	}
 	return (data);
 }

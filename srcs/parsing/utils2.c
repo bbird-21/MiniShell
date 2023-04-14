@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 10:59:50 by alvina            #+#    #+#             */
-/*   Updated: 2023/04/13 14:05:53 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/14 23:34:37 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*simple_join(char *s1, char *s2)
 	if (!str)
 	{
 		g_g.exit_malloc = 1;
-		return (NULL);
+		exit(12);
 	}
 	if (s1)
 	{

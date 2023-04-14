@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exp_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 10:29:39 by alvina            #+#    #+#             */
-/*   Updated: 2023/04/13 15:46:15 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/14 23:30:15 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*remove_quotes(char *str)
 	if (!new)
 	{
 		g_g.exit_malloc = 1;
-		return (NULL);
+		exit(12);
 	}
 	state_char = str[i];
 	str++;

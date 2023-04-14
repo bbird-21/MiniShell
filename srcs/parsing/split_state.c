@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 22:02:38 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/13 19:44:09 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/14 23:33:21 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char	*get_token(char *str, int *k, int type)
 	if (!dup)
 	{
 		g_g.exit_malloc = 1;
-		return (NULL);
+		exit(12);
 	}
 	making_token(str, k, state, &dup);
 	if (ft_strlen(dup) == 1 && dup[0] == '$' && countwords(str) != 1)

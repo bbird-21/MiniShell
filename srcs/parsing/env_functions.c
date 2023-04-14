@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_functions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 09:41:32 by alvina            #+#    #+#             */
-/*   Updated: 2023/04/13 14:01:01 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/14 23:28:32 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	appending(t_list **envp, char **env, char *arg)
 	free(key);
 	data->value = joining_value(data, ft_value(arg));
 	if (g_g.exit_malloc)
-		free(data->value);
+		exit(12);
 }
 
 void	adding(t_list **envp, char **env, char *arg)
@@ -51,14 +51,14 @@ void	adding(t_list **envp, char **env, char *arg)
 	if (g_g.exit_malloc)
 	{
 		ft_lstclear(envp, env_cleaner);
-		return ;
+		exit(12);
 	}
 	e_new = ft_lstnew(data);
 	if (g_g.exit_malloc)
 	{
 		ft_lstclear(envp, env_cleaner);
 		env_cleaner(data);
-		return ;
+		exit(12);
 	}
 	(*envp) = ft_lstadd_back(envp, e_new);
 }
@@ -102,7 +102,7 @@ void	modifying(t_list **envp, char **env, char *arg)
 	curr = *envp;
 	key = ft_key(arg);
 	if (g_g.exit_malloc)
-		return ;
+		exit(12);
 	while ((curr) && (ft_strncmp(((t_env *)(curr->content))->key, key,
 			ft_strlen(key)) || (ft_strlen(((t_env *)(curr->content))->key)
 		!= ft_strlen(key))))
@@ -113,5 +113,5 @@ void	modifying(t_list **envp, char **env, char *arg)
 	free(((t_env *)(curr->content))->value);
 	((t_env *)(curr->content))->value = ft_value(arg);
 	if (g_g.exit_malloc)
-		return ;
+		exit(12);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exp_state.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 10:28:38 by alvina            #+#    #+#             */
-/*   Updated: 2023/04/13 14:01:38 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/14 23:29:49 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*state_01(char *str)
 
 	new = remove_quotes(str);
 	if (g_g.exit_malloc)
-		return (NULL);
+		exit(12);
 	magic_space(new);
 	free(str);
 	return (new);
@@ -36,7 +36,7 @@ char	*state_02(char *str)
 
 	new = remove_quotes(str);
 	if (g_g.exit_malloc)
-		return (NULL);
+		exit(12);
 	new2 = expansion(new);
 	magic_space(new2);
 	free(str);

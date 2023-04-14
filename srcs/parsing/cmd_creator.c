@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:51:42 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/04/13 19:44:14 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/14 23:26:52 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_list	*arg_red_list(t_list **arg_red, int type, char *str)
 	if (!data)
 	{
 		g_g.exit_malloc = 1;
-		return (NULL);
+		exit (12);
 	}
 	data->type = type;
 	new = ft_lstnew(data);
@@ -29,7 +29,7 @@ t_list	*arg_red_list(t_list **arg_red, int type, char *str)
 	{
 		ft_lstclear(arg_red, token_cleaner);
 		g_g.exit_malloc = 1;
-		return (NULL);
+		exit (12);
 	}
 	return (ft_lstadd_back(arg_red, new));
 }
