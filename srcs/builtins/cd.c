@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:21:04 by alvina            #+#    #+#             */
-/*   Updated: 2023/04/13 13:56:34 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/15 00:10:56 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,10 @@ static void	set_pwd(void)
 	char	*tmp;
 	char	*pwd;
 
+	pwd = NULL;
 	tmp = malloc(sizeof(char) * PATH_MAX);
-	getcwd(tmp, PATH_MAX);
-	pwd = simple_join("PWD=", tmp);
+	if (getcwd(tmp, PATH_MAX))
+		pwd = simple_join("PWD=", tmp);
 	handler(3, NULL, pwd);
 	free(tmp);
 	free(pwd);
