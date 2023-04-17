@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:28:29 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/14 23:30:58 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/17 16:57:13 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,18 @@
 	<State 2> remove quotes -> expand -> magic space
 */
 
+static int	size_pan(int *i)
+{
+	char *new;
+	int	size;
+
+	new = ft_itoa(g_g.exit_status);
+	(*i)++;
+	size = ft_strlen(new);
+	free(new);
+	return (size);
+}
+
 static int	size_var(char **token, int *i)
 {
 	char	*sh_var;
@@ -30,6 +42,8 @@ static int	size_var(char **token, int *i)
 
 	nb = 0;
 	j = 0;
+	if ((*token)[*i] == '?')
+		return (size_pan(i));	
 	sh_var = malloc(sizeof(char) * (get_var_size(&(*token)[*i]) + 2));
 	if (!sh_var)
 	{
@@ -60,7 +74,7 @@ int	get_exp_size(char *token)
 		i++;
 		if (token[i - 1] == EXPAND)
 		{
-			if (!ft_isalnum(token[i]))
+			if (!ft_isalnum(token[i]) && token[i] != '?')
 			{
 				size++;
 				continue ;
@@ -80,6 +94,12 @@ static int	get_expand_var(char *token, char **expand_var, int *i, int *j)
 	char	*sh_var;
 
 	(*i)++;
+	if (token[*i] == '?')
+	{
+		(*expand_var) = ft_itoa(g_g.exit_status);
+		(*i)++;
+		return (0);
+	}
 	sh_var = malloc(sizeof(char) * (get_var_size(&token[(*i)]) + 1));
 	if (!sh_var || g_g.exit_malloc == 1)
 	{
@@ -126,6 +146,20 @@ static char	*set_expansion(char *token, char **new, int i, int k)
 	}
 	return ((*new)[k] = 0, free(token), *new);
 }
+
+// static int	pansement(char **dup, char *str)
+// {
+// 	if (ft_strnstr(str, "$?", 2) && ft_strlen(str) == 2)
+// 	{
+// 		*dup = ft_itoa(g_g.exit_status);
+// 		return (1);
+// 	}
+// 	else if ((ft_strnstr(str, "\"$?\"", 4) && ft_strlen(str) == 4))
+// 	{
+// 		*dup = ft_itoa(g_g.exit_status);
+// 		magic_space(new2);
+// 	return (0);
+// }
 
 char	*expansion(char *token)
 {

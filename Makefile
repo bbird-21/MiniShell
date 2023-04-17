@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+         #
+#    By: alvina <alvina@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/17 17:30:47 by mmeguedm          #+#    #+#              #
-#    Updated: 2023/04/14 22:50:59 by mmeguedm         ###   ########.fr        #
+#    Updated: 2023/04/17 16:26:20 by alvina           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,7 @@ SRC			=	$(addprefix $(SRC_PATH),					\
 						token_creator.c						\
 						tokenisation.c						\
 						trash.c								\
+						ft_itoa.c							\
 						utils.c								\
 						utils2.c 							\
 						utils3.c 							\

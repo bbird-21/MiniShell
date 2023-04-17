@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 20:40:11 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/13 16:00:45 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/17 16:26:16 by alvina           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ char		*do_job(char *str, int type);
 
 int			ft_strrlen(const char *str);
 bool		new_state(char c, int state);
+char	    *ft_itoa(int n);
 
 #endif
