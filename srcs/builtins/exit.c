@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:11:19 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/04/15 00:35:48 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/18 13:19:16 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,10 @@ void	ft_exit(char **arg)
 	char		*str;
 
 	if (!check_arg(arg, 1, "exit"))
+	{
+		g_g.exit_status = 1;
 		return ;
+	}
 	if (*arg)
 		str = arg[0];
 	else
