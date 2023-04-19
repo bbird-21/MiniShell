@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   opening.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:21:25 by alvina            #+#    #+#             */
-/*   Updated: 2023/04/13 19:44:36 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/19 18:31:20 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,19 @@ static int	infiling(t_cmd *cmd, t_token *token)
 		cmd->infile = cmd->pfd[0];
 	else
 	{
+		if (old_fd > 2)
+			close(old_fd);
 		fd = open(token->value, O_RDONLY);
 		if (fd == 0 || fd == -1)
 		{
 			if (cmd->outfile > 2)
 				close(cmd->outfile);
-			if (old_fd > 2)
-				close(old_fd);
 			cmd->infile = -1;
 			cmd->outfile = -1;
 			return (perror(token->value), 0);
 		}
 		cmd->infile = fd;
 	}
-	if (old_fd > 2)
-		close(old_fd);
 	return (1);
 }
 

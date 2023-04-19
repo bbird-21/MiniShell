@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alvina <alvina@student.42.fr>              +#+  +:+       +#+         #
+#    By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/17 17:30:47 by mmeguedm          #+#    #+#              #
-#    Updated: 2023/04/17 16:26:20 by alvina           ###   ########.fr        #
+#    Updated: 2023/04/19 17:48:35 by mmeguedm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 NAME		= minishell
 
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -I $(INC_PATH) -g3
+CFLAGS		= -Wall -Wextra -I $(INC_PATH) -g3
 
 LIBS		= -L/usr/local/lib -I/usr/local/include -lreadline
 
@@ -137,7 +137,7 @@ $(NAME) : $(OBJ) $(INC) Makefile
 all : $(NAME)
 
 clean :
-		rm -rf $(OBJ_PATH) 
+		rm -rf $(OBJ_PATH)
 
 fclean : clean
 		rm -rf $(NAME)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:09:54 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/14 23:00:30 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/19 16:48:35 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,6 @@ void	clean_data(t_storage_cmd *cmd);
 void	mini_gc(t_list *cmd, t_storage_cmd *st);
 void	closing_cmd(t_list *cmd);
 int		only_wspace(char *str);
+void	read_pipe(int pfd);
 
 #endif

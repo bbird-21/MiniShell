@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:36:05 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/13 17:17:40 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/19 18:21:55 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	dup_and_exe(t_storage_cmd *st_cmd, t_list *cmd)
 	protecting(st_cmd, cmd);
 	dupping(st_cmd);
 	close(st_cmd->pfd[0]);
-	close(st_cmd->pfd[1]);
 	if (st_cmd->toclose)
 		close(st_cmd->toclose);
 	if (st_cmd->fd_tmp)
