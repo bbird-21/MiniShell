@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alvina <alvina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 21:28:29 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/17 16:57:13 by alvina           ###   ########.fr       */
+/*   Updated: 2023/04/21 01:02:28 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 /*	This file have to expand environment variables and apply
 	differents functions in strict order depending on the
-	type of token. 
-	
+	type of token.
+
 	<State 0> remove quotes.
 	<State 1> remove quotes -> magic space
 	<State 2> remove quotes -> expand -> magic space
@@ -23,8 +23,8 @@
 
 static int	size_pan(int *i)
 {
-	char *new;
-	int	size;
+	char	*new;
+	int		size;
 
 	new = ft_itoa(g_g.exit_status);
 	(*i)++;
@@ -43,7 +43,7 @@ static int	size_var(char **token, int *i)
 	nb = 0;
 	j = 0;
 	if ((*token)[*i] == '?')
-		return (size_pan(i));	
+		return (size_pan(i));
 	sh_var = malloc(sizeof(char) * (get_var_size(&(*token)[*i]) + 2));
 	if (!sh_var)
 	{
@@ -118,7 +118,7 @@ static int	get_expand_var(char *token, char **expand_var, int *i, int *j)
 	return (0);
 }
 
-static char	*set_expansion(char *token, char **new, int i, int k)
+char	*set_expansion(char *token, char **new, int i, int k)
 {
 	int		j;
 	char	*expand_var;
@@ -160,17 +160,3 @@ static char	*set_expansion(char *token, char **new, int i, int k)
 // 		magic_space(new2);
 // 	return (0);
 // }
-
-char	*expansion(char *token)
-{
-	char	*new;
-
-	new = malloc(sizeof(char) * (get_exp_size(token) + 1));
-	if (!new)
-	{
-		g_g.exit_malloc = 1;
-		free(token);
-		exit(12);
-	}
-	return (set_expansion(token, &new, 0, 0));
-}

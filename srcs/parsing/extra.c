@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extra.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 21:14:27 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/14 23:43:28 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/21 00:55:48 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,15 @@ int	only_wspace(char *str)
 		str++;
 	}
 	return (1);
+}
+
+void	close_w_r_side(t_list *tmp, t_token *token, t_cmd *cmd)
+{
+	if (cmd->pfd[0])
+		close(cmd->pfd[0]);
+	if (cmd->pfd[1])
+		close(cmd->pfd[1]);
+	if (pipe(cmd->pfd) == -1)
+		free_exit("pipe");
+	do_here_doc(&tmp, token->value);
 }

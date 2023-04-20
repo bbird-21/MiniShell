@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exp_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 10:29:39 by alvina            #+#    #+#             */
-/*   Updated: 2023/04/14 23:30:15 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/21 01:01:39 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,18 @@ void	magic_space(char *str)
 			*str *= -1;
 		str++;
 	}
+}
+
+char	*expansion(char *token)
+{
+	char	*new;
+
+	new = malloc(sizeof(char) * (get_exp_size(token) + 1));
+	if (!new)
+	{
+		g_g.exit_malloc = 1;
+		free(token);
+		exit(12);
+	}
+	return (set_expansion(token, &new, 0, 0));
 }

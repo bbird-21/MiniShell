@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 16:09:54 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/19 16:48:35 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/21 00:57:11 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ void	clean_data(t_storage_cmd *cmd);
 void	mini_gc(t_list *cmd, t_storage_cmd *st);
 void	closing_cmd(t_list *cmd);
 int		only_wspace(char *str);
-void	read_pipe(int pfd);
+void	close_w_r_side(t_list *list, t_token *token, t_cmd *cmd);
 
 #endif

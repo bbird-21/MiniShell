@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:36:05 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/19 18:21:55 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/21 00:50:40 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 void	dup_and_exe(t_storage_cmd *st_cmd, t_list *cmd)
 {
-	protecting(st_cmd, cmd);
 	dupping(st_cmd);
-	close(st_cmd->pfd[0]);
+	protecting(st_cmd, cmd);
 	if (st_cmd->toclose)
 		close(st_cmd->toclose);
 	if (st_cmd->fd_tmp)
@@ -55,10 +54,10 @@ void	dupping(t_storage_cmd *st_cmd)
 
 void	protecting(t_storage_cmd *st_cmd, t_list *cmd)
 {
+	close(st_cmd->pfd[1]);
+	close(st_cmd->pfd[0]);
 	if (st_cmd->ok == 0 || st_cmd->fd_in == -1)
 	{
-		close(st_cmd->pfd[0]);
-		close(st_cmd->pfd[1]);
 		if (st_cmd->fd_in > 2)
 			close(st_cmd->fd_in);
 		if (st_cmd->fd_out > 2)
