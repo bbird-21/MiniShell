@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 19:49:16 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/04/19 01:15:55 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/21 01:24:36 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,28 @@
 
 t_globale	g_g = {0};
 
+static void	handle_signal(void)
+{
+	ft_state(READLINE);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, &sig_handler);
+	signal(SIGTSTP, SIG_IGN);
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char		*str;
 
+	if (!isatty(0))
+		return (-1);
 	(void)ac;
 	(void)av;
 	(void)env;
-	signal(SIGSEGV, &sig_handler);
-	char *s = NULL;
-	printf("s : %c\n",s[0] );
-	exit(21);
 	handler(0, env, NULL);
 	rl_outstream = stderr;
 	while (21)
 	{
-		ft_state(READLINE);
-		signal(SIGQUIT, SIG_IGN);
-		signal(SIGINT, &sig_handler);
-		signal(SIGTSTP, SIG_IGN);
+		handle_signal();
 		str = readline("femtoshell > ");
 		if (!str)
 		{
@@ -40,7 +43,7 @@ int	main(int ac, char **av, char **env)
 			handler(CLEANING, NULL, NULL);
 			exit(0);
 		}
-		if (!str[0])
+		if (!str[0] || only_wspace(str))
 			continue ;
 		add_history(str);
 		first_split(str);
