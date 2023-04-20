@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:21:04 by alvina            #+#    #+#             */
-/*   Updated: 2023/04/15 00:10:56 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/21 00:16:23 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@ static char	*dir_path(char *arg)
 		path = ft_getenv("OLDPWD");
 	else
 	{
-		oldpwd = malloc(sizeof(char) * PATH_MAX);
-		getcwd(oldpwd, PATH_MAX);
+		oldpwd = ft_getenv("PWD");
+		if (!oldpwd)
+			return (ft_getenv("HOME"));
 		path = join(oldpwd, arg);
 		free(oldpwd);
 	}
@@ -94,7 +95,7 @@ void	cd(char **arg)
 		if (chdir(arg[0]) == -1)
 			flag = 1;
 	}
-	if (flag == 1 || !arg)
+	if (flag == 1 || !arg || !arg[0])
 	{
 		if (chdir(path) == -1)
 		{
