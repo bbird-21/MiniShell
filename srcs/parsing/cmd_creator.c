@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_creator.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 14:51:42 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/04/14 23:26:52 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/24 19:10:15 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,6 @@ void	cmd_generator(t_list **token, int i)
 		i = -1;
 	}
 	ft_lstclear(&head, token_cleaner);
-	reverse_magic_space(&((t_cmd *)(list_cmd->content))->arg);
+	looping(&list_cmd);
 	return (here_doc(&list_cmd, NULL, NULL));
 }

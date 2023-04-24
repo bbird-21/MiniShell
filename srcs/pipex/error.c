@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 15:45:35 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/13 14:07:58 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/24 19:51:39 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ void	builtin_no_child(t_storage_cmd *st_cmd)
 		mini_gc(NULL, NULL);
 		exit_malloc();
 	}
+	closing_job(st_cmd, 0);
 	return (mini_gc(NULL, NULL));
 }

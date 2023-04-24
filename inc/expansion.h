@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 20:40:11 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/21 01:02:39 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/24 19:55:01 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char		*state_01(char *str);
 char		*state_02(char *str);
 t_fp_exp	handling_table(unsigned char state);
 char		*do_job(char *str, int type);
-
+void		looping(t_list **list);
 int			ft_strrlen(const char *str);
 bool		new_state(char c, int state);
 char		*ft_itoa(int n);

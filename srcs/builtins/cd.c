@@ -6,7 +6,7 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:21:04 by alvina            #+#    #+#             */
-/*   Updated: 2023/04/21 00:16:23 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/24 18:13:31 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,7 @@ static char	*dir_path(char *arg)
 	char	*oldpwd;
 
 	if (!arg || (arg[0] == '~' && ft_strlen(arg) == 1))
-	{
-		path = ft_getenv("HOME");
-		if (!path)
-			return (NULL);
-	}
+		path = home_prt();
 	else if ((ft_strlen(arg) == 1 && arg[0] == '.') || ft_strlen(arg) == 0)
 		return (NULL);
 	else if ((ft_strlen(arg) == 1 && arg[0] == '/') || (ft_strlen(arg) == 2
@@ -57,10 +53,18 @@ static void	set_oldpwd(void)
 {
 	char	*tmp;
 	char	*oldpwd;
+	char	*test;
 
 	tmp = ft_getenv("PWD");
 	oldpwd = simple_join("OLDPWD=", tmp);
-	handler(3, NULL, oldpwd);
+	test = ft_getenv("OLDPWD");
+	if (!test)
+		handler(2, NULL, oldpwd);
+	else
+	{
+		handler(3, NULL, oldpwd);
+		free(test);
+	}
 	free(tmp);
 	free(oldpwd);
 }
@@ -69,12 +73,20 @@ static void	set_pwd(void)
 {
 	char	*tmp;
 	char	*pwd;
+	char	*test;
 
 	pwd = NULL;
 	tmp = malloc(sizeof(char) * PATH_MAX);
 	if (getcwd(tmp, PATH_MAX))
 		pwd = simple_join("PWD=", tmp);
-	handler(3, NULL, pwd);
+	test = ft_getenv("PWD");
+	if (!test)
+		handler(2, NULL, pwd);
+	else
+	{
+		handler(3, NULL, pwd);
+		free(test);
+	}
 	free(tmp);
 	free(pwd);
 }

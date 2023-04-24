@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 20:31:30 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/04/11 20:09:08 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/24 19:51:19 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,7 @@ void	ft_env(char **arg);
 void	cd(char **arg);
 void	echo(char **arg);
 void	ft_exit(char **arg);
+char	*home_prt(void);
+void	closing_job(t_storage_cmd *st_cmd, int flag);
 
 #endif

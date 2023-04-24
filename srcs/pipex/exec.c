@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:36:05 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/21 00:50:40 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/24 19:52:21 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,14 @@ void	protecting(t_storage_cmd *st_cmd, t_list *cmd)
 	}
 }
 
-static void	closing_job(t_storage_cmd *st_cmd)
+void	closing_job(t_storage_cmd *st_cmd, int flag)
 {
 	if (st_cmd->pos != 0)
 		close(st_cmd->fd_tmp);
 	if (st_cmd->pos != st_cmd->nb_cmd - 1)
 		st_cmd->fd_tmp = st_cmd->pfd[0];
-	close(st_cmd->pfd[1]);
+	if (flag == 1)
+		close(st_cmd->pfd[1]);
 	if (st_cmd->fd_in > 2)
 		close(st_cmd->fd_in);
 	if (st_cmd->fd_out > 2)
@@ -105,7 +106,7 @@ void	loop_job(t_storage_cmd *st_cmd, t_list *cmd)
 	else
 	{
 		ft_state(PIPEX);
-		closing_job(st_cmd);
+		closing_job(st_cmd, 1);
 		if (g_g.exit_malloc)
 		{
 			mini_gc(NULL, NULL);

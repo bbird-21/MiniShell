@@ -6,36 +6,36 @@
 /*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:11:19 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/04/18 13:19:16 by ale-sain         ###   ########.fr       */
+/*   Updated: 2023/04/24 18:12:35 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <limits.h>
 
-static unsigned long long	ft_atoll(const char *nptr)
+static unsigned long long	ft_atoll(const char *nptr, int i, int neg)
 {
-	int					i;
 	unsigned long long	nb;
-	int					neg;
 
-	i = 0;
 	nb = 0;
-	neg = 1;
 	if (nptr[i] == '-' || nptr[i] == '+')
 	{
 		if (nptr[i] == '-')
 			neg = -1;
 		i++;
 	}
+	while (nptr[i] == ' ' || nptr[i] == '\t')
+		i++;
 	while (nptr[i] && nptr[i] >= '0' && nptr[i] <= '9')
 	{
 		nb = nb * 10 + (nptr[i] - 48);
 		i++;
-		if ((nb > (unsigned long long)LLONG_MAX && neg == 1)
-			|| (neg == -1 && (-nb) < (unsigned long long)LLONG_MIN))
+		if ((nb > (unsigned long long)LLONG_MAX && neg == 1) || (neg == -1
+				&& (-nb) < (unsigned long long)LLONG_MIN))
 			return (0);
 	}
+	while (nptr[i] == ' ' || nptr[i] == '\t')
+		i++;
 	if (nptr[i])
 		return (0);
 	else
@@ -100,7 +100,7 @@ void	ft_exit(char **arg)
 		str = NULL;
 	if (!str || (ft_strlen(str) == 1 && str[0] == '0'))
 		quit_properly(0, NULL);
-	n = ft_atoll(str);
+	n = ft_atoll(str, 0, 1);
 	if (!n)
 		quit_properly(2, str);
 	exiting(n);

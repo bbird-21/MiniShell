@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 19:49:16 by ale-sain          #+#    #+#             */
-/*   Updated: 2023/04/21 01:24:36 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/24 16:48:43 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	main(int ac, char **av, char **env)
 		{
 			ft_putstr_fd("exit\n", 2);
 			handler(CLEANING, NULL, NULL);
-			exit(0);
+			exit(g_g.exit_status);
 		}
 		if (!str[0] || only_wspace(str))
 			continue ;

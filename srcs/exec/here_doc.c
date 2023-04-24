@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeguedm <mmeguedm@student42.fr>           +#+  +:+       +#+        */
+/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 17:32:12 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/21 00:57:33 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/24 19:54:00 by ale-sain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@ int	do_here_doc(t_list **lst, char *limiter)
 	return (1);
 }
 
-static void	end_here_doc(int stdin_cpy, t_list **list)
+static void	end_here_doc(int stdin_cpy, t_list **tmp, t_list **list)
 {
-	t_list	*tmp;
+	t_list	*tmd;
 	t_cmd	*content;
 
-	tmp = *list;
-	content = (t_cmd *)tmp->content;
+	tmd = *tmp;
+	content = (t_cmd *)tmd->content;
 	dup2(stdin_cpy, 0);
 	close(stdin_cpy);
 	if (g_g.exit_here_doc == 1)
@@ -93,9 +93,11 @@ void	here_doc(t_list **list, t_list *tmp, t_cmd *cmd)
 			token = (t_token *)(red->content);
 			if (token && token->type == DRIN)
 				close_w_r_side(tmp, token, cmd);
+			if (g_g.exit_here_doc)
+				return (end_here_doc(stdin_cpy, &tmp, list));
 			red = red->next;
 		}
 		tmp = tmp->next;
 	}
-	end_here_doc(stdin_cpy, list);
+	end_here_doc(stdin_cpy, list, list);
 }
