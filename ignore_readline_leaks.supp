@@ -4,3 +4,11 @@
     ...
     fun:readline
 }
+
+{
+    ignore_readline_leaks
+    Memcheck:Leak
+    ...
+    fun:add_history
+	...
+}
