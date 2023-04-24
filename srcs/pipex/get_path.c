@@ -6,7 +6,7 @@
 /*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 19:37:19 by mmeguedm          #+#    #+#             */
-/*   Updated: 2023/04/24 15:37:14 by mmeguedm         ###   ########.fr       */
+/*   Updated: 2023/04/24 15:41:44 by mmeguedm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,5 @@ char	*get_bin_path(char *cmd, char **path)
 		bin_path = NULL;
 		i++;
 	}
-	if (dir)
-		closedir(dir);
-	return (free_tab(path, -1), bin_path);
+	return (ft_closedir(dir), free_tab(path, -1), bin_path);
 }
