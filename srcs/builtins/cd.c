@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ale-sain <ale-sain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 19:21:04 by alvina            #+#    #+#             */
+<<<<<<< Updated upstream
 /*   Updated: 2023/04/24 18:13:31 by ale-sain         ###   ########.fr       */
+=======
+/*   Updated: 2023/04/24 16:12:26 by mmeguedm         ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +104,6 @@ void	cd(char **arg)
 	if (!check_arg(arg, 1, "cd"))
 		return (return_code(1));
 	path = dir_path(arg[0]);
-	if (!path)
-		return (return_code(0));
 	if (arg && *arg)
 	{
 		if (chdir(arg[0]) == -1)
