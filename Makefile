@@ -6,7 +6,7 @@
 #    By: mmeguedm <mmeguedm@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/17 17:30:47 by mmeguedm          #+#    #+#              #
-#    Updated: 2023/04/24 14:24:34 by mmeguedm         ###   ########.fr        #
+#    Updated: 2023/04/24 20:19:41 by mmeguedm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 NAME		= minishell
 
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -I $(INC_PATH) -g3
+CFLAGS		= -Wall -Wextra -Werror -I $(INC_PATH)
 
 LIBS		= -L/usr/local/lib -I/usr/local/include -lreadline
 
