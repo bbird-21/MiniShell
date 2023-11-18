@@ -8,8 +8,6 @@ Minishell is a simple shell implementation project at 42 School. It is designed 
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Features
 
@@ -31,16 +29,12 @@ Before you begin, ensure you have met the following requirements:
 
 1. Clone the repository:
 
-	```bash
-	git clone https://github.com/your-username/minishell.git
-	```
+	```git clone https://github.com/your-username/minishell.git```
 
 ## Usage
 
-To use Minishell, run the executable with 
+1. To use Minishell, run the executable with:
 
-	```
-	./minishell
-	```
+	```minishell```
 
 Have fun ! :)
